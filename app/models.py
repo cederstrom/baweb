@@ -22,7 +22,7 @@ class Team(db.Model):
     slogan = db.Column(db.String(140))
     city = db.Column(db.String(140))
     has_payed = db.Column(db.Boolean, default=False)
-    # members: list of TeamMembers
+    members = posts = db.relationship('TeamMember', backref='team', lazy='dynamic')
     # price: get from each member
 
     def __repr__(self):
@@ -31,6 +31,7 @@ class Team(db.Model):
 
 class TeamMember(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    team_id = db.Column(db.Integer, db.ForeignKey('team.id'))
     name = db.Column(db.String(140))
     person_number = db.Column(db.String(13), unique=True)
     allergies = db.Column(db.String(140))
