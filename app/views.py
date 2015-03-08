@@ -1,5 +1,6 @@
 from flask import render_template
 from app import app
+from .forms import TeamForm
 
 
 @app.route('/')
@@ -16,7 +17,10 @@ def flumride_info():
 
 @app.route('/flumride/submit')
 def flumride_submit():
-    return render_template("flumride/submit.html")
+    form = TeamForm()
+    # form.members.min_entries = 1
+    # form.members.max_entries = 10
+    return render_template("flumride/submit.html", form=form)
 
 
 @app.route('/flumride/teams')
