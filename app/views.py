@@ -1,4 +1,4 @@
-from flask import flash, render_template, redirect, url_for
+from flask import flash, redirect, render_template, request, url_for
 from app import app, db
 from .forms import TeamForm
 from .models import Team, TeamMember
@@ -20,8 +20,10 @@ def flumride_info():
 def flumride_submit():
     form = TeamForm()
     if form.validate_on_submit():
-
-        db.session.add(g.user)
+        team = Team()
+        form = TeamForm(request.form)
+        form.populate_obj(team)
+        db.session.add(team)
         db.session.commit()
         flash('Your changes have been saved.')
         return redirect(url_for('flumride_teams'))

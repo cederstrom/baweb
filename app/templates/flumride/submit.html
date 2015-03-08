@@ -49,8 +49,6 @@ $(function() {
 		<form method="post" action="/flumride/submit" name="submit_team">
 			{{ form.hidden_tag() }}
 
-			{{ form.errors }}
-
 			<section class="box">
 				<h3>Anmäl ett lag</h3>
 				<div class="row uniform 50%">
@@ -75,7 +73,7 @@ $(function() {
 				</div>
 				<div class="row uniform 50%">
 					<div class="12u">
-						{{ form.slogan(placeholder="Fyll i en slogan") }}
+						{{ form.slogan(placeholder="Slogan") }}
 						{% for error in form.slogan.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
