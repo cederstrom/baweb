@@ -24,6 +24,8 @@ $(function() {
 
             oldrow.find("div[data-remover]").hide();
 
+            // TODO: Max number of members?
+
             return false;
         });
  
@@ -45,24 +47,38 @@ $(function() {
 <div class="row">
 	<div class="12u">
 		<form method="post" action="/flumride/submit" name="submit_team">
-  			{{ form.hidden_tag() }}
+			{{ form.hidden_tag() }}
+
+			{{ form.errors }}
 
 			<section class="box">
 				<h3>Anmäl ett lag</h3>
 				<div class="row uniform 50%">
 					<div class="4u 12u(mobilep)">
 						{{ form.name(placeholder="Lagnamn") }}
+						{% for error in form.name.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
 					</div>
 					<div class="4u 12u(mobilep)">
 						{{ form.email(placeholder="Epost") }}
+						{% for error in form.email.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
 					</div>
 					<div class="4u 12u(mobilep)">
 						{{ form.city(placeholder="Stad") }}
+						{% for error in form.city.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
 					</div>
 				</div>
 				<div class="row uniform 50%">
 					<div class="12u">
 						{{ form.slogan(placeholder="Fyll i en slogan") }}
+						{% for error in form.slogan.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
 					</div>
 				</div>
 			</section>
@@ -76,12 +92,21 @@ $(function() {
 							<div class="row uniform 50%">
 								<div class="4u 12u(mobilep)">
 									{{ m.name_of_member(placeholder="Namn") }}
+									{% for error in m.name_of_member.errors %}
+										<span style="color: red;">[{{ error }}]</span>
+									{% endfor %}
 								</div>
 								<div class="4u 12u(mobilep)">
 									{{ m.person_number(placeholder="Personnummer (ååååmmdd-xxxx)") }}
+									{% for error in m.person_number.errors %}
+										<span style="color: red;">[{{ error }}]</span>
+									{% endfor %}
 								</div>
 								<div class="4u 12u(mobilep)">
 									{{ m.allergies(placeholder="Allergier") }}
+									{% for error in m.allergies.errors %}
+										<span style="color: red;">[{{ error }}]</span>
+									{% endfor %}
 								</div>
 							</div>
 							<div class="row uniform 50%">

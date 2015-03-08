@@ -1,34 +1,26 @@
 from flask.ext.wtf import Form
+import wtforms
 from wtforms import (BooleanField, FieldList, FormField, SelectField,
                      StringField, SubmitField)
-from wtforms.validators import DataRequired
-from .models import TeamMember
+from wtforms.validators import DataRequired, Email
 
 
-class ModelFieldList(FieldList):
-    def __init__(self, *args, **kwargs):
-        self.model = kwargs.pop("model", None)
-        super(ModelFieldList, self).__init__(*args, **kwargs)
-        if not self.model:
-            raise ValueError("ModelFieldList requires model to be set")
-
-
-class MemberForm(Form):
+class MemberForm(wtforms.Form):
     name_of_member = StringField('name_of_member', validators=[DataRequired()])
     person_number = StringField('person_number', validators=[DataRequired()])
-    allergies = StringField('allergies', validators=[DataRequired()])
-    need_bed = BooleanField('need_bed', default=False)
-    sfs = BooleanField('sfs', default=False)
-    sittning = BooleanField('sittning', default=True)
-    ticket_type = SelectField(
-        u'ticket_type',
-        choices=[('flumpass', 'Flumpass - Standard'),
-                 ('sparrtpass', 'Spårrtpass - Endast spårrterna, ej kårkvällar sittning osv.')])
+    allergies = StringField('allergies')
+    need_bed = BooleanField('need_bed')
+    sfs = BooleanField('sfs')
+    sittning = BooleanField('sittning')
+    # ticket_type = SelectField(
+    #    u'ticket_type',
+    #    choices=[('flumpass', 'Flumpass - Standard'),
+    #             ('sparrtpass', 'Spårrtpass - Endast spårrterna, ej kårkvällar sittning osv.')])
 
 
 class TeamForm(Form):
     name = StringField('name', validators=[DataRequired()])
-    email = StringField('email', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired(), Email()])
     slogan = StringField('slogan', validators=[DataRequired()])
     city = StringField('city', validators=[DataRequired()])
     members  = FieldList(FormField(MemberForm), min_entries=1, max_entries=10)

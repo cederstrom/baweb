@@ -1,6 +1,7 @@
-from flask import render_template
-from app import app
+from flask import flash, render_template, redirect, url_for
+from app import app, db
 from .forms import TeamForm
+from .models import Team, TeamMember
 
 
 @app.route('/')
@@ -15,12 +16,17 @@ def flumride_info():
     return render_template("flumride/info.html")
 
 
-@app.route('/flumride/submit')
+@app.route('/flumride/submit', methods=['GET', 'POST'])
 def flumride_submit():
     form = TeamForm()
-    # form.members.min_entries = 1
-    # form.members.max_entries = 10
-    return render_template("flumride/submit.html", form=form)
+    if form.validate_on_submit():
+
+        db.session.add(g.user)
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('flumride_teams'))
+    else:
+        return render_template("flumride/submit.html", form=form)
 
 
 @app.route('/flumride/teams')
