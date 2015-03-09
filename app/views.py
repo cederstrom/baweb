@@ -1,7 +1,7 @@
 from flask import flash, redirect, render_template, request, url_for
 from app import app, db
 from .forms import TeamForm
-from .models import Team
+from .models import Team, TeamMember
 
 
 @app.route('/')
@@ -33,8 +33,17 @@ def flumride_submit():
 
 @app.route('/flumride/teams')
 def flumride_teams():
-    teams = Team.query.all()
-    return render_template("flumride/teams.html", teams=teams)
+    teams = db.session.query(Team)
+    members = db.session.query(TeamMember)
+
+    total = {
+        'teams': teams.count(),
+        'members': members.count(),
+        'members_need_bed': members.filter(TeamMember.need_bed.is_(True)).count(),
+        'members_sittning': members.filter(TeamMember.sittning.is_(True)).count(),
+        'members_sfs': members.filter(TeamMember.sfs.is_(False)).count()
+    }
+    return render_template("flumride/teams.html", teams=teams, total=total)
 
 
 @app.route('/contact')

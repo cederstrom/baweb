@@ -7,6 +7,8 @@ WTF_CSRF_ENABLED = True
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
-
-# Flumride
-MAX_NR_OF_MEMBERS = 10
+FLUMRIDE = {
+    'YEAR': 'tvi-tausen-fäimtåhn',
+    'MAX_NR_OF_MEMBERS': 10,
+    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/942839179066046/'
+}

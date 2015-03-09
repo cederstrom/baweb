@@ -1,18 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="box">
-	<span class="image featured"><img src="/static/images/pic01.jpg" alt="" /></span>
-	<h3>This is a subheading</h3>
-	<p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
-	<div class="row">
-		<div class="6u 12u(mobilep)">
-			<h3>And now a subheading</h3>
-			<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
+	<span class="image featured">
+		<div style="float: none; clear: both; width: 100%; position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0;">
+			<iframe width="100%" height="100%" style="position: absolute; top: 0; left: 0;" src="https://www.youtube.com/embed/5g0AUJPdiAU" frameborder="0" allowfullscreen></iframe>
 		</div>
-		<div class="6u 12u(mobilep)">
-			<h3>And another subheading</h3>
-			<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-		</div>
-	</div>
+	</span>
+	<h3>Flumride[tm] - {{ config.FLUMRIDE["YEAR"] }}</h3>
+	<p>
+		Sexmästeriet i Karlskrona och BA[tm] svettas som feta oäkta finnar i en sauna nu när planeringen inför Flumride[tm] har tagit sin början.
+	</p>
+	<p>
+		Nytt för i år är att Flummen hålls i Sveriges blötaste studentstad, Karlskrona! Som om detta inte var nog underbart så utlovas i år ett antal nya sphårrter, mer brutala än någonsin.
+	</p>
+	<p>
+		Det finns ett event och lite annan skit på <strong><a href="{{ config.FLUMRIDE["FACEBOOK_EVENT_URL"] }}" target="_blank">fejsbook</a></strong>. Kolla in det om du gillar data.
+	</p>
+	<p>
+		<strong>Vi ses i khånntajnern!</strong>
+	</p>
+	<a href="{{ url_for('flumride_submit') }}" class="button special">Till anmälan</a>
 </div>
+
 {% endblock %}

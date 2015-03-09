@@ -1,70 +1,65 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="box">
-	<h3>Anmälda lag</h3>
-	<div class="row">
-		<div class="6u 12u(mobilep)">
-			<h3>And now a subheading</h3>
-			<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-		</div>
-		<div class="6u 12u(mobilep)">
-			<h3>And another subheading</h3>
-			<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-		</div>
-	</div>
-</div>
 <div class="row">
 	<div class="12u">
-		<!-- Table -->
 		<section class="box">
-			<h3>Table</h3>
+			<h3>Anmälda lag</h3>
+			<p>
+				Totalt har vi <strong>{{ total["members"] }}</strong> anmälda kaospiloter fördelade på en bataljon om <strong>{{ total["teams"] }}</strong> lag.
+					
+				</p>
+				<c:if test="${isUserAdmin}">
+					<p>
+						Antal sovplatser: <strong>{{ total["members_need_bed"] }}</strong><br/>
+						Antal sittningsbiljetter: <strong>{{ total["members_sittning"] }}</strong><br/>
+						Antal icke SFS-medlemmar: <strong>{{ total["members_sfs"] }}</strong>
+					</p>
+				</c:if>
+		</section>
 
-			<h4>Default</h4>
+		{% for team in teams %}
+		<section class="box">
+			<h3>Lagnamn: <strong>{{ team.name }}</strong></h3>
+			<p>
+				E-post: <strong>{{ team.email }}</strong><br/>
+				Från: <strong>{{ team.city }}</strong><br/>
+				Slogan: <strong>{{ team.slogan }}</strong><br/>
+			</p>
+
 			<div class="table-wrapper">
 				<table>
+					<col style="width:35%">
+					<col style="width:15%">
+					<col style="width:20%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>Price</th>
+							<th>Namn</th>
+							<th>Personnummer</th>
+							<th>Allergier</th>
+							<th>Sittning</th>
+							<th>Sovsal</th>
+							<th>SFS</th>
 						</tr>
 					</thead>
 					<tbody>
+						{% for member in team.members %}
 						<tr>
-							<td>Something</td>
-							<td>Ante turpis integer aliquet porttitor.</td>
-							<td>29.99</td>
+							<td>{{ member.name_of_member }}</td>
+							<td>{{ member.person_number }}</td>
+							<td>{{ member.allergies }}</td>
+							<td>{{ 'X' if member.sittning else '-' }}</td>
+							<td>{{ 'X' if member.need_bed else '-' }}</td>
+							<td>{{ 'X' if member.sfs else '-' }}</td>
 						</tr>
-						<tr>
-							<td>Nothing</td>
-							<td>Vis ac commodo adipiscing arcu aliquet.</td>
-							<td>19.99</td>
-						</tr>
-						<tr>
-							<td>Something</td>
-							<td> Morbi faucibus arcu accumsan lorem.</td>
-							<td>29.99</td>
-						</tr>
-						<tr>
-							<td>Nothing</td>
-							<td>Vitae integer tempus condimentum.</td>
-							<td>19.99</td>
-						</tr>
-						<tr>
-							<td>Something</td>
-							<td>Ante turpis integer aliquet porttitor.</td>
-							<td>29.99</td>
-						</tr>
+						{% endfor %}
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="2"></td>
-							<td>100.00</td>
-						</tr>
-					</tfoot>
 				</table>
 			</div>
 		</section>
+		{% endfor %}
 	</div>
 </div>
 {% endblock %}

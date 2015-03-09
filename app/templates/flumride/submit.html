@@ -2,61 +2,22 @@
 {% block content %}
 
 <script>
-	var max_nr_of_members = "{{ config.MAX_NR_OF_MEMBERS }}";
-
-	$(function() {
-		$("div[data-toggle=fieldset]").each(function() {
-			var $this = $(this);
-
-			$this.find("a[data-toggle=fieldset-add-row]").click(function() {
-				var target = $($(this).data("target"));
-				console.log(target);
-				var nr_of_members = target.find("div[data-toggle=fieldset-entry]").length;
-				if(nr_of_members < max_nr_of_members) {
-					var oldrow = target.find("div[data-toggle=fieldset-entry]:last");
-					var row = oldrow.clone(true, true);
-					console.log(row.find(":input")[0]);
-					var elem_id = row.find(":input")[0].id;
-					var elem_num = parseInt(elem_id.replace(/.*-(\d{1,4})-.*/m, '$1')) + 1;
-					row.attr('data-id', elem_num);
-					row.find(":input").each(function() {
-						console.log(this);
-						var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
-						$(this).attr('name', id).attr('id', id).val('').removeAttr("checked");
-					});
-					row.find("label").each(function() {
-						console.log(this);
-						var for_id = $(this).attr('for').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
-						$(this).attr('for', for_id);
-					});
-					row.find("div[data-remover]").show();
-					oldrow.after(row);
-					oldrow.find("div[data-remover]").hide();
-				}
-				return false;
-			});
-
-			$this.find("a[data-toggle=fieldset-remove-row]").click(function() {
-				var nr_of_members = $this.find("div[data-toggle=fieldset-entry]").length;
-				if(nr_of_members > 1) {
-					var thisRow = $(this).closest("div[data-toggle=fieldset-entry]");
-					thisRow.remove();
-					nr_of_members = nr_of_members - 1;
-
-					if(nr_of_members > 1) {
-						var target = $($(this).data("target"));
-						var lastrow = target.find("div[data-toggle=fieldset-entry]:last");
-						lastrow.find("div[data-remover]").show();
-					}
-				}
-				return false;
-			});
-		});
-});
+var max_nr_of_members = {{ config.FLUMRIDE["MAX_NR_OF_MEMBERS"]|int }};
 </script>
 
 <div class="row">
 	<div class="12u">
+		<section class="box">
+			<p>
+				Biljetterna har släppts! Priset för årets flumride är som tidigare år: <strong>349</strong> riksdaler!
+			</p>
+			<p>
+				Om man vill att BA[tm] tillhandahåller sängplats så löser vi det för 100 pengar extra. Dvs totalt 449 riksdaler samt 100kr/person i deposition!
+			</p>
+			<p>
+				Kom ihåg att ni bara får ha <strong>10 personer</strong> per lag. Är ni fler än 10 får ni dela upp er i flera lag!
+			</p>
+		</section>
 		<form method="post" action="{{ url_for('flumride_submit') }}" name="submit_team">
 			{{ form.hidden_tag() }}
 
