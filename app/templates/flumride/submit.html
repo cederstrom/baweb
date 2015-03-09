@@ -2,51 +2,62 @@
 {% block content %}
 
 <script>
-$(function() {
-    $("div[data-toggle=fieldset]").each(function() {
-        var $this = $(this);
-            
-        $this.find("a[data-toggle=fieldset-add-row]").click(function() {
-            var target = $($(this).data("target"));
-            console.log(target);
-            var oldrow = target.find("div[data-toggle=fieldset-entry]:last");
-            var row = oldrow.clone(true, true);
-            console.log(row.find(":input")[0]);
-            var elem_id = row.find(":input")[0].id;
-            var elem_num = parseInt(elem_id.replace(/.*-(\d{1,4})-.*/m, '$1')) + 1;
-            row.attr('data-id', elem_num);
-            row.find(":input").each(function() {
-                console.log(this);
-                var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
-                $(this).attr('name', id).attr('id', id).val('').removeAttr("checked");
-            });
-            oldrow.after(row);
+	var max_nr_of_members = "{{ config.MAX_NR_OF_MEMBERS }}";
 
-            oldrow.find("div[data-remover]").hide();
+	$(function() {
+		$("div[data-toggle=fieldset]").each(function() {
+			var $this = $(this);
 
-            // TODO: Max number of members?
+			$this.find("a[data-toggle=fieldset-add-row]").click(function() {
+				var target = $($(this).data("target"));
+				console.log(target);
+				var nr_of_members = target.find("div[data-toggle=fieldset-entry]").length;
+				if(nr_of_members < max_nr_of_members) {
+					var oldrow = target.find("div[data-toggle=fieldset-entry]:last");
+					var row = oldrow.clone(true, true);
+					console.log(row.find(":input")[0]);
+					var elem_id = row.find(":input")[0].id;
+					var elem_num = parseInt(elem_id.replace(/.*-(\d{1,4})-.*/m, '$1')) + 1;
+					row.attr('data-id', elem_num);
+					row.find(":input").each(function() {
+						console.log(this);
+						var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
+						$(this).attr('name', id).attr('id', id).val('').removeAttr("checked");
+					});
+					row.find("label").each(function() {
+						console.log(this);
+						var for_id = $(this).attr('for').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
+						$(this).attr('for', for_id);
+					});
+					row.find("div[data-remover]").show();
+					oldrow.after(row);
+					oldrow.find("div[data-remover]").hide();
+				}
+				return false;
+			});
 
-            return false;
-        });
- 
-        $this.find("a[data-toggle=fieldset-remove-row]").click(function() {
-            if($this.find("div[data-toggle=fieldset-entry]").length > 1) {
-                var thisRow = $(this).closest("div[data-toggle=fieldset-entry]");
-                thisRow.remove();
+			$this.find("a[data-toggle=fieldset-remove-row]").click(function() {
+				var nr_of_members = $this.find("div[data-toggle=fieldset-entry]").length;
+				if(nr_of_members > 1) {
+					var thisRow = $(this).closest("div[data-toggle=fieldset-entry]");
+					thisRow.remove();
+					nr_of_members = nr_of_members - 1;
 
-                var target = $($(this).data("target"));
-                var lastrow = target.find("div[data-toggle=fieldset-entry]:last");
-                lastrow.find("div[data-remover]").show();
-            }
-            return false;
-        });
-    });
+					if(nr_of_members > 1) {
+						var target = $($(this).data("target"));
+						var lastrow = target.find("div[data-toggle=fieldset-entry]:last");
+						lastrow.find("div[data-remover]").show();
+					}
+				}
+				return false;
+			});
+		});
 });
 </script>
 
 <div class="row">
 	<div class="12u">
-		<form method="post" action="/flumride/submit" name="submit_team">
+		<form method="post" action="{{ url_for('flumride_submit') }}" name="submit_team">
 			{{ form.hidden_tag() }}
 
 			<section class="box">
@@ -55,19 +66,19 @@ $(function() {
 					<div class="4u 12u(mobilep)">
 						{{ form.name(placeholder="Lagnamn") }}
 						{% for error in form.name.errors %}
-							<span style="color: red;">[{{ error }}]</span>
+						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</div>
 					<div class="4u 12u(mobilep)">
 						{{ form.email(placeholder="Epost", type="email") }}
 						{% for error in form.email.errors %}
-							<span style="color: red;">[{{ error }}]</span>
+						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</div>
 					<div class="4u 12u(mobilep)">
 						{{ form.city(placeholder="Stad") }}
 						{% for error in form.city.errors %}
-							<span style="color: red;">[{{ error }}]</span>
+						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</div>
 				</div>
@@ -75,7 +86,7 @@ $(function() {
 					<div class="12u">
 						{{ form.slogan(placeholder="Slogan") }}
 						{% for error in form.slogan.errors %}
-							<span style="color: red;">[{{ error }}]</span>
+						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</div>
 				</div>
@@ -86,46 +97,46 @@ $(function() {
 					<h3>Lägg till medlemmar</h3>
 
 					{% for m in form.members %}
-						<div data-toggle="fieldset-entry">
-							<div class="row uniform 50%">
-								<div class="4u 12u(mobilep)">
-									{{ m.name_of_member(placeholder="Namn") }}
-									{% for error in m.name_of_member.errors %}
-										<span style="color: red;">[{{ error }}]</span>
-									{% endfor %}
-								</div>
-								<div class="4u 12u(mobilep)">
-									{{ m.person_number(placeholder="Personnummer (ååååmmdd-xxxx)") }}
-									{% for error in m.person_number.errors %}
-										<span style="color: red;">[{{ error }}]</span>
-									{% endfor %}
-								</div>
-								<div class="4u 12u(mobilep)">
-									{{ m.allergies(placeholder="Allergier") }}
-									{% for error in m.allergies.errors %}
-										<span style="color: red;">[{{ error }}]</span>
-									{% endfor %}
-								</div>
+					<div data-toggle="fieldset-entry">
+						<div class="row uniform 50%">
+							<div class="4u 12u(mobilep)">
+								{{ m.name_of_member(placeholder="Namn") }}
+								{% for error in m.name_of_member.errors %}
+								<span style="color: red;">[{{ error }}]</span>
+								{% endfor %}
 							</div>
-							<div class="row uniform 50%">
-								<div class="3u 12u(mobilep)">
-									{{ m.sittning }}
-									<label for="members-{{ loop.index0 }}-sittning">Vill gå på sittning</label>
-								</div>
-								<div class="3u 12u(mobilep)">
-									{{ m.need_bed }}
-									<label for="members-{{ loop.index0 }}-need_bed">Behöver sovsal</label>
-								</div>
-								<div class="4u 12u(mobilep)">
-									{{ m.sfs }}
-									<label for="members-{{ loop.index0 }}-sfs">Medlem i SFS-ansluten kår</label>
-								</div>
+							<div class="4u 12u(mobilep)">
+								{{ m.person_number(placeholder="Personnummer (ååååmmdd-xxxx)") }}
+								{% for error in m.person_number.errors %}
+								<span style="color: red;">[{{ error }}]</span>
+								{% endfor %}
 							</div>
-							<div class="row uniform 50%" data-remover="members-{{ loop.index0 }}">
-								<div class="12u">
-									<a href="" data-toggle="fieldset-remove-row" id="members-{{ loop.index0 }}-remove" data-target="#members-fieldset">Ta bort</a>
-								</div>
+							<div class="4u 12u(mobilep)">
+								{{ m.allergies(placeholder="Allergier") }}
+								{% for error in m.allergies.errors %}
+								<span style="color: red;">[{{ error }}]</span>
+								{% endfor %}
 							</div>
+						</div>
+						<div class="row uniform 50%">
+							<div class="3u 12u(mobilep)">
+								{{ m.sittning }}
+								<label for="members-{{ loop.index0 }}-sittning">Vill gå på sittning</label>
+							</div>
+							<div class="3u 12u(mobilep)">
+								{{ m.need_bed }}
+								<label for="members-{{ loop.index0 }}-need_bed">Behöver sovsal</label>
+							</div>
+							<div class="4u 12u(mobilep)">
+								{{ m.sfs }}
+								<label for="members-{{ loop.index0 }}-sfs">Medlem i SFS-ansluten kår</label>
+							</div>
+						</div>
+						<div class="row uniform 50%" data-remover="members-{{ loop.index0 }}" style="display: none;">
+							<div class="12u">
+								<a href="" data-toggle="fieldset-remove-row" id="members-{{ loop.index0 }}-remove" data-target="#members-fieldset">Ta bort</a>
+							</div>
+						</div>
 							<!--div class="row uniform 50%">
 								<div class="12u">
 									<div class="select-wrapper">
@@ -141,15 +152,15 @@ $(function() {
 							</div-->
 							<hr />
 						</div>
-					{% endfor %}
+						{% endfor %}
 
-					{% if loop.last %}
+						{% if loop.last %}
 						<a data-toggle="fieldset-add-row" data-target="#members-fieldset" class="button special small">Lägg till medlem</a>
-					{% endif %}
-				</div>
-			</section>
-			
-			{{ form.submit(class="fit") }}
+						{% endif %}
+					</div>
+				</section>
+
+				{{ form.submit(class="fit") }}
 
 			<!--section class="box">
 				<div class="row uniform 50%">

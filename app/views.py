@@ -1,7 +1,7 @@
 from flask import flash, redirect, render_template, request, url_for
 from app import app, db
 from .forms import TeamForm
-from .models import Team, TeamMember
+from .models import Team
 
 
 @app.route('/')
@@ -33,7 +33,8 @@ def flumride_submit():
 
 @app.route('/flumride/teams')
 def flumride_teams():
-    return render_template("flumride/teams.html")
+    teams = Team.query.all()
+    return render_template("flumride/teams.html", teams=teams)
 
 
 @app.route('/contact')
