@@ -31,12 +31,12 @@
 			<header id="header" class="alt">
 				<nav id="nav">
 					<ul>
-						<li><a href="/">Hem</a></li>
-						<li><a href="/flumride/submit">Anmäl lag</a></li>
-						<li><a href="/flumride/teams">Alla anmälda lag</a></li>
-						<li><a href="/flumride/info">Info</a></li>
-						<li><a href="/contact">Kontakt</a></li>
-						<li><a href="#" class="button">Sign Up</a></li>
+						<li><a href="{{ url_for('index') }}">Hem</a></li>
+						<li><a href="{{ url_for('flumride_submit') }}">Anmäl lag</a></li>
+						<li><a href="{{ url_for('flumride_teams') }}">Alla anmälda lag</a></li>
+						<li><a href="{{ url_for('flumride_info') }}">Info</a></li>
+						<li><a href="{{ url_for('contact') }}">Kontakt</a></li>
+						<!--li><a href="#" class="button">Sign Up</a></li-->
 					</ul>
 				</nav>
 			</header>
@@ -82,8 +82,8 @@
 		<!-- Footer -->
 			<footer id="footer">
 				<ul class="icons">
-					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+					<li><a href="https://www.facebook.com/events/942839179066046/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="https://github.com/cederstrom/baweb" class="icon fa-github"><span class="label">Github</span></a></li>
 				</ul>
 				<ul class="copyright">
 					<li>&copy; Brutal-Akademien. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
