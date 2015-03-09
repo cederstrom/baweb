@@ -3,23 +3,59 @@
 <div class="box">
 	<span class="image featured">
 		<div style="float: none; clear: both; width: 100%; position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0;">
-			<iframe width="100%" height="100%" style="position: absolute; top: 0; left: 0;" src="https://www.youtube.com/embed/5g0AUJPdiAU" frameborder="0" allowfullscreen></iframe>
+			<iframe width="100%" height="100%" style="position: absolute; top: 0; left: 0;" src="https://www.youtube.com/embed/rDPIgkeYoDU" frameborder="0" allowfullscreen></iframe>
 		</div>
 	</span>
-	<h3>Flumride[tm] - {{ config.FLUMRIDE["YEAR"] }}</h3>
+	<h3>Flumride[tm] - {{ config.FLUMRIDE.YEAR }}</h3>
 	<p>
 		Sexmästeriet i Karlskrona och BA[tm] svettas som feta oäkta finnar i en sauna nu när planeringen inför Flumride[tm] har tagit sin början.
 	</p>
 	<p>
-		Nytt för i år är att Flummen hålls i Sveriges blötaste studentstad, Karlskrona! Som om detta inte var nog underbart så utlovas i år ett antal nya sphårrter, mer brutala än någonsin.
+		Flummen hålls i Sveriges blötaste studentstad, Karlskrona! Vi drar igång stenhårt den 1:a maj och kör in i kaklet den 2:a maj. Som vanligt så skiter vi i politiken.
 	</p>
 	<p>
-		Det finns ett event och lite annan skit på <strong><a href="{{ config.FLUMRIDE["FACEBOOK_EVENT_URL"] }}" target="_blank">fejsbook</a></strong>. Kolla in det om du gillar data.
+		Vi jobbar på att fixa en sovsal i nivå med Hilton. Om det inte går så får ni sova på Centralen.
+	</p>
+	<p>
+		Det finns ett event och lite annan skit på <strong><a href="{{ config.FLUMRIDE.FACEBOOK_EVENT_URL }}" target="_blank">Fejsbook</a></strong>. Kolla in det om du gillar data.
 	</p>
 	<p>
 		<strong>Vi ses i khånntajnern!</strong>
 	</p>
+	{% if submit_open %}
 	<a href="{{ url_for('flumride_submit') }}" class="button special">Till anmälan</a>
+	{% endif %}
 </div>
 
+<div class="box">
+	<h3>Schema (vääldigt löst satt än så länge)</h3>
+	<h4>Torsdag</h4>
+	<p>
+		Förflummen då BA[tm] entertainment group pluss Sexmästeriet super sig tokfulla med annat löst folk för att klara av en hård phesthelg.
+		Kåren är öppen mellan 21:00 och 01:00. 
+	</p>
+	<h4>Fredag</h4>
+	<p>
+		Brutalare från alla världens hörn anländer till Karlskrona ungefär samtidigt som alla tävlande.
+		<br/>
+		Incheckning sker på kåren i Karlskrona mellan 14:00 - 18:00. Här delas flumpass, partykit[tm] och lösa faddrar ut till alla anmälda.
+		<br/>
+		19:00 börjar VM i caps på kåren som efterföljs av tokröj tills samtliga personer har stupat.
+	</p>
+	<h4>Lördag</h4>
+	<p>
+		Frukost serveras på kåren 11:00.
+		<br/>
+		På Flumrundan[tm] utövas de kommande grenarna i nästa Olympiska spel. Efter Flumrundan[tm] serveras lunch för de som vill/orkar/kan.
+		<br/>
+		Efter lunch påbörjas egghnikkningen och beroende på väder genomförs eventuellt fler spårrter.
+		<br/>
+		Frammåt kvällningen är det sedan dags att ta tag i sig själv, kavajen och eventuella lagkamrater för att delta i vad som kan vara århundradets skönaste sittning i klassiskt 60/70-tals tema.
+		Sittningen övergår så småningom till årets Flumrides sista kårkväll som pågår tills all sprit, energi och sexlust är slut.
+	</p>
+	<h4>Söndag</h4>
+	<p>
+		Utcheckning 12:00. Ses nästa år!
+	</p>
+</div>
 {% endblock %}
