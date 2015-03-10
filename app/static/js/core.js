@@ -19,7 +19,10 @@ $(function() {
 				row.find(":input").each(function() {
 					console.log(this);
 					var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
-					$(this).attr('name', id).attr('id', id).val('').removeAttr("checked");
+					$(this).attr('name', id).attr('id', id).removeAttr("checked");
+					if($(this).is(':checkbox') === false) {
+						$(this).val('');
+					}
 				});
 				row.find("label").each(function() {
 					console.log(this);
