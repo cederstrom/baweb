@@ -1,7 +1,4 @@
 $(function() {
-	var $body = $('body');
-	$body.html($body.html().replace(/\[tm]/g, '&#8482;'));
-
 	$("div[data-toggle=fieldset]").each(function() {
 		var $this = $(this);
 
