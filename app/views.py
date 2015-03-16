@@ -3,6 +3,7 @@ from app import app, db
 from app.forms import TeamForm
 from app.models import Team, TeamMember
 from app import logic
+from app import mail
 
 
 @app.route('/')
@@ -31,6 +32,7 @@ def flumride_submit():
         db.session.add(team)
         db.session.commit()
         flash('Your changes have been saved.')
+        mail.send(team.email, team.members.count() * 1337, team.name)
         return redirect(url_for('flumride_teams'))
     else:
         return render_template("flumride/submit.html", form=form)
