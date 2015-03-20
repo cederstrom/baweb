@@ -31,7 +31,7 @@ def flumride_submit():
         form.populate_obj(team)
         db.session.add(team)
         db.session.commit()
-        mail.send(team.email, team.get_price(), team.name)
+        mail.send(team.email, team.price, team.name)
         return render_template("flumride/confirmation.html", team=team)
     else:
         return render_template("flumride/submit.html", form=form)

@@ -34,11 +34,12 @@ class Team(db.Model):
     def __repr__(self):
         return '<Team %r>' % (self.name)
 
-    def get_price(self):
-        team_price = 0
+    @property
+    def price(self):
+        price = 0
         for member in self.members:
-            team_price += member.get_price()
-        return team_price
+            price += member.get_price()
+        return price
 
 
 class TeamMember(db.Model):
