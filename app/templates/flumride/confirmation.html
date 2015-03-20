@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="box">
+	<h3>Tack för din anmälan!</h3>
+	<p>
+		Nu jävlar är du och dina comrades-in-booze anmälda till årets Flumride!
+	</p>
+	
+	<h4>Skriv ner det här...</h4>
+	<p>
+		Priset ni betalar för denna eminenta tillställning är inte mer än <strong>{{ team.get_price() }}</strong> kr.<br>
+		Dessa surt förvärvade kontanter vill vi ha insatta på Brutal Akademiens pengartvättskonto hos Nordea på konton 1111,3103450 senast <strong>2014-04-20</strong>, märk betalningen med ert lagnamn ({{ team.name }}).
+	</p>
+	<p>
+		Om du upptäcker att något blev fel eller vill lägga till fler medlemmar så är det bara att kontakta oss på adressen nedan.
+	</p>
+	<p>
+		Du ska ha fått en bokningsbekräftelse via e-post med samma information som på den här sidan men det kan vara bra att <strong>spara denna information</strong> utifall du inte fått mailet.
+	</p>
+</div>
+{% endblock %}

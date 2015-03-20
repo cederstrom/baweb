@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, request, url_for
+from flask import redirect, render_template, request, url_for
 from app import app, db
 from app.forms import TeamForm
 from app.models import Team, TeamMember
@@ -6,8 +6,8 @@ from app import logic
 from app import mail
 
 
-@app.route('/')
 @app.route('/index')
+@app.route('/')
 def index():
     return render_template("index.html")
 
@@ -31,9 +31,8 @@ def flumride_submit():
         form.populate_obj(team)
         db.session.add(team)
         db.session.commit()
-        flash('Your changes have been saved.')
-        mail.send(team.email, team.members.count() * 1337, team.name)
-        return redirect(url_for('flumride_teams'))
+        mail.send(team.email, team.get_price(), team.name)
+        return render_template("flumride/confirmation.html", team=team)
     else:
         return render_template("flumride/submit.html", form=form)
 
@@ -46,8 +45,10 @@ def flumride_teams():
     total = {
         'teams': teams.count(),
         'members': members.count(),
-        'members_need_bed': members.filter(TeamMember.need_bed.is_(True)).count(),
-        'members_sittning': members.filter(TeamMember.sittning.is_(True)).count(),
+        'members_need_bed':
+            members.filter(TeamMember.need_bed.is_(True)).count(),
+        'members_sittning':
+            members.filter(TeamMember.sittning.is_(True)).count(),
         'members_sfs': members.filter(TeamMember.sfs.is_(False)).count()
     }
     return render_template("flumride/teams.html", teams=teams, total=total)
