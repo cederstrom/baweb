@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<script>
+	var offsetToStart = {{ milliseconds }};
+	var openAt = new Date();
+	openAt.setTime(openAt.getTime() + offsetToStart);
+	
+	function countDown() {
+		var now = new Date();
+		var timeLeft = Math.floor((openAt.getTime() - now.getTime()) / 1000);
+		
+		$('#seconds').text(timeLeft % 60);
+		$('#minutes').text(Math.floor(timeLeft / 60) % 60);
+		$('#hours').text(Math.floor(timeLeft / 3600) % 24);
+		$('#days').text(Math.floor(timeLeft / 86400));
+		
+		if(timeLeft > 0)
+			setTimeout(function() { countDown(); }, 1000);
+		else
+			setTimeout(function() { location.reload(true); }, 300);
+	}
+	$(document).ready(countDown);
+
+	setTimeout(function() { location.reload(true); }, 60000);
+</script>
+
+<div class="row">
+	<div class="12u">
+		<section class="box">
+			<h3>Anmäl lag</h3>
+			<p>
+				Biljetterna släpps om <strong id="days"></strong> dagar, <strong id="hours"></strong> timmar, <strong id="minutes"></strong> minuter och <strong id="seconds"></strong> sekunder.
+			</p>
+			<p>
+				Medan du väntar kan du passa på att ta reda på dina blivande lagmedlemmars personnummer och allergier samt om de är med i en <a href="http://www.sfs.se/medlemskarer" target="_blank">SFS-ansluten kår</a> eller ej.
+			</p>
+			<p>
+				Kom ihåg att ni bara får ha <strong>10 personer</strong> per lag. Är ni fler än 10 får ni dela upp er i flera lag!
+			</p>
+			<a href="{{ url_for('flumride_info') }}" class="button special small">Mer info</a>
+		</section>
+	</div>
+</div>
+
+{% endblock %}

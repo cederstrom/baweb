@@ -15,14 +15,15 @@ def index():
 @app.route('/flumride')
 @app.route('/flumride/info')
 def flumride_info():
-    return render_template(
-        "flumride/info.html", submit_open=logic.is_submit_open())
+    return render_template("flumride/info.html")
 
 
 @app.route('/flumride/submit', methods=['GET', 'POST'])
 def flumride_submit():
-    if logic.is_submit_open():
-        return redirect(url_for('flumride_info'))
+    if not logic.is_submit_open():
+        milliseconds = logic.get_milliseconds_until_submit_opens()
+        return render_template("flumride/countdown.html",
+                               milliseconds=milliseconds)
 
     form = TeamForm()
     if form.validate_on_submit():
