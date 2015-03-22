@@ -21,7 +21,7 @@ def flumride_info():
 
 @app.route('/flumride/submit', methods=['GET', 'POST'])
 def flumride_submit():
-    if not logic.is_submit_open():
+    if logic.is_submit_open():
         return redirect(url_for('flumride_info'))
 
     form = TeamForm()
@@ -40,16 +40,12 @@ def flumride_submit():
 @app.route('/flumride/teams')
 def flumride_teams():
     teams = db.session.query(Team)
-    members = db.session.query(TeamMember)
-
     total = {
         'teams': teams.count(),
-        'members': members.count(),
-        'members_need_bed':
-            members.filter(TeamMember.need_bed.is_(True)).count(),
-        'members_sittning':
-            members.filter(TeamMember.sittning.is_(True)).count(),
-        'members_sfs': members.filter(TeamMember.sfs.is_(False)).count()
+        'members': db.session.query(TeamMember).count(),
+        'members_need_bed': logic.get_members_need_bed_count(),
+        'members_sittning': logic.get_members_sitting_count(),
+        'non_members_sfs': logic.get_members_non_sfs_count()
     }
     return render_template("flumride/teams.html", teams=teams, total=total)
 
