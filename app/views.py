@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, url_for
+from flask import render_template, request
 from app import app, db
 from app.forms import TeamForm
 from app.models import Team, TeamMember
@@ -6,6 +6,8 @@ from app import logic
 from app import mail
 
 
+@app.route('/sporrtNews')
+@app.route('/baStory')
 @app.route('/index')
 @app.route('/')
 def index():
@@ -13,6 +15,7 @@ def index():
 
 
 @app.route('/flumride')
+@app.route('/flummen')
 @app.route('/flumride/info')
 def flumride_info():
     return render_template("flumride/info.html")
