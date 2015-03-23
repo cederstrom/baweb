@@ -63,3 +63,15 @@ class TeamMember(db.Model):
 
     def get_price(self):
         return app.config['FLUMRIDE']['TICKET_PRICE']
+
+    @staticmethod
+    def need_bed_count():
+        return TeamMember.query.filter_by(need_bed=True).count()
+
+    @staticmethod
+    def sitting_count():
+        return TeamMember.query.filter_by(sittning=True).count()
+
+    @staticmethod
+    def not_sfs_count():
+        return TeamMember.query.filter_by(sfs=False).count()

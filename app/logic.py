@@ -1,6 +1,5 @@
 from datetime import datetime, timezone
-from app import app, db
-from app.models import TeamMember
+from app import app
 
 
 def is_submit_open():
@@ -14,18 +13,3 @@ def get_milliseconds_until_submit_opens():
     now = datetime.now(timezone.utc)
     delta_milliseconds = (submit_open - now).total_seconds() * 1000
     return int(round(delta_milliseconds))
-
-
-def get_members_non_sfs_count():
-    return db.session.query(TeamMember)\
-        .filter(TeamMember.sfs.is_(False)).count()
-
-
-def get_members_need_bed_count():
-    return db.session.query(TeamMember)\
-        .filter(TeamMember.need_bed.is_(True)).count()
-
-
-def get_members_sitting_count():
-    return db.session.query(TeamMember)\
-        .filter(TeamMember.sittning.is_(True)).count()

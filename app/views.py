@@ -47,9 +47,9 @@ def flumride_teams():
     total = {
         'teams': teams.count(),
         'members': db.session.query(TeamMember).count(),
-        'members_need_bed': logic.get_members_need_bed_count(),
-        'members_sittning': logic.get_members_sitting_count(),
-        'non_members_sfs': logic.get_members_non_sfs_count()
+        'members_need_bed': TeamMember.need_bed_count(),
+        'members_sittning': TeamMember.sitting_count(),
+        'non_members_sfs': TeamMember.not_sfs_count()
     }
     return render_template("flumride/teams.html", teams=teams, total=total)
 
