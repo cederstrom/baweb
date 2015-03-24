@@ -15,6 +15,18 @@ class User(db.Model):
     best_dekk = db.Column(db.String(140), index=False, unique=False,
                           nullable=False)
 
+    def is_authenticated(self):
+        return self.is_admin
+
+    def is_active(self):
+        return self.is_admin
+
+    def is_anonymous(self):
+        return not self.is_admin
+
+    def get_id(self):
+        return str(self.id)
+
     def __repr__(self):
         return '<User %r, is_admin=%r>' % (self.nickname, self.is_admin)
 

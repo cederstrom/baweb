@@ -6,54 +6,61 @@
 			<h3>Alla anmälda lag</h3>
 			<p>
 				Totalt har vi <strong>{{ total["members"] }}</strong> anmälda kaospiloter fördelade på en bataljon om <strong>{{ total["teams"] }}</strong> lag.
-					
-				</p>
-				<c:if test="${isUserAdmin}">
-					<p>
-						Antal sovplatser: <strong>{{ total["members_need_bed"] }}</strong><br/>
-						Antal sittningsbiljetter: <strong>{{ total["members_sittning"] }}</strong><br/>
-						Antal icke SFS-medlemmar: <strong>{{ total["non_members_sfs"] }}</strong>
-					</p>
-				</c:if>
+			</p>
+			{% if g.user.is_authenticated() %}
+			<p>
+				Antal sovplatser: <strong>{{ total["members_need_bed"] }}</strong><br/>
+				Antal sittningsbiljetter: <strong>{{ total["members_sittning"] }}</strong><br/>
+				Antal icke SFS-medlemmar: <strong>{{ total["non_members_sfs"] }}</strong>
+			</p>
+			{% endif %}
 		</section>
 
 		{% for team in teams %}
 		<section class="box">
 			<h3>Lagnamn: <strong>{{ team.name }}</strong></h3>
 			<p>
-				E-post: <strong>{{ team.email }}</strong><br/>
 				Från: <strong>{{ team.city }}</strong><br/>
 				Slogan: <strong>{{ team.slogan }}</strong><br/>
+				{% if g.user.is_authenticated() %}
+				E-post: <strong>{{ team.email }}</strong><br/>
 				Pris: <strong>{{ team.price }}</strong> kr
+				{% endif %}
 			</p>
 
 			<div class="table-wrapper">
 				<table>
 					<col style="width:35%">
+					{% if g.user.is_authenticated() %}
 					<col style="width:15%">
 					<col style="width:35%">
 					<col style="width:5%">
 					<col style="width:5%">
 					<col style="width:5%">
+					{% endif %}
 					<thead>
 						<tr>
 							<th>Namn</th>
+							{% if g.user.is_authenticated() %}
 							<th>Personnummer</th>
 							<th>Allergier</th>
 							<th>Sittning</th>
 							<th>Sovsal</th>
 							<th>SFS</th>
+							{% endif %}
 						</tr>
 					</thead>
 					<tbody>
 						{% for member in team.members %}
 						<tr>
 							<td>{{ member.name_of_member }}</td>
+							{% if g.user.is_authenticated() %}
 							<td>{{ member.person_number }}</td>
 							<td>{{ member.allergies }}</td>
 							<td>{{ 'X' if member.sittning else '-' }}</td>
 							<td>{{ 'X' if member.need_bed else '-' }}</td>
 							<td>{{ 'X' if member.sfs else '-' }}</td>
+							{% endif %}
 						</tr>
 						{% endfor %}
 					</tbody>
