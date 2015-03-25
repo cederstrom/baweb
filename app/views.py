@@ -55,14 +55,19 @@ def flumride_info():
     return render_template("flumride/info.html")
 
 
+def _is_user_admin():
+    return g.user.is_authenticated() and g.user.is_admin
+
+
 @app.route('/flumride/submit', methods=['GET', 'POST'])
 def flumride_submit():
-    if not logic.is_submit_open():
+    if not logic.is_submit_open() and not _is_user_admin():
         milliseconds = logic.get_milliseconds_until_submit_opens()
         return render_template("flumride/countdown.html",
                                milliseconds=milliseconds)
 
-    if not logic.are_there_beds_left():
+    if ((not logic.are_there_beds_left() or
+         not logic.are_there_sittning_left()) and not _is_user_admin()):
         return render_template("flumride/submit_temp_closed.html")
 
     form = TeamForm()
