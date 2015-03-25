@@ -62,6 +62,9 @@ def flumride_submit():
         return render_template("flumride/countdown.html",
                                milliseconds=milliseconds)
 
+    if not logic.are_there_beds_left():
+        return render_template("flumride/submit_temp_closed.html")
+
     form = TeamForm()
     if form.validate_on_submit():
         team = Team()

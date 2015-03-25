@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from dateutil import parser
 
 
 WTF_CSRF_ENABLED = True
@@ -9,7 +9,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
-    'SUBMIT_OPEN': datetime.strptime("2015-03-26 20:22:23", "%Y-%m-%d %H:%M:%S"),
+    'SUBMIT_OPEN': parser.parse("2015-03-26 21:37:00 +0100"),
     'YEAR': 'tvi-tausen-fäimtåhn',
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_SITTNING': 150,
