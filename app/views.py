@@ -1,9 +1,9 @@
-from flask import (render_template, flash, redirect, url_for, request, g)
+from flask import (render_template, redirect, url_for, request, g)
 from flask.ext.login import (login_user, logout_user, current_user)
-from app import app, db, lm, oid
+from app import app, db, lm, logic, mail
 from app.forms import TeamForm
 from app.models import Team, TeamMember, User
-from app import logic, mail
+from flask_dance.contrib.github import github
 
 
 @lm.user_loader
@@ -11,25 +11,22 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-@app.route('/login')
-@oid.loginhandler
+@app.route("/login")
 def login():
-    if g.user is not None and g.user.is_authenticated():
-        return redirect(url_for('index'))
-    return oid.try_login('https://www.google.com/accounts/o8/id',
-                         ask_for=['email'])
+    return redirect(url_for("github.login"))
 
 
-@oid.after_login
-def after_login(resp):
-    if resp.email is None or resp.email == "":
-        flash('Invalid login. Please try again.')
-        return redirect(url_for('login'))
-    user = User.query.filter_by(email=resp.email).first()
-    if user is None:
-        return redirect(url_for('logout'))
-    login_user(user)
-    return redirect(request.args.get('next') or url_for('index'))
+@app.route("/loginCallback")
+def login_callback():
+    resp = github.get("/user/emails")
+    if resp.ok:
+        email = resp.json()[0]['email']
+        print("Trying to authenticate with email: %r" % email)
+        user = User.query.filter_by(email=email).first()
+        if user:
+            login_user(user)
+            return redirect(request.args.get('next') or url_for('index'))
+    return redirect(url_for('logout'))
 
 
 @app.route('/logout')
