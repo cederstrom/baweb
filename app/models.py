@@ -41,7 +41,6 @@ class Team(db.Model):
     city = db.Column(db.String(140), nullable=False)
     has_payed = db.Column(db.Boolean, default=False, nullable=False)
     members = db.relationship('TeamMember', backref='team', lazy='dynamic')
-    # price: get from each member
 
     def __repr__(self):
         return '<Team %r>' % (self.name)
@@ -50,7 +49,7 @@ class Team(db.Model):
     def price(self):
         price = 0
         for member in self.members:
-            price += member.get_price()
+            price += member.price
         return price
 
 
@@ -67,13 +66,15 @@ class TeamMember(db.Model):
     sfs = db.Column(db.Boolean, default=False, nullable=False)
     sittning = db.Column(db.Boolean, default=False, nullable=False)
     price = db.Integer()
-    # ticket_type = db.Column(db.String(12))
 
     def __repr__(self):
         return '<TeamMember %r, person_number=%r>' % (self.name_of_member,
                                                       self.person_number)
 
-    def get_price(self):
+    @property
+    def price(self):
+        if self.need_bed:
+            return app.config['FLUMRIDE']['TICKET_PRICE_WITH_SOVSAL']
         return app.config['FLUMRIDE']['TICKET_PRICE']
 
     @staticmethod

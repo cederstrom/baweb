@@ -13,8 +13,9 @@ FLUMRIDE = {
     'YEAR': 'tvi-tausen-fäimtåhn',
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_SITTNING': 150,
-    'MAX_NR_OF_NEED_BED': 100,
+    'MAX_NR_OF_NEED_BED': 80,
     'MAX_NR_OF_NOT_SFS': 15,
     'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/942839179066046/',
-    'TICKET_PRICE': 349
+    'TICKET_PRICE': 299,
+    'TICKET_PRICE_WITH_SOVSAL': 399
 }
