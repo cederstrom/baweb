@@ -14,7 +14,7 @@ FLUMRIDE = {
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_SITTNING': 140,
     'MAX_NR_OF_NEED_BED': 75,
-    'MAX_NR_OF_NOT_SFS': 15,
+    'MAX_NR_OF_NOT_SFS': 27,
     'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/942839179066046/',
     'TICKET_PRICE': 299,
     'TICKET_PRICE_WITH_SOVSAL': 399

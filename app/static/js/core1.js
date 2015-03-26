@@ -3,6 +3,16 @@ $(function() {
 		var $this = $(this);
 
 		$this.find("a[data-toggle=fieldset-add-row]").click(function() {
+			var my_non_sfs_count = $( "input:checkbox:checked[id*='sfs']" ).length;
+			$.ajax({
+				url: "/flumride/number_of_non_sfs_left",
+				async: false,
+				success: function(data) {
+					console.log(data.number_of_non_sfs_left + " - " + my_non_sfs_count);
+					block_non_sfs = ((data.number_of_non_sfs_left - my_non_sfs_count) <= 0);
+				}
+			});
+
 			var target = $($(this).data("target"));
 			console.log(target);
 			var nr_of_members = target.find("div[data-toggle=fieldset-entry]").length;
@@ -19,6 +29,11 @@ $(function() {
 					$(this).attr('name', id).attr('id', id).removeAttr("checked");
 					if (block_non_sfs && id.indexOf('sfs') !== -1) {
 						$(this).prop("checked", true);
+						$(this).prop("readonly", true);
+						$(this).attr('onclick', '').click(function() {
+							alert(message_no_non_sfs_left);
+							return false;
+						});
 					}
 					if($(this).is(':checkbox') === false) {
 						$(this).val('');
