@@ -108,8 +108,13 @@ var max_nr_of_members = {{ config.FLUMRIDE["MAX_NR_OF_MEMBERS"]|int }};
 					{% endif %}
 				</div>
 			</section>
-
-			{{ form.submit(class="fit") }}
+			
+			<section class="box">
+				<p>
+					<i>Anmälan är bindande. Efter att du har skickat din anmälan kommer du få ett epost med betalningsuppgifter.</i>
+				</p>
+				{{ form.submit(class="fit") }}
+			</section>
 		</form>
 	</div>
 </div>
