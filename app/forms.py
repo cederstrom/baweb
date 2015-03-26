@@ -17,7 +17,7 @@ class TeamForm(ModelForm, Form):
 
     members = ModelFieldList(FormField(MemberForm),
                              min_entries=1, max_entries=10)
-    submit = SubmitField('Skicka')
+    submit = SubmitField('Skicka anmälan!')
 
 
 class LoginForm(Form):
