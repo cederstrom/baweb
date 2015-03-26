@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
+
+<script>
+	$(function() {
+		var team_id = '{{ team_id }}';
+		if (team_id !== '') {
+			document.getElementById('team-' + team_id).scrollIntoView();
+		}
+	});
+</script>
 <div class="row">
 	<div class="12u">
 		<section class="box">
@@ -17,7 +26,7 @@
 		</section>
 
 		{% for team in teams %}
-		<section class="box">
+		<section class="box" id="team-{{ team.id }}">
 			<h3>Lagnamn: <strong>{{ team.name }}</strong></h3>
 			<p>
 				Från: <strong>{{ team.city }}</strong><br/>

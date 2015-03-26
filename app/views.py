@@ -110,14 +110,15 @@ def flumride_edit_member(id):
         form.populate_obj(member)
         db.session.add(member)
         db.session.commit()
-        return redirect(url_for('flumride_teams'))
+        return redirect(url_for('flumride_teams', team_id=member.team.id))
     else:
         form = MemberForm(obj=member)
         return render_template("flumride/edit_member.html", form=form)
 
 
-@app.route('/flumride/teams')
-def flumride_teams():
+@app.route('/flumride/teams', defaults={'team_id': None})
+@app.route('/flumride/teams/<team_id>')
+def flumride_teams(team_id):
     teams = db.session.query(Team)
     total = {
         'teams': teams.count(),
@@ -126,7 +127,8 @@ def flumride_teams():
         'members_sittning': TeamMember.sitting_count(),
         'non_members_sfs': TeamMember.not_sfs_count()
     }
-    return render_template("flumride/teams.html", teams=teams, total=total)
+    return render_template("flumride/teams.html", teams=teams, total=total,
+                           team_id=team_id)
 
 
 @app.route('/contact')
