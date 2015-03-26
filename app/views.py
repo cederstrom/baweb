@@ -1,4 +1,4 @@
-from flask import (render_template, redirect, url_for, request, g)
+from flask import (jsonify, render_template, redirect, url_for, request, g)
 from flask.ext.login import (login_user, logout_user, current_user)
 from app import app, db, lm, logic, mail
 from app.forms import TeamForm
@@ -72,15 +72,28 @@ def flumride_submit():
 
     form = TeamForm()
     if form.validate_on_submit():
-        team = Team()
-        form = TeamForm(request.form)
-        form.populate_obj(team)
-        db.session.add(team)
-        db.session.commit()
+        team = _create_team(request)
         mail.send(team.email, team.price, team.name)
         return render_template("flumride/confirmation.html", team=team)
     else:
-        return render_template("flumride/submit.html", form=form)
+        number_of_non_sfs_left = logic.get_number_of_non_sfs_left()
+        return render_template("flumride/submit.html", form=form,
+                               number_of_non_sfs_left=number_of_non_sfs_left)
+
+
+def _create_team(request):
+    team = Team()
+    form = TeamForm(request.form)
+    form.populate_obj(team)
+    db.session.add(team)
+    db.session.commit()
+    return team
+
+
+@app.route('/flumride/number_of_non_sfs_left')
+def flumride_number_of_non_sfs_left():
+    number_of_non_sfs_left = logic.get_number_of_non_sfs_left()
+    return jsonify(number_of_non_sfs_left=number_of_non_sfs_left)
 
 
 @app.route('/flumride/teams')

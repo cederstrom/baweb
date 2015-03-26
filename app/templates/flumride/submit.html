@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% set block_non_sfs = number_of_non_sfs_left < 1 %}
+
 <script>
 var max_nr_of_members = {{ config.FLUMRIDE["MAX_NR_OF_MEMBERS"]|int }};
+var number_of_non_sfs_left = {{ number_of_non_sfs_left }};
+var block_non_sfs = ("True" == "{{ block_non_sfs }}")
+message_no_non_sfs_left = "Tyvärr kan vi inte ta emot fler personer som inte är medlemmar i en SFS-ansluten kår."
 </script>
 
 <div class="row">
@@ -90,7 +95,11 @@ var max_nr_of_members = {{ config.FLUMRIDE["MAX_NR_OF_MEMBERS"]|int }};
 								<label for="members-{{ loop.index0 }}-need_bed">Behöver sovsal</label>
 							</div>
 							<div class="4u 12u(mobilep)">
-								{{ m.sfs }}
+								{% if block_non_sfs %}
+									{{ m.sfs(checked=true, readonly=true, onclick="alert(message_no_non_sfs_left); return false;") }}
+								{% else %}
+									{{ m.sfs }}
+								{% endif %}
 								<label for="members-{{ loop.index0 }}-sfs">Medlem i SFS-ansluten kår</label>
 							</div>
 						</div>

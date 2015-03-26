@@ -17,6 +17,9 @@ $(function() {
 					console.log(this);
 					var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
 					$(this).attr('name', id).attr('id', id).removeAttr("checked");
+					if (block_non_sfs && id.indexOf('sfs') !== -1) {
+						$(this).prop("checked", true);
+					}
 					if($(this).is(':checkbox') === false) {
 						$(this).val('');
 					}

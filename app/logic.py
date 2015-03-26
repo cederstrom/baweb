@@ -24,3 +24,9 @@ def are_there_beds_left():
 def are_there_sittning_left():
     max_nr_of_sitting = app.config['FLUMRIDE']['MAX_NR_OF_SITTNING']
     return TeamMember.sitting_count() < max_nr_of_sitting
+
+
+def get_number_of_non_sfs_left():
+    max_nr_of_not_sfs = app.config['FLUMRIDE']['MAX_NR_OF_NOT_SFS']
+    nr_of_not_sfs = TeamMember.not_sfs_count()
+    return max_nr_of_not_sfs - nr_of_not_sfs
