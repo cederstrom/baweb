@@ -104,7 +104,7 @@ var max_nr_of_members = {{ config.FLUMRIDE["MAX_NR_OF_MEMBERS"]|int }};
 					{% endfor %}
 
 					{% if loop.last %}
-					<a data-toggle="fieldset-add-row" data-target="#members-fieldset" class="button special small">Lägg till medlem</a>
+					<a data-toggle="fieldset-add-row" data-target="#members-fieldset" class="button small">Lägg till medlem</a>
 					{% endif %}
 				</div>
 			</section>
@@ -120,7 +120,7 @@ var max_nr_of_members = {{ config.FLUMRIDE["MAX_NR_OF_MEMBERS"]|int }};
 					<span style="color: red;">[{{ error }}]</span>
 					{% endfor %}
 				</p>
-				{{ form.submit(class="fit") }}
+				{{ form.submit(class="fit big special") }}
 			</section>
 		</form>
 	</div>
