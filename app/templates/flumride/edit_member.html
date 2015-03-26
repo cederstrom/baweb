@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+	<div class="12u">
+		<section class="box">
+			<h3>Editera medlem</h3>
+			<form method="post">
+				<div class="row uniform 50%">
+					<div class="4u 12u(mobilep)">
+						{{ form.name_of_member(placeholder="Namn *") }}
+					</div>
+					<div class="4u 12u(mobilep)">
+						{{ form.person_number(placeholder="Personnummer * (ååååmmdd-xxxx)") }}
+						{% for error in form.person_number.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</div>
+					<div class="4u 12u(mobilep)">
+						{{ form.allergies(placeholder="Allergier") }}
+						{% for error in form.allergies.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="row uniform 50%">
+					<div class="3u 12u(mobilep)">
+						{{ form.sittning }}
+						<label for="sittning">Vill gå på sittning</label>
+					</div>
+					<div class="3u 12u(mobilep)">
+						{{ form.need_bed }}
+						<label for="need_bed">Behöver sovsal</label>
+					</div>
+					<div class="4u 12u(mobilep)">
+						{{ form.sfs }}
+						<label for="sfs">Medlem i SFS-ansluten kår</label>
+					</div>
+				</div>
+				<div class="row uniform">
+					<div class="12u">
+						<input type="submit" value="Spara" class="special small">
+					</div>
+				</div>
+			</form>
+		</section>
+	</div>
+</div>
+{% endblock %}

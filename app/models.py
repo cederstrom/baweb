@@ -78,6 +78,10 @@ class TeamMember(db.Model):
         return app.config['FLUMRIDE']['TICKET_PRICE']
 
     @staticmethod
+    def get(id):
+        return db.session.query(TeamMember).get(id)
+
+    @staticmethod
     def need_bed_count():
         return TeamMember.query.filter_by(need_bed=True).count()
 

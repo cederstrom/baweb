@@ -30,13 +30,16 @@
 
 			<div class="table-wrapper">
 				<table>
-					<col style="width:35%">
 					{% if g.user.is_authenticated() %}
+					<col style="width:30%">
 					<col style="width:15%">
 					<col style="width:35%">
 					<col style="width:5%">
 					<col style="width:5%">
 					<col style="width:5%">
+					<col style="width:5%">
+					{% else %}
+					<col style="width:100%">
 					{% endif %}
 					<thead>
 						<tr>
@@ -47,6 +50,7 @@
 							<th>Sittning</th>
 							<th>Sovsal</th>
 							<th>SFS</th>
+							<th> </th>
 							{% endif %}
 						</tr>
 					</thead>
@@ -60,6 +64,7 @@
 							<td>{{ 'X' if member.sittning else '-' }}</td>
 							<td>{{ 'X' if member.need_bed else '-' }}</td>
 							<td>{{ 'X' if member.sfs else '-' }}</td>
+							<td><a href="{{ url_for('flumride_edit_member', id=member.id) }}">Edit</a></td>
 							{% endif %}
 						</tr>
 						{% endfor %}

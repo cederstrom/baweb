@@ -1,7 +1,7 @@
 from flask import (jsonify, render_template, redirect, url_for, request, g)
 from flask.ext.login import (login_user, logout_user, current_user)
 from app import app, db, lm, logic, mail
-from app.forms import TeamForm
+from app.forms import TeamForm, MemberForm
 from app.models import Team, TeamMember, User
 from flask_dance.contrib.github import github
 
@@ -94,6 +94,26 @@ def _create_team(request):
 def flumride_number_of_non_sfs_left():
     number_of_non_sfs_left = logic.get_number_of_non_sfs_left()
     return jsonify(number_of_non_sfs_left=number_of_non_sfs_left)
+
+
+@app.route('/flumride/member/<id>', methods=['GET', 'POST'])
+def flumride_edit_member(id):
+    if not _is_user_admin():
+        return redirect(url_for('index'))
+
+    member = TeamMember.get(id)
+    print("person_number: %r" % member.person_number)
+    assert member
+
+    if request.method == 'POST':
+        form = MemberForm(request.form)
+        form.populate_obj(member)
+        db.session.add(member)
+        db.session.commit()
+        return redirect(url_for('flumride_teams'))
+    else:
+        form = MemberForm(obj=member)
+        return render_template("flumride/edit_member.html", form=form)
 
 
 @app.route('/flumride/teams')
