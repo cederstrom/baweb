@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form
 import wtforms
 from wtforms import FormField, SubmitField, StringField, BooleanField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Required
 from .models import Team, TeamMember
 from wtforms_alchemy import ModelForm, ModelFieldList
 
@@ -17,6 +17,7 @@ class TeamForm(ModelForm, Form):
 
     members = ModelFieldList(FormField(MemberForm),
                              min_entries=1, max_entries=10)
+    accept_terms = BooleanField('accept_terms', default=False, validators=[Required()])
     submit = SubmitField('Skicka anmälan!')
 
 
