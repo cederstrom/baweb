@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% set is_admin = g.user.is_authenticated() %}
+
 <script>
 	$(function() {
-		var team_id = '{{ team_id }}';
+		var team_id = location.hash;
 		if (team_id !== '') {
-			document.getElementById('team-' + team_id).scrollIntoView();
+			document.getElementById('team-' + team_id.substring(1)).scrollIntoView();
 		}
 	});
 </script>
@@ -33,13 +35,16 @@
 				Slogan: <strong>{{ team.slogan }}</strong><br/>
 				{% if g.user.is_authenticated() %}
 				E-post: <strong>{{ team.email }}</strong><br/>
-				Pris: <strong>{{ team.price }}</strong> kr
+				Anmälningsdatum: <strong>{{ team.submit_date }}</strong><br/>
+				Pris: <strong>{{ team.price }}</strong> kr<br/>
+				Betalat: <strong>{{ team.has_payed }}</strong><br/>
+				<a href="{{ url_for('flumride_edit_team', id=team.id) }}">Edit</a>
 				{% endif %}
 			</p>
 
 			<div class="table-wrapper">
 				<table>
-					{% if g.user.is_authenticated() %}
+					{% if is_admin %}
 					<col style="width:30%">
 					<col style="width:15%">
 					<col style="width:35%">
@@ -53,7 +58,7 @@
 					<thead>
 						<tr>
 							<th>Namn</th>
-							{% if g.user.is_authenticated() %}
+							{% if is_admin %}
 							<th>Personnummer</th>
 							<th>Allergier</th>
 							<th>Sittning</th>
@@ -67,7 +72,7 @@
 						{% for member in team.members %}
 						<tr>
 							<td>{{ member.name_of_member }}</td>
-							{% if g.user.is_authenticated() %}
+							{% if is_admin %}
 							<td>{{ member.person_number }}</td>
 							<td>{{ member.allergies }}</td>
 							<td>{{ 'X' if member.sittning else '-' }}</td>

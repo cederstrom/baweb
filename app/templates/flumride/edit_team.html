@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+	<div class="12u">
+		<section class="box">
+			<h3>Editera lag</h3>
+			<form method="post">
+				<div class="row uniform 50%">
+					<div class="4u 12u(mobilep)">
+						Lagnamn
+						{{ form.name(placeholder="Lagnamn *") }}
+						{% for error in form.name.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</div>
+					<div class="4u 12u(mobilep)">
+						Epost
+						{{ form.email(placeholder="Epost *", type="email") }}
+						{% for error in form.email.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</div>
+					<div class="4u 12u(mobilep)">
+						Stad
+						{{ form.city(placeholder="Stad *") }}
+						{% for error in form.city.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="row uniform 50%">
+					<div class="12u">
+						Slogan
+						{{ form.slogan(placeholder="Slogan *") }}
+						{% for error in form.slogan.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="row uniform 50%">
+					<div class="3u 12u(mobilep)">
+						{{ form.has_payed }}
+						<label for="has_payed">Betalat</label>
+					</div>
+				</div>
+				<div class="row uniform">
+					<div class="12u">
+						<input type="submit" value="Spara" class="special small">
+					</div>
+				</div>
+			</form>
+		</section>
+	</div>
+</div>
+{% endblock %}

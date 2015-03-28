@@ -1,6 +1,7 @@
 from flask import (jsonify, render_template, redirect, url_for, request, g)
 from flask.ext.login import (login_user, logout_user, current_user)
 from app import app, db, lm, logic, mail
+from app.decorators import login_required
 from app.forms import TeamForm, MemberForm
 from app.models import Team, TeamMember, User
 from flask_dance.contrib.github import github
@@ -55,19 +56,14 @@ def flumride_info():
     return render_template("flumride/info.html")
 
 
-def _is_user_admin():
-    return g.user.is_authenticated() and g.user.is_admin
-
-
 @app.route('/flumride/submit', methods=['GET', 'POST'])
 def flumride_submit():
-    if not logic.is_submit_open() and not _is_user_admin():
+    if not logic.is_submit_open():
         milliseconds = logic.get_milliseconds_until_submit_opens()
         return render_template("flumride/countdown.html",
                                milliseconds=milliseconds)
 
-    if ((not logic.are_there_beds_left() or
-         not logic.are_there_sittning_left()) and not _is_user_admin()):
+    if not logic.are_there_beds_left() or not logic.are_there_sittning_left():
         return render_template("flumride/submit_temp_closed.html")
 
     form = TeamForm()
@@ -97,12 +93,9 @@ def flumride_number_of_non_sfs_left():
 
 
 @app.route('/flumride/member/<id>', methods=['GET', 'POST'])
+@login_required
 def flumride_edit_member(id):
-    if not _is_user_admin():
-        return redirect(url_for('index'))
-
     member = TeamMember.get(id)
-    print("person_number: %r" % member.person_number)
     assert member
 
     if request.method == 'POST':
@@ -110,15 +103,14 @@ def flumride_edit_member(id):
         form.populate_obj(member)
         db.session.add(member)
         db.session.commit()
-        return redirect(url_for('flumride_teams', team_id=member.team.id))
+        return redirect(url_for('flumride_teams', _anchor=member.team.id))
     else:
         form = MemberForm(obj=member)
         return render_template("flumride/edit_member.html", form=form)
 
 
-@app.route('/flumride/teams', defaults={'team_id': None})
-@app.route('/flumride/teams/<team_id>')
-def flumride_teams(team_id):
+@app.route('/flumride/teams')
+def flumride_teams():
     teams = db.session.query(Team)
     total = {
         'teams': teams.count(),
@@ -127,8 +119,28 @@ def flumride_teams(team_id):
         'members_sittning': TeamMember.sitting_count(),
         'non_members_sfs': TeamMember.not_sfs_count()
     }
-    return render_template("flumride/teams.html", teams=teams, total=total,
-                           team_id=team_id)
+    return render_template("flumride/teams.html", teams=teams, total=total)
+
+
+@app.route('/flumride/team/<id>', methods=['GET', 'POST'])
+@login_required
+def flumride_edit_team(id):
+    team = Team.get(id)
+    assert team
+
+    if request.method == 'POST':
+        form = TeamForm(request.form)
+        team.name = form.name.data
+        team.email = form.email.data
+        team.city = form.city.data
+        team.slogan = form.slogan.data
+        team.has_payed = form.has_payed.data
+        # db.session.add(team)
+        db.session.commit()
+        return redirect(url_for('flumride_teams', _anchor=team.id))
+    else:
+        form = TeamForm(obj=team)
+        return render_template("flumride/edit_team.html", form=form)
 
 
 @app.route('/contact')

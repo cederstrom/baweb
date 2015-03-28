@@ -52,6 +52,10 @@ class Team(db.Model):
             price += member.price
         return price
 
+    @staticmethod
+    def get(id):
+        return db.session.query(Team).get(id)
+
 
 class TeamMember(db.Model):
     id = db.Column(db.Integer, primary_key=True)
