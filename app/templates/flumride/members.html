@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% set is_admin = g.user.is_authenticated() %}
+
+<script src="/static/js/jquery.tablesorter.min.js"></script>
+<script>
+	$(function() {
+		$(".tablesorter").tablesorter(); 
+	});
+</script>
+
+<div class="row">
+	<div class="12u">
+		<section class="box">
+			<div class="table-wrapper">
+				<table class="tablesorter">
+					<thead>
+						<tr>
+							<th>Lag</th>
+							<th>Namn</th>
+							{% if is_admin %}
+							<th>Personnummer</th>
+							<th>Allergier</th>
+							<th>Sittning</th>
+							<th>Sovsal</th>
+							<th>SFS</th>
+							<th> </th>
+							{% endif %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for member in members %}
+						<tr>
+							<td>{{ member.team.name }}</td>
+							<td>{{ member.name_of_member }}</td>
+							{% if is_admin %}
+							<td>{{ member.person_number }}</td>
+							<td>{{ member.allergies }}</td>
+							<td>{{ 'Ja' if member.sittning else '_' }}</td>
+							<td>{{ 'Ja' if member.need_bed else '_' }}</td>
+							<td>{{ 'Ja' if member.sfs else '_' }}</td>
+							<td><a href="{{ url_for('flumride_edit_member', id=member.id) }}">Edit</a></td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</div>
+</div>
+{% endblock %}

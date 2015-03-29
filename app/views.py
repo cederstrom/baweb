@@ -92,6 +92,12 @@ def flumride_number_of_non_sfs_left():
     return jsonify(number_of_non_sfs_left=number_of_non_sfs_left)
 
 
+@app.route('/flumride/members')
+def flumride_members():
+    members = TeamMember.query.order_by(TeamMember.person_number).all()
+    return render_template("flumride/members.html", members=members)
+
+
 @app.route('/flumride/member/<id>', methods=['GET', 'POST'])
 @login_required
 def flumride_edit_member(id):
