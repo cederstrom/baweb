@@ -45,9 +45,13 @@ $(function() {
 				Pris: <strong>{{ team.price }}</strong> kr<br/>
 				Betalat:
 				<strong>
-					<span id="has-payed-{{ team.id }}">
-						<a href="javascript:flumride_set_has_payed('{{ url_for('flumride_set_has_payed', id=team.id) }}', '{{ team.id }}');">{{ team.has_payed }}</a>
-					</span>
+					{% if team.has_payed %}
+						{{ team.has_payed }}
+					{% else %}
+						<span id="has-payed-{{ team.id }}">
+							<a href="javascript:flumride_set_has_payed('{{ url_for('flumride_set_has_payed', id=team.id) }}', '{{ team.id }}');">{{ team.has_payed }}</a>
+						</span>
+					{% endif %}
 				</strong><br/>
 				<a href="{{ url_for('flumride_edit_team', id=team.id) }}">Edit</a>
 				{% endif %}
