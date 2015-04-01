@@ -112,7 +112,8 @@ def flumride_edit_member(id):
         return redirect(url_for('flumride_teams', _anchor=member.team.id))
     else:
         form = MemberForm(obj=member)
-        return render_template("flumride/edit_member.html", form=form)
+        return render_template("flumride/edit_member.html", form=form,
+                               title='Editera medlem')
 
 
 @app.route('/flumride/team/<id>/add-member', methods=['GET', 'POST'])
@@ -131,7 +132,8 @@ def flumride_add_member(id):
         return redirect(url_for('flumride_teams', _anchor=member.team.id))
     else:
         form = MemberForm()
-        return render_template("flumride/edit_member.html", form=form)
+        return render_template("flumride/edit_member.html", form=form,
+                               title='Lägg till medlem')
 
 
 @app.route('/flumride/team/<id>/set-has-payed', methods=['POST'])
