@@ -4,12 +4,18 @@
 {% set is_admin = g.user.is_authenticated() %}
 
 <script>
-	$(function() {
-		var team_id = location.hash;
-		if (team_id !== '') {
-			document.getElementById('team-' + team_id.substring(1)).scrollIntoView();
-		}
+flumride_set_has_payed = function( url, team_id ) {
+	$.post( url, function( data ) {
+		$( '#has-payed-' + team_id ).html( data.has_payed );
 	});
+};
+
+$(function() {
+	var team_id = location.hash;
+	if (team_id !== '') {
+		document.getElementById('team-' + team_id.substring(1)).scrollIntoView();
+	}
+});
 </script>
 <div class="row">
 	<div class="12u">
@@ -37,7 +43,12 @@
 				E-post: <strong>{{ team.email }}</strong><br/>
 				Anmälningsdatum: <strong>{{ team.submit_date }}</strong><br/>
 				Pris: <strong>{{ team.price }}</strong> kr<br/>
-				Betalat: <strong>{{ team.has_payed }}</strong><br/>
+				Betalat:
+				<strong>
+					<span id="has-payed-{{ team.id }}">
+						<a href="javascript:flumride_set_has_payed('{{ url_for('flumride_set_has_payed', id=team.id) }}', '{{ team.id }}');">{{ team.has_payed }}</a>
+					</span>
+				</strong><br/>
 				<a href="{{ url_for('flumride_edit_team', id=team.id) }}">Edit</a>
 				{% endif %}
 			</p>
@@ -85,6 +96,7 @@
 					</tbody>
 				</table>
 			</div>
+			<a href="{{ url_for('flumride_add_member', id=team.id) }}">Lägg till medlem</a>
 		</section>
 		{% endfor %}
 	</div>

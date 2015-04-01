@@ -115,6 +115,36 @@ def flumride_edit_member(id):
         return render_template("flumride/edit_member.html", form=form)
 
 
+@app.route('/flumride/team/<id>/add-member', methods=['GET', 'POST'])
+@login_required
+def flumride_add_member(id):
+    team = Team.get(id)
+    assert team
+
+    if request.method == 'POST':
+        member = TeamMember()
+        form = MemberForm(request.form)
+        form.populate_obj(member)
+        member.team = team
+        db.session.add(member)
+        db.session.commit()
+        return redirect(url_for('flumride_teams', _anchor=member.team.id))
+    else:
+        form = MemberForm()
+        return render_template("flumride/edit_member.html", form=form)
+
+
+@app.route('/flumride/team/<id>/set-has-payed', methods=['POST'])
+@login_required
+def flumride_set_has_payed(id):
+    team = Team.get(id)
+    team.has_payed = True
+    db.session.commit()
+    resp = jsonify(has_payed=True)
+    resp.status_code = 200
+    return resp
+
+
 @app.route('/flumride/teams')
 def flumride_teams():
     teams = db.session.query(Team)
@@ -141,7 +171,6 @@ def flumride_edit_team(id):
         team.city = form.city.data
         team.slogan = form.slogan.data
         team.has_payed = form.has_payed.data
-        # db.session.add(team)
         db.session.commit()
         return redirect(url_for('flumride_teams', _anchor=team.id))
     else:
