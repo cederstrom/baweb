@@ -8,6 +8,5 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 lm = LoginManager(app)
 app.secret_key = app.config['SECRET_KEY']
-app.register_blueprint(app.config['BLUEPRINT'], url_prefix="/login")
 
 from app import views, models
