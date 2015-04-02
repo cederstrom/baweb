@@ -4,12 +4,15 @@
 
 {% set is_admin = g.user.is_authenticated() %}
 
-<script src="/static/js/jquery.tablesorter.min.js"></script>
+<script src="/static/tablesorter/js/jquery.tablesorter.min.js"></script>
 <script>
 	$(function() {
 		$(".tablesorter").tablesorter(); 
 	});
 </script>
+<noscript>
+	<link rel="stylesheet" href="/static/tablesorter/css/tablesorter.css" />
+</noscript>
 
 <div class="row">
 	<div class="12u">
