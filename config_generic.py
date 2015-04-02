@@ -19,3 +19,5 @@ FLUMRIDE = {
     'TICKET_PRICE': 299,
     'TICKET_PRICE_WITH_SOVSAL': 399
 }
+
+FACEBOOK_GRAPH_URL = 'https://graph.facebook.com/'

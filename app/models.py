@@ -27,6 +27,10 @@ class User(db.Model):
     def get_id(self):
         return str(self.id)
 
+    @staticmethod
+    def get_from_email(email):
+        return User.query.filter_by(email=email).first()
+
     def __repr__(self):
         return '<User %r, is_admin=%r>' % (self.nickname, self.is_admin)
 
