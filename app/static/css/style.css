@@ -1,4 +1,5 @@
 @import url(font-awesome.min.css);
+@import url(tablesorter.css);
 @import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,300italic,400italic");
 
 /*
@@ -817,6 +818,21 @@
 			table.alt tfoot {
 				border-top: 0;
 			}
+
+	/* Tablesorter */
+	/*
+	table.tablesorter thead tr .header {
+		background-image: url(../images/bg.gif);
+		background-repeat: no-repeat;
+		background-position: center right;
+		cursor: pointer;
+	}
+	table.tablesorter thead tr .headerSortUp {
+		background-image: url(../images/asc.gif);
+	}
+	table.tablesorter thead tr .headerSortDown {
+		background-image: url(../images/desc.gif);
+	}*/
 
 /* Button */
 
