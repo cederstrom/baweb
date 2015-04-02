@@ -101,7 +101,9 @@ $(function() {
 					</tbody>
 				</table>
 			</div>
+			{% if is_admin %}
 			<a href="{{ url_for('flumride_add_member', id=team.id) }}">Lägg till medlem</a>
+			{% endif %}
 		</section>
 		{% endfor %}
 	</div>

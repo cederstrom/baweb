@@ -29,12 +29,16 @@ def login_callback():
         data = dict(code=request.args['code'], redirect_uri=redirect_uri)
         session = oauth.get_auth_session(data=data)
         me = session.get('me').json()
-        user = User.get_from_email(me['email'])
+        email = me['email']
+        user = User.get_from_email(email)
         if user:
             login_user(user)
             print('Logged in as %r' % user)
             return redirect(url_for('index'))
-    print('User did not authorize the request')
+        else:
+            print('No user found for email %r' % email)
+    else:
+        print('User did not authorize the request')
     return redirect(url_for('logout'))
 
 
