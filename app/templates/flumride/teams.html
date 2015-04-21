@@ -60,7 +60,7 @@ $(function() {
 				Från: <strong>{{ team.city }}</strong><br/>
 				Slogan: <strong>{{ team.slogan }}</strong><br/>
 				{% if is_admin %}
-				E-post: <strong>{{ team.email }}</strong><br/>
+				E-post: <a href="mailto:{{ team.email }}?subject=Anmälan Flumride"><strong>{{ team.email }}</strong></a><br/>
 				Anmälningsdatum: <strong>{{ team.submit_date }}</strong><br/>
 				Pris: <strong>{{ team.price }}</strong> kr<br/>
 				Betalat:
