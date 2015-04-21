@@ -16,6 +16,18 @@ $(function() {
 	if (team_id !== '') {
 		document.getElementById('team-' + team_id.substring(1)).scrollIntoView();
 	}
+
+	$("#select_has_payed").change(function() {
+		var url = [location.protocol, '//', location.host, location.pathname].join('');
+		var has_payed = this.options[this.selectedIndex].value;
+		var query = '?has_payed=';
+		if (has_payed === '-') {
+			query = '';
+		} else {
+			query += has_payed;
+		}
+		window.location = url + query;
+	});
 });
 </script>
 <div class="row">
@@ -25,11 +37,18 @@ $(function() {
 			<p>
 				Totalt har vi <strong>{{ total["members"] }}</strong> anmälda kaospiloter fördelade på en bataljon om <strong>{{ total["teams"] }}</strong> lag.
 			</p>
-			{% if g.user.is_authenticated() %}
+			{% if is_admin %}
 			<p>
 				Antal sovplatser: <strong>{{ total["members_need_bed"] }}</strong><br/>
 				Antal sittningsbiljetter: <strong>{{ total["members_sittning"] }}</strong><br/>
 				Antal icke SFS-medlemmar: <strong>{{ total["non_members_sfs"] }}</strong>
+			</p>
+			<p>
+				<select id="select_has_payed" name="has_payed">
+					<option value="-">- Inget filter -</option>
+					<option value="True" {% if has_payed == "True" %}selected{% endif %}>Har betalat</option>
+					<option value="False" {% if has_payed == "False" %}selected{% endif %}>Har EJ betalat</option>
+				</select>
 			</p>
 			{% endif %}
 		</section>
@@ -40,7 +59,7 @@ $(function() {
 			<p>
 				Från: <strong>{{ team.city }}</strong><br/>
 				Slogan: <strong>{{ team.slogan }}</strong><br/>
-				{% if g.user.is_authenticated() %}
+				{% if is_admin %}
 				E-post: <strong>{{ team.email }}</strong><br/>
 				Anmälningsdatum: <strong>{{ team.submit_date }}</strong><br/>
 				Pris: <strong>{{ team.price }}</strong> kr<br/>

@@ -106,6 +106,10 @@ def flumride_set_has_payed(id):
 @app.route('/flumride/teams')
 def flumride_teams():
     teams = db.session.query(Team)
+    has_payed_arg = request.args.get('has_payed')
+    if has_payed_arg is not None:
+        has_payed = has_payed_arg == 'True'
+        teams = teams.filter_by(has_payed=has_payed)
     total = {
         'teams': teams.count(),
         'members': db.session.query(TeamMember).count(),
@@ -113,7 +117,8 @@ def flumride_teams():
         'members_sittning': TeamMember.sitting_count(),
         'non_members_sfs': TeamMember.not_sfs_count()
     }
-    return render_template("flumride/teams.html", teams=teams, total=total)
+    return render_template("flumride/teams.html", teams=teams, total=total,
+                           has_payed=has_payed_arg)
 
 
 @app.route('/flumride/team/<id>', methods=['GET', 'POST'])
