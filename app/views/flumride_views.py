@@ -6,8 +6,11 @@ from app.models import Team, TeamMember
 
 
 @app.route('/flumride')
+@app.route('/flumride/')
 @app.route('/flummen')
+@app.route('/flummen/')
 @app.route('/flumride/info')
+@app.route('/flumride/info/')
 def flumride_info():
     return render_template("flumride/info.html")
 
