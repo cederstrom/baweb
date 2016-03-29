@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from app import app, db
 from wtforms.validators import Email, Regexp
 
