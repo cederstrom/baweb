@@ -40,6 +40,8 @@ def _create_team(request):
     team = Team()
     form = TeamForm(request.form)
     form.populate_obj(team)
+    for member in team.members:
+        member.sittning = True
     db.session.add(team)
     db.session.commit()
     return team
