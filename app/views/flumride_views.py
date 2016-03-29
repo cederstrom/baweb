@@ -1,4 +1,4 @@
-from flask import jsonify, render_template, redirect, url_for, request, g
+from flask import jsonify, render_template, redirect, url_for, request
 from app import app, db, logic, mail
 from app.decorators import login_required
 from app.forms import TeamForm, MemberForm
@@ -17,7 +17,7 @@ def flumride_info():
 
 @app.route('/flumride/submit', methods=['GET', 'POST'])
 def flumride_submit():
-    if not logic.is_submit_open() and not (g.user.is_authenticated() and g.user.is_admin):
+    if not logic.is_submit_open():
         milliseconds = logic.get_milliseconds_until_submit_opens()
         return render_template("flumride/countdown.html",
                                milliseconds=milliseconds)
