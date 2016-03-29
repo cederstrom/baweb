@@ -16,8 +16,8 @@ FLUMRIDE = {
     'MAX_NR_OF_NEED_BED': 75,
     'MAX_NR_OF_NOT_SFS': 15,
     'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/580551922118139/',
-    'TICKET_PRICE': 299,
-    'TICKET_PRICE_WITH_SOVSAL': 399
+    'TICKET_PRICE': 349,
+    'TICKET_PRICE_WITH_SOVSAL': 499
 }
 
 FACEBOOK_GRAPH_URL = 'https://graph.facebook.com/'
