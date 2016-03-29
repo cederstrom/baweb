@@ -9,7 +9,7 @@ BODY = """
 Tack för din anmälan!
 
 Priset ni betalar för Flumride är %r kr.
-Vänligen sätt in pangarna på vårt pengartvättarkonto hos Nordea på kontonummer 1111,3103450 senast 2015-04-20. Märk betalningen med ert lagnamn (%r).
+Vänligen sätt in pangarna på vårt pengartvättarkonto hos Nordea på kontonummer 1111,3103450 senast 2016-04-15. Märk betalningen med ert lagnamn (%r).
 
 Om du upptäcker att något blev fel så är det bara att svara på det här mailet.
 
