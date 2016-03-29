@@ -72,7 +72,7 @@ class TeamMember(db.Model):
     allergies = db.Column(db.String(140))
     need_bed = db.Column(db.Boolean, default=False, nullable=False)
     sfs = db.Column(db.Boolean, default=False, nullable=False)
-    sittning = db.Column(db.Boolean, default=False, nullable=False)
+    sittning = db.Column(db.Boolean, default=True, nullable=False)
     price = db.Integer()
 
     def __repr__(self):
