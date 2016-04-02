@@ -68,6 +68,7 @@ def flumride_edit_member(id):
     if request.method == 'POST':
         form = MemberForm(request.form)
         form.populate_obj(member)
+        member.sittning = True
         db.session.add(member)
         db.session.commit()
         return redirect(url_for('flumride_teams', _anchor=member.team.id))
@@ -88,6 +89,7 @@ def flumride_add_member(id):
         form = MemberForm(request.form)
         form.populate_obj(member)
         member.team = team
+        member.sittning = True
         db.session.add(member)
         db.session.commit()
         return redirect(url_for('flumride_teams', _anchor=member.team.id))
