@@ -26,13 +26,29 @@ FLUMRIDE = {
 #           'data': ['stuff', 'stuff2']
 #       }
     'schedule': [],
+    'ticket_types': [
+        {
+            'name': 'Kånntainerpasset',
+            'price': 399,
+            'description': 'Sovsal, sittning, frukost, flumrundan, caps-vm, kårkväll fredag-lördag. Notera att 100kr/person i sovsals deposition tillkommer (som ni självklart får tillbaka om ni inte trashar stället)',
+            'max_nr': 70
+        },
+        {
+            'name': 'Kundvagnspasset',
+            'price': 299,
+            'description': 'Som ovan fast utan sovsal',
+            'max_nr': 50
+        },
+        {
+            'name': 'Spårrtpass',
+            'price': 249,
+            'description': 'flumrundan, caps-vm, kårkväll fredag-lördag',
+            'max_nr': 50
+        }
+    ],
     'MAX_NR_OF_MEMBERS': 10,
-    'MAX_NR_OF_SITTNING': 146,
-    'MAX_NR_OF_NEED_BED': 75,
     'MAX_NR_OF_NOT_SFS': 15,
-    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/1899427956960956/',
-    'TICKET_PRICE': 349,
-    'TICKET_PRICE_WITH_SOVSAL': 499
+    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/1899427956960956/'
 }
 
 FACEBOOK_GRAPH_URL = 'https://graph.facebook.com/'
