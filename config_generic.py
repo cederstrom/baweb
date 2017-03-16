@@ -9,7 +9,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
-    'SUBMIT_OPEN': parser.parse("2016-04-01 21:37:00 +0100"),
+    'SUBMIT_OPEN': parser.parse("2017-03-21 03:00:00 +0100"),
     'YEAR': 'tvi-tausen-sääjstån',
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_SITTNING': 146,
