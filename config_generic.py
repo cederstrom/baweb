@@ -49,7 +49,8 @@ FLUMRIDE = {
     ],
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_NOT_SFS': 15,
-    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/1899427956960956/'
+    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/1899427956960956/',
+    'TRAILER_URL': 'https://www.youtube.com/embed/Jw0P2gZTxD4'
 }
 
 FACEBOOK_GRAPH_URL = 'https://graph.facebook.com/'

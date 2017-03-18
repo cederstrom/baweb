@@ -2,11 +2,15 @@
 {% block title %}Flumride phestplan{% endblock %}
 {% block content %}
 <div class="box">
+	{% if config.FLUMRIDE.TRAILER_URL %}
 	<span class="image featured">
 		<div style="float: none; clear: both; width: 100%; position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0;">
-			<iframe width="100%" height="100%" style="position: absolute; top: 0; left: 0;" src="https://www.youtube.com/embed/Jw0P2gZTxD4" frameborder="0" allowfullscreen></iframe>
+			<iframe width="100%" height="100%" style="position: absolute; top: 0; left: 0;" src="{{ config.FLUMRIDE.TRAILER_URL }}" frameborder="0" allowfullscreen></iframe>
 		</div>
 	</span>
+	{% else %}
+	<h4> (Här kommer ni kunna förvänta er en trailer när den är klar, vilket såklart är snart™) </h4>
+	{% endif %}
 	<h3>Flumride™ - {{ config.FLUMRIDE.YEAR }}</h3>
 	<p>
 		Sexmästeriet i Karlskrona och BA™ svettas som feta oäkta finnar i en sauna nu när planeringen inför Flumride™ har tagit sin början.
