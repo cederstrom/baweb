@@ -8,6 +8,10 @@ def is_submit_open():
     is_open = anmalan_open_at < datetime.now(timezone.utc)
     return is_open
 
+def has_submit_closed():
+    anmalan_closes_at = app.config['FLUMRIDE']['SUBMIT_CLOSE']
+    is_closed = anmalan_closes_at < datetime.now(timezone.utc)
+    return is_closed
 
 def get_milliseconds_until_submit_opens():
     submit_open = app.config['FLUMRIDE']['SUBMIT_OPEN']

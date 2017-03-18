@@ -24,7 +24,7 @@ def flumride_submit():
 
     remaining_tickets_for_type = [logic.get_number_of_tickets_for_this_type_left(ind) for ind, ticket in enumerate(app.config['FLUMRIDE']['ticket_types'])]
 
-    if sum(remaining_tickets_for_type) <= 0:
+    if sum(remaining_tickets_for_type) <= 0 or logic.has_submit_closed():
         return render_template("flumride/submit_temp_closed.html")
 
     form = TeamForm()
