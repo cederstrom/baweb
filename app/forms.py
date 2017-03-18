@@ -35,6 +35,14 @@ class TeamForm(ModelForm, Form):
             if remaining_tickets_after_transaction[member.data['ticket_type']] < 0:
                 member.ticket_type.errors.append('Du har anget fler av denna biljettyp än vad som finns kvar')
                 error = True
+        #Verify all person_numbers are unique
+        person_numbers = [x.data['person_number'] for x in members]
+        duplicate_person_numbers = [x for n, x in enumerate(person_numbers) if x in person_numbers[:n]]
+        if duplicate_person_numbers:
+            for member in members:
+                if member.data['person_number'] in duplicate_person_numbers:
+                    member.person_number.errors.append('Du har med samma personnummer flera gånger')
+                    error = True
         if error:
             raise ValidationError("error in input")
 
