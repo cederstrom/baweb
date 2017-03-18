@@ -12,6 +12,8 @@ FLUMRIDE = {
     'SUBMIT_OPEN': parser.parse("2017-03-21 03:00:00 +0100"),
     'SUBMIT_CLOSE': parser.parse("2017-04-25 03:00:00 +0100"),
     'YEAR': 'tvi-tausen-tjutåån',
+    'START_DATE': '5:e maj',
+    'END_DATE': '7:e maj',
 # EXAMPLE ON HOW TO FILL SCHEDULE DATA
 #    [
 #       {
