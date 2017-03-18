@@ -112,6 +112,9 @@ $(function() {
 						<div class="row uniform 50%">
 							<div class="3u 12u(mobilep)">
                                 {{m.ticket_type}}
+								{% for error in m.ticket_type.errors %}
+									<span style="color: red;">[{{ error }}]</span>
+								{% endfor %}
 							</div>
 							<div class="4u 12u(mobilep)">
 								{% if block_non_sfs %}
