@@ -15,16 +15,9 @@ def get_milliseconds_until_submit_opens():
     delta_milliseconds = (submit_open - now).total_seconds() * 1000
     return int(round(delta_milliseconds))
 
-
-def are_there_beds_left():
-    max_nr_of_beds = app.config['FLUMRIDE']['MAX_NR_OF_NEED_BED']
-    return TeamMember.need_bed_count() < max_nr_of_beds
-
-
-def are_there_sittning_left():
-    max_nr_of_sitting = app.config['FLUMRIDE']['MAX_NR_OF_SITTNING']
-    return TeamMember.sitting_count() < max_nr_of_sitting
-
+def get_number_of_tickets_for_this_type_left(ticket_type):
+    max_number_of_tickets = app.config['FLUMRIDE']['ticket_types'][ticket_type]['max_nr']
+    return max_number_of_tickets - TeamMember.ticket_count_by_type(ticket_type)
 
 def get_number_of_non_sfs_left():
     max_nr_of_not_sfs = app.config['FLUMRIDE']['MAX_NR_OF_NOT_SFS']

@@ -22,7 +22,9 @@ def flumride_submit():
         return render_template("flumride/countdown.html",
                                milliseconds=milliseconds)
 
-    if not logic.are_there_beds_left() or not logic.are_there_sittning_left():
+    remaining_tickets_for_type = [logic.get_number_of_tickets_for_this_type_left(ind) for ind, ticket in enumerate(app.config['FLUMRIDE']['ticket_types'])]
+
+    if sum(remaining_tickets_for_type) <= 0:
         return render_template("flumride/submit_temp_closed.html")
 
     form = TeamForm()
@@ -40,8 +42,6 @@ def _create_team(request):
     team = Team()
     form = TeamForm(request.form)
     form.populate_obj(team)
-    for member in team.members:
-        member.sittning = True
     db.session.add(team)
     db.session.commit()
     return team
@@ -68,7 +68,6 @@ def flumride_edit_member(id):
     if request.method == 'POST':
         form = MemberForm(request.form)
         form.populate_obj(member)
-        member.sittning = True
         db.session.add(member)
         db.session.commit()
         return redirect(url_for('flumride_teams', _anchor=member.team.id))
@@ -89,7 +88,6 @@ def flumride_add_member(id):
         form = MemberForm(request.form)
         form.populate_obj(member)
         member.team = team
-        member.sittning = True
         db.session.add(member)
         db.session.commit()
         return redirect(url_for('flumride_teams', _anchor=member.team.id))
@@ -117,11 +115,11 @@ def flumride_teams():
     if has_payed_arg is not None:
         has_payed = has_payed_arg == 'True'
         teams = teams.filter_by(has_payed=has_payed)
+    ticket_info = [{'type': ticket_type['name'], 'count': TeamMember.ticket_count_by_type(index)} for index, ticket_type in enumerate(app.config['FLUMRIDE']['ticket_types'])]
     total = {
         'teams': teams.count(),
         'members': db.session.query(TeamMember).count(),
-        'members_need_bed': TeamMember.need_bed_count(),
-        'members_sittning': TeamMember.sitting_count(),
+        'ticket_info': ticket_info,
         'non_members_sfs': TeamMember.not_sfs_count()
     }
     return render_template("flumride/teams.html", teams=teams, total=total,

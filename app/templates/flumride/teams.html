@@ -39,8 +39,10 @@ $(function() {
 			</p>
 			{% if is_admin %}
 			<p>
-				Antal sovplatser: <strong>{{ total["members_need_bed"] }}</strong><br/>
-				Antal sittningsbiljetter: <strong>{{ total["members_sittning"] }}</strong><br/>
+				{% for ticket in total['ticket_info'] %}
+					Antal {{ticket.type}}: <strong>{{ticket.count}}</strong>
+					<br/>
+				{% endfor %}
 				Antal icke SFS-medlemmar: <strong>{{ total["non_members_sfs"] }}</strong>
 			</p>
 			<p>
@@ -96,8 +98,7 @@ $(function() {
 							{% if is_admin %}
 							<th>Personnummer</th>
 							<th>Allergier</th>
-							<th>Sittning</th>
-							<th>Sovsal</th>
+							<th>Biljett</th>
 							<th>SFS</th>
 							<th> </th>
 							{% endif %}
@@ -110,8 +111,7 @@ $(function() {
 							{% if is_admin %}
 							<td>{{ member.person_number }}</td>
 							<td>{{ member.allergies }}</td>
-							<td>{{ 'X' if member.sittning else '-' }}</td>
-							<td>{{ 'X' if member.need_bed else '-' }}</td>
+							<td>{{ config.FLUMRIDE.ticket_types[member.ticket_type].name}}</td>
 							<td>{{ 'X' if member.sfs else '-' }}</td>
 							<td><a href="{{ url_for('flumride_edit_member', id=member.id) }}">Edit</a></td>
 							{% endif %}

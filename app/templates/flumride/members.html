@@ -29,8 +29,7 @@
 							{% if is_admin %}
 							<th>Personnummer</th>
 							<th>Allergier</th>
-							<th>Sittning</th>
-							<th>Sovsal</th>
+							<th>Biljett</th>
 							<th>SFS</th>
 							{% endif %}
 						</tr>
@@ -43,8 +42,7 @@
 							{% if is_admin %}
 							<td>{{ member.person_number }}</td>
 							<td>{{ member.allergies }}</td>
-							<td>{{ 'Ja' if member.sittning else '_' }}</td>
-							<td>{{ 'Ja' if member.need_bed else '_' }}</td>
+							<td>{{ config.FLUMRIDE.ticket_types[member.ticket_type].name}}</td>
 							<td>{{ 'Ja' if member.sfs else '_' }}</td>
 							{% endif %}
 						</tr>
