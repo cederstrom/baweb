@@ -49,6 +49,11 @@ FLUMRIDE = {
             'max_nr': 50
         }
     ],
+    'payment': {
+        'last_payment_date': '2017-04-27',
+        'bank': '',
+        'account_number': ''
+    },
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_NOT_SFS': 15,
     'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/1899427956960956/',
