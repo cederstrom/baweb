@@ -4,14 +4,15 @@ from wtforms import FormField, SubmitField, StringField, BooleanField
 from wtforms.validators import DataRequired, Required
 from .models import Team, TeamMember
 from wtforms_alchemy import ModelForm, ModelFieldList
-from app import app
+from app import app, logic
 
 class MemberForm(ModelForm, wtforms.Form):
     class Meta:
         model = TeamMember
     tickets = []
     for index,ticket in enumerate(app.config['FLUMRIDE']['ticket_types']):
-        tickets.append( (index, ticket['name']) )
+        if (logic.get_number_of_tickets_for_this_type_left(index) > 0):
+            tickets.append( (index, ticket['name']) )
     ticket_type = wtforms.SelectField('', choices=tickets, coerce=int)
 
 
