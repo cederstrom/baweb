@@ -33,9 +33,11 @@ def flumride_submit():
         mail.send(team.email, team.price, team.name)
         return render_template("flumride/confirmation.html", team=team)
     else:
+        #Need to fetch remaing tickets again since the number may have changed if a user stayed on the page a long time
+        remaining_tickets_for_type = [logic.get_number_of_tickets_for_this_type_left(ind) for ind, ticket in enumerate(app.config['FLUMRIDE']['ticket_types'])]
         number_of_non_sfs_left = logic.get_number_of_non_sfs_left()
         return render_template("flumride/submit.html", form=form,
-                               number_of_non_sfs_left=number_of_non_sfs_left)
+                               number_of_non_sfs_left=number_of_non_sfs_left, remaining_tickets_for_type=remaining_tickets_for_type)
 
 
 def _create_team(request):
