@@ -9,7 +9,7 @@ BODY = """
 Tack för din anmälan!
 
 Priset ni betalar för Flumride är %r kr.
-Vänligen sätt in pangarna på vårt pengartvättarkonto hos Nordea på kontonummer 1111,3103450 senast 2016-04-15. Märk betalningen med ert lagnamn (%r).
+Vänligen sätt in pangarna på vårt pengartvättarkonto hos %r på kontonummer %r senast %r. Märk betalningen med ert lagnamn (%r).
 
 Om du upptäcker att något blev fel så är det bara att svara på det här mailet.
 
@@ -21,12 +21,15 @@ Ne Sedibus Rotalibus Ludas
 
 def send(to_address="andreas.cederstrom@gmail.com", price=1337,
          team_name="Aporna"):
-    mail = _build_mail(to_address, price, team_name)
+    bank = app.config['FLUMRIDE']['payment']['bank']
+    account_number = app.config['FLUMRIDE']['payment']['account_number']
+    last_payment_date = app.config['FLUMRIDE']['payment']['last_payment_date']
+    mail = _build_mail(to_address, price, bank, account_number, last_payment_date, team_name)
     _do_send(mail)
 
 
-def _build_mail(to_address, price, team_name):
-    body = BODY % (price, team_name)
+def _build_mail(to_address, price, bank, account_number, last_payment_date , team_name):
+    body = BODY % (price, bank, account_number, last_payment_date, team_name)
     mail = MIMEText(body)
     mail['Subject'] = SUBJECT
     mail['From'] = FROM_ADDRESS

@@ -34,11 +34,18 @@ $(function() {
 		<section class="box">
 			<h3>Anmäl lag</h3>
 			<p>
-				Biljetterna har släppts! Priset för årets flumride är <strong>{{ config.FLUMRIDE["TICKET_PRICE"] }}</strong> riksdaler!
+				Biljetterna har släppts!
 			</p>
+			{% for ticket in config.FLUMRIDE.ticket_types %}
+			<h4>{{ticket.name}} - {{ticket.price}} Riksdaler</h4>
+			<span>Biljetter kvar: <strong>{{remaining_tickets_for_type[loop.index0]}} st</strong> </span>
 			<p>
-				Om man vill att BA™ tillhandahåller sängplats så löser vi det för en extra slant. Då är priset <strong>{{ config.FLUMRIDE["TICKET_PRICE_WITH_SOVSAL"] }}</strong> kr + 100 kr/person i deposition!
+				Och i denna fantastiska biljett ingår då:
+				<br/>
+				<i>{{ticket.description}} </i>
 			</p>
+
+			{% endfor %}
 			<p>
 				Kom ihåg att ni bara får ha <strong>10 personer</strong> per lag. Är ni fler än 10 får ni dela upp er i flera lag!
 			</p>
@@ -106,8 +113,10 @@ $(function() {
 						</div>
 						<div class="row uniform 50%">
 							<div class="3u 12u(mobilep)">
-								{{ m.need_bed }}
-								<label for="members-{{ loop.index0 }}-need_bed">Behöver sovsal</label>
+                                {{m.ticket_type}}
+								{% for error in m.ticket_type.errors %}
+									<span style="color: red;">[{{ error }}]</span>
+								{% endfor %}
 							</div>
 							<div class="4u 12u(mobilep)">
 								{% if block_non_sfs %}

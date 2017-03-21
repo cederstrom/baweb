@@ -71,9 +71,8 @@ class TeamMember(db.Model):
         info={'validators': Regexp("^[12]{1}[90]{1}[0-9]{6}-[0-9]{4}$",
               message=u"Skriv personnummer på formatet ååååmmdd-xxxx")})
     allergies = db.Column(db.String(140))
-    need_bed = db.Column(db.Boolean, default=False, nullable=False)
+    ticket_type = db.Column(db.Integer, default=False, nullable=False)
     sfs = db.Column(db.Boolean, default=False, nullable=False)
-    sittning = db.Column(db.Boolean, default=True, nullable=False)
     price = db.Integer()
 
     def __repr__(self):
@@ -82,21 +81,15 @@ class TeamMember(db.Model):
 
     @property
     def price(self):
-        if self.need_bed:
-            return app.config['FLUMRIDE']['TICKET_PRICE_WITH_SOVSAL']
-        return app.config['FLUMRIDE']['TICKET_PRICE']
+        return app.config['FLUMRIDE']['ticket_types'][self.ticket_type]['price']
 
     @staticmethod
     def get(id):
         return db.session.query(TeamMember).get(id)
 
     @staticmethod
-    def need_bed_count():
-        return TeamMember.query.filter_by(need_bed=True).count()
-
-    @staticmethod
-    def sitting_count():
-        return TeamMember.query.filter_by(sittning=True).count()
+    def ticket_count_by_type(ticket_type):
+        return TeamMember.query.filter_by(ticket_type=ticket_type).count()
 
     @staticmethod
     def not_sfs_count():
