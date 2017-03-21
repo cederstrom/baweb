@@ -14,8 +14,8 @@ def contact():
     return render_template("contact.html")
 
 
-@app.route('/sports')
 @app.route('/sporrtNews')
+@app.route('/sports')
 def sports():
     return render_template("sports.html")
 
