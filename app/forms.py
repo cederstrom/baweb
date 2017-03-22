@@ -12,7 +12,7 @@ class MemberForm(ModelForm, wtforms.Form):
     tickets = []
     for index,ticket in enumerate(app.config['FLUMRIDE']['ticket_types']):
         if (logic.get_number_of_tickets_for_this_type_left(index) > 0):
-            tickets.append( (index, ticket['name']) )
+            tickets.append( (index, ticket['name'] +' - ' +str(ticket['price']) + 'kr') )
     ticket_type = wtforms.SelectField('Välj biljett:', choices=tickets, coerce=int)
 
 class TeamForm(ModelForm, Form):
