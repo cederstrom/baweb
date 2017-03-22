@@ -9,7 +9,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
-    'SUBMIT_OPEN': parser.parse("2017-03-23 03:00:00 +0100"),
+    'SUBMIT_OPEN': parser.parse("2017-03-23 19:00:00 +0100"),
     'SUBMIT_CLOSE': parser.parse("2017-04-25 03:00:00 +0100"),
     'YEAR': 'tvi-tausen-tjutåån',
     'START_DATE': '5:e maj',
@@ -33,29 +33,29 @@ FLUMRIDE = {
         {
             'name': 'Kånntainerpasset',
             'price': 399,
-            'description': 'Sovsal, sittning, frukost, flumrundan, caps-vm, kårkväll fredag-lördag. Notera att 100kr/person i sovsals deposition tillkommer (som ni självklart får tillbaka om ni inte trashar stället)',
+            'description': 'Sovsal (fredag och lördag) inkl. frukost, sittning, flumrunda med spårrter och "lagom" mycket dônk (är detta året vi faktiskt ska dricka upp allt?), capsVM (inkl. öhl), lunch på lördag, ett fräckt märke, två kårkvällar (plus bonuskårkväll på torsdagen om man vill)',
             'max_nr': 70
         },
         {
             'name': 'Kundvagnspasset',
             'price': 299,
-            'description': 'Som ovan fast utan sovsal',
+            'description': 'Allt i kånntainerpasset minus soval och frukost (däremot har vi gratis kaffe på kårhuset, BYOmugg)',
             'max_nr': 50
         },
         {
             'name': 'Spårrtpass',
             'price': 249,
-            'description': 'flumrundan, caps-vm, kårkväll fredag-lördag',
-            'max_nr': 30
+            'description': 'Allt i kånntainerpasset minus soval, frukost och sittning',
+            'max_nr': 1000
         }
     ],
     'payment': {
         'last_payment_date': '2017-04-27',
-        'bank': '',
-        'account_number': ''
+        'bank': 'Swedbank',
+        'account_number': '8327-9,944 894 648-4'
     },
     'MAX_NR_OF_MEMBERS': 10,
-    'MAX_NR_OF_NOT_SFS': 15,
+    'MAX_NR_OF_NOT_SFS': 50,
     'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/1899427956960956/',
     'TRAILER_URL': 'https://www.youtube.com/embed/Jw0P2gZTxD4'
 }
