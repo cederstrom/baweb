@@ -112,7 +112,8 @@ $(function() {
 							</div>
 						</div>
 						<div class="row uniform 50%">
-							<div class="3u 12u(mobilep)">
+							<div class="4u 12u(mobilep)">
+								{{m.ticket_type.label(style="margin-bottom: 0px")}}
                                 {{m.ticket_type}}
 								{% for error in m.ticket_type.errors %}
 									<span style="color: red;">[{{ error }}]</span>

@@ -13,8 +13,7 @@ class MemberForm(ModelForm, wtforms.Form):
     for index,ticket in enumerate(app.config['FLUMRIDE']['ticket_types']):
         if (logic.get_number_of_tickets_for_this_type_left(index) > 0):
             tickets.append( (index, ticket['name']) )
-    ticket_type = wtforms.SelectField('', choices=tickets, coerce=int)
-
+    ticket_type = wtforms.SelectField('Välj biljett:', choices=tickets, coerce=int)
 
 class TeamForm(ModelForm, Form):
     class Meta:
@@ -32,6 +31,11 @@ class TeamForm(ModelForm, Form):
         remaining_tickets_after_transaction = [left - team_tickets.count(index) for index, left in enumerate(remaining_tickets_for_type)]
         error = False
         for member in members:
+            if member.data['ticket_type'] == None:
+                #Don't do an .append() here since we dont want the default [not a valid choice] error to appear
+                member.ticket_type.errors = ['Du glömde ange biljettyp för denna medlemen, vi har därför valt denna åt dig istället (men om du vill byta så gör det!)']
+                error = True
+                continue
             if remaining_tickets_after_transaction[member.data['ticket_type']] < 0:
                 member.ticket_type.errors.append('Du har anget fler av denna biljettyp än vad som finns kvar')
                 error = True
