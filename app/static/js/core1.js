@@ -66,5 +66,19 @@ $(function() {
 			}
 			return false;
 		});
+
+		$this.find("input[name$=-person_number]").blur(function() {
+		    var value = $(this).val();
+		    value = value.replace(" ", "");
+
+            var length = value.length;
+		    if (length >= 10 && length <= 13) {
+		        if (value.indexOf("-") === -1) {
+		            value = value.slice(0, length - 4) + "-" + value.slice(length - 4);
+		        }
+		    }
+
+		    $(this).val(value);
+		});
 	});
 });
