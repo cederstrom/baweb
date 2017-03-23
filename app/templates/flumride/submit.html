@@ -23,11 +23,17 @@ $(function() {
 		if (error_id === 'members')
 			error_id = 'members-0-name_of_member';
 		var top = document.getElementById( error_id ).documentOffsetTop() - ( window.innerHeight / 2 );
-		alert("Du har matat in något galet. Gör om; gör rätt.");
+		alert("Du har matat in något galet. Gör om, gör rätt.");
 		window.scrollTo( 0, top );
 	}
 });
 </script>
+
+<style>
+.ticket-type-radio-list ul {
+	list-style: none;
+}
+</style>
 
 <div class="row">
 	<div class="12u">
@@ -112,7 +118,7 @@ $(function() {
 							</div>
 						</div>
 						<div class="row uniform 50%">
-							<div class="4u 12u(mobilep)">
+							<div class="4u 12u(mobilep) ticket-type-radio-list">
 								{{m.ticket_type.label(style="margin-bottom: 0px")}}
                                 {{m.ticket_type}}
 								{% for error in m.ticket_type.errors %}

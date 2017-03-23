@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask.ext.wtf import Form
 import wtforms
-from wtforms import FormField, SubmitField, StringField, BooleanField
+from wtforms import FormField, SubmitField, StringField, BooleanField, RadioField
 from wtforms.validators import DataRequired, Required, ValidationError
 from .models import Team, TeamMember
 from wtforms_alchemy import ModelForm, ModelFieldList
@@ -14,7 +14,7 @@ class MemberForm(ModelForm, wtforms.Form):
     for index,ticket in enumerate(app.config['FLUMRIDE']['ticket_types']):
         if (logic.get_number_of_tickets_for_this_type_left(index) > 0):
             tickets.append( (index, ticket['name'] +' - ' +str(ticket['price']) + 'kr') )
-    ticket_type = wtforms.SelectField('Välj biljett:', choices=tickets, coerce=int)
+    ticket_type = RadioField('Välj biljett:', choices=tickets, coerce=int)
 
 class TeamForm(ModelForm, Form):
     class Meta:

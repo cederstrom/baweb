@@ -25,8 +25,9 @@ $(function() {
 				row.attr('data-id', elem_num);
 				row.find(":input").each(function() {
 					console.log(this);
-					var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
-					$(this).attr('name', id).attr('id', id).removeAttr("checked");
+                    var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
+                    var name = $(this).attr('name').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
+					$(this).attr('name', name).attr('id', id).removeAttr("checked");
 					if (block_non_sfs && id.indexOf('sfs') !== -1) {
 						$(this).prop("checked", true);
 						$(this).prop("readonly", true);
@@ -35,7 +36,7 @@ $(function() {
 							return false;
 						});
 					}
-					if($(this).is(':checkbox') === false) {
+					if($(this).is(':checkbox, :radio') === false) {
 						$(this).val('');
 					}
 				});
