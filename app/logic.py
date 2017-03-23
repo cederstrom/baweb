@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime, timezone
 from app import app
 from app.models import TeamMember

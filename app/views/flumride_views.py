@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import jsonify, render_template, redirect, url_for, request
 from app import app, db, logic, mail
 from app.decorators import login_required
