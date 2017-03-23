@@ -15,6 +15,7 @@ class User(db.Model):
                                nullable=False)
     best_dekk = db.Column(db.String(140), index=False, unique=False,
                           nullable=False)
+    facebook_id = db.Column(db.Integer, index=True, unique=True, nullable=True)
 
     def is_authenticated(self):
         return self.is_admin
@@ -32,8 +33,13 @@ class User(db.Model):
     def get_from_email(email):
         return User.query.filter_by(email=email).first()
 
+    @staticmethod
+    def get_from_facebook_id(facebook_id):
+        return User.query.filter_by(facebook_id=facebook_id).first()
+
     def __repr__(self):
-        return '<User %r, is_admin=%r>' % (self.nickname, self.is_admin)
+        return '<User %r, is_admin=%r, email=%r, facebook_id=%r>' % (self.nickname, self.is_admin, self.email,
+                                                                     self.facebook_id)
 
 
 class Team(db.Model):
