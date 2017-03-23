@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from app import app
 import smtplib
 from email.mime.text import MIMEText
