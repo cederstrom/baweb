@@ -49,6 +49,9 @@ $(function() {
 				oldrow.after(row);
 				oldrow.find("div[data-remover]").hide();
 			}
+			else {
+			    alert("Du har lagt till för många medlemmar i laget. Max antal är " + max_nr_of_members);
+			}
 			return false;
 		});
 
