@@ -43,7 +43,7 @@ def login_callback():
             print('Trying with facebook_id...')
             try:
                 facebook_id = me['id']
-                user = User.get_from_facebook_id(facebook_id)
+                user = User.get_from_facebook_id(int(facebook_id))
             except Exception as error_facebook_id:
                 print('No user found by facebook_id: %r' % error_facebook_id)
 
