@@ -34,7 +34,7 @@ class TeamForm(ModelForm, Form):
         for member in members:
             if member.data['ticket_type'] == None:
                 #Don't do an .append() here since we dont want the default [not a valid choice] error to appear
-                member.ticket_type.errors = ['Du glömde ange biljettyp för denna medlemen, vi har därför valt denna åt dig istället (men om du vill byta så gör det!)']
+                member.ticket_type.errors = ['Du glömde ange biljettyp för denna medlemen']
                 error = True
                 continue
             if remaining_tickets_after_transaction[member.data['ticket_type']] < 0:
