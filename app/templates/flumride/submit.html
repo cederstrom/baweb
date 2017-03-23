@@ -50,7 +50,7 @@ $(function() {
 				Kom ihåg att ni bara får ha <strong>10 personer</strong> per lag. Är ni fler än 10 får ni dela upp er i flera lag!
 			</p>
 		</section>
-		<form method="post" action="{{ url_for('flumride_submit') }}" name="submit_team">
+		<form method="post" action="{{ url_for('flumride_submit') }}" name="submit_team" autocomplete="off">
 			{{ form.hidden_tag() }}
 
 			<section class="box">
@@ -63,7 +63,7 @@ $(function() {
 						{% endfor %}
 					</div>
 					<div class="4u 12u(mobilep)">
-						{{ form.email(placeholder="Epost *", type="email") }}
+						{{ form.email(placeholder="Epost *", type="email", autocomplete="on") }}
 						{% for error in form.email.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
