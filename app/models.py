@@ -40,8 +40,7 @@ class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(140), index=True, unique=True, nullable=False)
     submit_date = db.Column(db.DateTime, default=db.func.now(), nullable=False)
-    email = db.Column(db.String(140), index=True, unique=False, nullable=False,
-                      info={'validators': Email()})
+    email = db.Column(db.String(140), nullable=False, info={'validators': Email()})
     slogan = db.Column(db.String(140), nullable=False)
     city = db.Column(db.String(140), nullable=False)
     has_payed = db.Column(db.Boolean, default=False, nullable=False)
