@@ -1,5 +1,6 @@
 from app import app
 from rauth.service import OAuth2Service
+import json
 
 
 graph_url = app.config['FACEBOOK_GRAPH_URL']
@@ -15,5 +16,10 @@ def get_authorize_url(params):
     return facebook.get_authorize_url(**params)
 
 
+def _oauth_decode(data):
+    new_data = data.decode("utf-8", "strict")
+    return json.loads(new_data)
+
+
 def get_auth_session(data):
-    return facebook.get_auth_session(data=data)
+    return facebook.get_auth_session(data=data, decoder=_oauth_decode)
