@@ -11,10 +11,10 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
     'SUBMIT_OPEN': parser.parse("2018-04-04 18:00:00 +0100"),
-    'SUBMIT_CLOSE': parser.parse("2017-04-25 03:00:00 +0100"),
-    'YEAR': 'tvi-tausen-tjutåån',
-    'START_DATE': '5:e maj',
-    'END_DATE': '7:e maj',
+    'SUBMIT_CLOSE': parser.parse("2018-04-20 18:00:00 +0100"),
+    'YEAR': 'Tvi-tausen-autåhnn',
+    'START_DATE': '4:e maj',
+    'END_DATE': '6:e maj',
 # EXAMPLE ON HOW TO FILL SCHEDULE DATA
 #    [
 #       {
@@ -29,7 +29,20 @@ FLUMRIDE = {
 #           'day': 'Lördag',
 #           'data': ['stuff', 'stuff2']
 #       }
-    'schedule': [],
+    'schedule': [
+        {
+            'day': 'Fredag',
+            'data': ["Caps VM"]
+        },
+        {
+            'day': 'Lördag',
+            'data': ["Flumrundan", "Sittning"]
+        },
+        {
+            'day': 'Söndag',
+            'data': ["Nu är det dags att åka hem och börja återhämtningen till nästa år"]
+        }
+    ],
     'ticket_types': [
         {
             'name': 'Kånntainerpasset',
@@ -51,14 +64,14 @@ FLUMRIDE = {
         }
     ],
     'payment': {
-        'last_payment_date': '2017-04-27',
+        'last_payment_date': '2018-04-27',
         'bank': 'Swedbank',
         'account_number': '8327-9,944 894 648-4'
     },
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_NOT_SFS': 50,
-    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/1899427956960956/',
-    'TRAILER_URL': 'https://www.youtube.com/embed/MpQUGAhlpcE'
+    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/199349150800963/',
+    'TRAILER_URL': 'https://www.youtube.com/embed/QGNEu-VbV0I'
 }
 
 FACEBOOK_GRAPH_URL = 'https://graph.facebook.com/'
