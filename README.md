@@ -32,17 +32,17 @@ from app import db
 
 ### Flytta medlem mellan lag ###
 m = TeamMember.query.get(21)
-from = Team.query.get(2)
-to = Team.query.get(4)
+fromTeam = Team.query.get(2)
+toTeam = Team.query.get(4)
 
-m in from.members => True
-m in to.members => False
+m in fromTeam.members => True
+m in toTeam.members => False
 
-to.members.append(m)
-from.members.remove(m)
+toTeam.members.append(m)
+fromTeam.members.remove(m)
 
-m in from.members => False
-m in to.members => True
+m in fromTeam.members => False
+m in toTeam.members => True
 db.session.commit()
 
 
