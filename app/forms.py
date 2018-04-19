@@ -18,11 +18,14 @@ class MemberForm(ModelForm, wtforms.Form):
     def __init__(self, *args, **kwargs):
         super(MemberForm, self).__init__(*args, **kwargs)
         member = kwargs.get('obj')
-        tickets_to_keep = []
+        tickets_to_del = []
         for index, ticket in self.tickets:
-            if (logic.get_number_of_tickets_for_this_type_left(index) > 0 or (member and index == member.ticket_type)):
-                tickets_to_keep.append(ticket)
-        self.tickets = tickets_to_keep
+            if (logic.get_number_of_tickets_for_this_type_left(index) <= 0 and member and index != member.ticket_type):
+                tickets_to_del.append(index)
+
+        tickets_to_del.sort(reverse=True)
+        for index in tickets_to_del:
+            del self.tickets[index]
 
 class TeamForm(ModelForm, Form):
     class Meta:
