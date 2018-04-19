@@ -12,9 +12,17 @@ class MemberForm(ModelForm, wtforms.Form):
         model = TeamMember
     tickets = []
     for index,ticket in enumerate(app.config['FLUMRIDE']['ticket_types']):
-        if (logic.get_number_of_tickets_for_this_type_left(index) > 0):
-            tickets.append( (index, ticket['name'] +' - ' +str(ticket['price']) + 'kr') )
+        tickets.append( (index, ticket['name'] +' - ' +str(ticket['price']) + 'kr') )
     ticket_type = RadioField('Välj biljett:', choices=tickets, coerce=int)
+    
+    def __init__(self, *args, **kwargs):
+        super(MemberForm, self).__init__(*args, **kwargs)
+        member = kwargs.get('obj')
+        tickets_to_keep = []
+        for index, ticket in self.tickets:
+            if (logic.get_number_of_tickets_for_this_type_left(index) > 0 or (member and index == member.ticket_type)):
+                tickets_to_keep.append(ticket)
+        self.tickets = tickets_to_keep
 
 class TeamForm(ModelForm, Form):
     class Meta:
