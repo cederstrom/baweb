@@ -24,41 +24,50 @@ $ python run.py
 
 ```bash
 workon baweb-prod
+cd baweb-prod
+python
 ```
+
+### Flytta medlem mellan lag
 ```python
 from app.models import Team, TeamMember, User
 from app import db
 
+m = TeamMember.query.get(1)
+Team.query.get(1).members.append(m)
+Team.query.get(2).members.remove(m)
 
-### Flytta medlem mellan lag ###
-m = TeamMember.query.get(21)
-fromTeam = Team.query.get(2)
-toTeam = Team.query.get(4)
-
-m in fromTeam.members => True
-m in toTeam.members => False
-
-toTeam.members.append(m)
-fromTeam.members.remove(m)
-
-m in fromTeam.members => False
-m in toTeam.members => True
 db.session.commit()
+```
 
+### Ta bort medlem
+```python
+from app.models import Team, TeamMember, User
+from app import db
 
-### Ta bort medlem ###
-TeamMember.query.filter_by(id=21).delete()
+TeamMember.query.filter_by(id=1).delete()
+
 db.session.commit()
+```
 
+### Ta bort alla lag och medlemmar
+```python
+from app.models import Team, TeamMember, User
+from app import db
 
-### Ta ort alla lag och medlemmar ###
 TeamMember.query.delete()
 Team.query.delete()
-db.session.commit()
 
+db.session.commit()
+```
 
 ### Lägga till admin ###
-u = User(nickname='nick name', email='nick@domian.topdomain', is_admin=True, generation=20, favorite_sport='', best_dekk='')
+```python
+from app.models import Team, TeamMember, User
+from app import db
+
+u = User(facebook_id=999999, nickname='nick name', email='name@example.com', is_admin=True, generation=99, favorite_sport='', best_dekk='')
 db.session.add(u)
+
 db.session.commit()
 ```
