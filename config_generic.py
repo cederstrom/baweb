@@ -10,11 +10,11 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
-    'SUBMIT_OPEN': parser.parse("2018-04-04 18:00:00 +0200"),
-    'SUBMIT_CLOSE': parser.parse("2018-04-17 18:00:00 +0200"),
-    'YEAR': 'Tvi-tausen-autåhnn',
-    'START_DATE': '4:e maj',
-    'END_DATE': '6:e maj',
+    'SUBMIT_OPEN': parser.parse("2019-04-01 18:00:00 +0100"),
+    'SUBMIT_CLOSE': parser.parse("2019-04-23 20:00:00 +0100"),
+    'YEAR': 'Tvi-tausen-Njeethåån',
+    'START_DATE': '3:e maj',
+    'END_DATE': '5:e maj',
 # EXAMPLE ON HOW TO FILL SCHEDULE DATA
 #    [
 #       {
@@ -46,32 +46,32 @@ FLUMRIDE = {
     'ticket_types': [
         {
             'name': 'Kånntainerpasset',
-            'price': 399,
-            'description': 'Sovsal (fredag och lördag) inkl. frukost, sittning, flumrunda med spårrter och "lagom" mycket dônk (är detta året vi faktiskt ska dricka upp allt?), capsVM (inkl. öhl), lunch på lördag, ett fräckt märke, två kårkvällar (plus bonuskårkväll på torsdagen om man vill)',
-            'max_nr': 40
+            'price': 349,
+            'description': 'Sovsal (fredag och lördag) inkl. frukost, sittning, flumrunda med spårrter och "lagom" mycket dônk (är detta året vi faktiskt ska dricka upp allt?), capsVM (inkl. öhl), lunch på lördag, ett fräckt märke, två kårkvällar',
+            'max_nr': 70
         },
         {
             'name': 'Kundvagnspasset',
-            'price': 299,
-            'description': 'Allt i kånntainerpasset minus soval och frukost (däremot har vi gratis kaffe på kårhuset, BYOmugg)',
-            'max_nr': 65
+            'price': 249,
+            'description': 'Allt i kånntainerpasset minus soval och frukost',
+            'max_nr': 80
         },
         {
             'name': 'Spårrtpass',
             'price': 249,
             'description': 'Allt i kånntainerpasset minus soval, frukost och sittning',
-            'max_nr': 1234
+            'max_nr': 100
         }
     ],
     'payment': {
-        'last_payment_date': '2018-04-27',
+        'last_payment_date': '2019-04-29',
         'bank': 'Swedbank',
         'account_number': '8327-9,944 894 648-4'
     },
     'MAX_NR_OF_MEMBERS': 10,
-    'MAX_NR_OF_NOT_SFS': 50,
-    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/199349150800963/',
-    'TRAILER_URL': 'https://www.youtube.com/embed/QGNEu-VbV0I'
+    'MAX_NR_OF_NOT_SFS': 70,
+    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/399225683884908/',
+    'TRAILER_URL': 'https://www.youtube.com/embed/RgPMpL3jdkY'
 }
 
 FACEBOOK_GRAPH_URL = 'https://graph.facebook.com/'
