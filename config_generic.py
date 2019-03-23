@@ -58,7 +58,7 @@ FLUMRIDE = {
         },
         {
             'name': 'Spårrtpass',
-            'price': 249,
+            'price': 199,
             'description': 'Allt i kånntainerpasset minus soval, frukost och sittning',
             'max_nr': 100
         }
