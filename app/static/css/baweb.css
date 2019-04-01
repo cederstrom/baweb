@@ -1,8 +1,8 @@
 .ticket-type-radio-list ul {
 	list-style: none;
-};
+}
 
-a.login > img {
+.fb-logo-login {
 	height: 16px;
     top: 2px;
     left: 3px;

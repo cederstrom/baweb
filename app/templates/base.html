@@ -55,9 +55,9 @@
 						<li><a href="{{ url_for('logout') }}" class="button">Logga ut {{ g.user.nickname }}</a></li>
 						{% else %}
 						<li>
-							<a href="{{ url_for('login') }}" class="button login">
+							<a href="{{ url_for('login') }}">
 								Logga in med Facebook
-								<img src="/static/images/fblogo.png">
+								<img src="/static/images/fblogo.png" class="fb-logo-login">
 							</a>
 						</li>
 						{% endif %}
