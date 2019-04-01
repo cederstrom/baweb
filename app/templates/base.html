@@ -54,7 +54,7 @@
 						{% if g.user.is_authenticated() %}
 						<li><a href="{{ url_for('logout') }}" class="button">Logga ut {{ g.user.nickname }}</a></li>
 						{% else %}
-						<li><a href="{{ url_for('login') }}" class="button">Logga in</a></li>
+						<li><a href="{{ url_for('login') }}" class="button">Logga in med Facebook</a></li>
 						{% endif %}
 					</ul>
 				</nav>
