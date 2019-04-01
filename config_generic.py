@@ -53,13 +53,13 @@ FLUMRIDE = {
         {
             'name': 'Kundvagnspasset',
             'price': 249,
-            'description': 'Allt i kånntainerpasset minus soval och frukost',
-            'max_nr': 80
+            'description': 'Allt i kånntainerpasset minus sovsal och frukost',
+            'max_nr': 60
         },
         {
             'name': 'Spårrtpass',
             'price': 199,
-            'description': 'Allt i kånntainerpasset minus soval, frukost och sittning',
+            'description': 'Allt i kånntainerpasset minus sovsal, frukost och sittning',
             'max_nr': 100
         }
     ],
