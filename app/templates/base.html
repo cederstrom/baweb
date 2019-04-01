@@ -50,11 +50,16 @@
 						{% if g.user.is_authenticated() %}
 						<li><a href="{{ url_for('flumride_members') }}">Alla anmälda kaospiloter</a></li>
 						{% endif %}
-						<li><a href="{{ url_for('contact') }}">Kontakt</a></li>						
+						<li><a href="{{ url_for('contact') }}">Kontakt</a></li>
 						{% if g.user.is_authenticated() %}
 						<li><a href="{{ url_for('logout') }}" class="button">Logga ut {{ g.user.nickname }}</a></li>
 						{% else %}
-						<li><a href="{{ url_for('login') }}" class="button">Logga in med Facebook</a></li>
+						<li>
+							<a href="{{ url_for('login') }}" class="button login">
+								Logga in med Facebook
+								<img src="/static/images/fblogo.png">
+							</a>
+						</li>
 						{% endif %}
 					</ul>
 				</nav>
