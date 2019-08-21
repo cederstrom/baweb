@@ -31,7 +31,7 @@ speaklater==1.3
 sqlparse==0.1.14
 Tempita==0.5.2
 validators==0.7
-Werkzeug==0.10.1
+Werkzeug==0.15.3
 Whoosh==2.6.0
 python-dateutil==2.4.1
 rauth==0.7.1
