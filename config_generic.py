@@ -34,7 +34,7 @@ FLUMRIDE = {
             'day': 'Fredag',
             'data': ['Brutalare från alla världens hörn anländer till Karlskrona ungefär samtidigt som alla tävlande.',
            '12:00 - 17:00: Incheckning sker utanför Multisalen i Karlskrona. Här delas flumpass, partykit™ och det finns även chans till att köpa capshandukar.',
-           '16:00 - 17:30: Nu är det dags för en ny brutalspårrt? Slip`n`die vilket kommer äga rum precis utanför incheckningen, se till att ni har kompisar på röntgen.',
+           '16:00 - 18:00: Nu är det dags för en ny brutalspårrt? Slip`n`die vilket kommer äga rum precis utanför incheckningen, se till att ni har kompisar på röntgen.',
            '19:00 - 21:00 Sker den Olympiska Fyllan, direkt importerat från de gamla grekerna för att sedan avsluta kvällen på kårhuset Villan.']
         },
         {
