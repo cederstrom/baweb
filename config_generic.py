@@ -11,7 +11,7 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
     'SUBMIT_OPEN': parser.parse("2022-04-09 12:00:00 +0100"),
-    'SUBMIT_CLOSE': parser.parse("2022-04-29 20:00:00 +0100"),
+    'SUBMIT_CLOSE': parser.parse("2022-04-24 20:00:00 +0100"),
     'YEAR': 'Tviitausen-tchjuh-tvauåh',
     'START_DATE': '6:e maj',
     'END_DATE': '8:e maj',
@@ -41,7 +41,6 @@ FLUMRIDE = {
             'day': 'Lördag',
             'data': ['12:00 - 15:00 Flumrundan, lunch serveras under tiden.',
              '18:00 - 20:00 Sittningen som ni kanske inte kommer ihåg i efterhand.',
-             '20:00 - 21:00 ÖVERRASKNING',
              '21:00 - 02:00 Kårkväll på Villan.']
         },
         {
@@ -66,7 +65,7 @@ FLUMRIDE = {
     'payment': {
         'last_payment_date': '2022-04-30',
         'bank': 'Swedbank',
-        'account_number': '8214,704 294 840'
+        'account_number': '8214-9,704 294 840-1'
     },
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_NOT_SFS': 60,
