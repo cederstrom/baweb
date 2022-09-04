@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Alla anmälda bussresenärer{% endblock %}
+{% block content %}
+
+{% set is_admin = g.user.is_authenticated() %}
+
+<script src="/static/js/jquery.tablesorter.min.js"></script>
+<script>
+	$(function() {
+		$(".tablesorter").tablesorter();
+	});
+</script>
+
+<div class="row">
+	<div class="12u">
+		<section class="box">
+			<h3>Alla anmälda bussresenärer</h3>
+			<p>
+				Totalt har vi <strong>{{ beer|length }}</strong> anmälda bussresenärer.
+			</p>
+		</section>
+		<section class="box">
+			<div class="table-wrapper">
+				<table class="tablesorter">
+					<thead>
+						<tr>
+							<th>Namn</th>
+							<th>Kårnamn</th>
+							{% if is_admin %}
+							<th>Personnummer</th>
+							<th>Allergier</th>
+							<th>Email</th>
+							<th>Har betalat</th>
+							{% endif %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for beer in beer %}
+						<tr>
+							<td>{{ beer.name }}</td>
+							<td>{{ beer.nickname }}</td>
+							{% if is_admin %}
+							<td>{{ beer.person_number }}</td>
+							<td>{{ beer.allergies }}</td>
+							<td>{{ beer.email }} </td>
+							<td>{{ 'Ja' if beer.has_payed else 'Nej' }}</td>
+							<td><a href="{{ url_for('öhlreise_edit_member', id=beer.id)}}">Edit</a></td>
+							<td><form method="post" action="{{ url_for('öhlreise_delete_member', id=beer.id)}}"><button type="submit" name="Ta bort" value="submit_value" class="link-button">Ta bort</button></td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</div>
+</div>
+{% endblock %}

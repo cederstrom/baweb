@@ -68,10 +68,10 @@ $(function() {
 				Betalat:
 				<strong>
 					{% if team.has_payed %}
-						{{ team.has_payed }}
+						{{ 'Ja' if team.has_payed else 'Nej' }}
 					{% else %}
 						<span id="has-payed-{{ team.id }}">
-							<a href="javascript:flumride_set_has_payed('{{ url_for('flumride_set_has_payed', id=team.id) }}', '{{ team.id }}');">{{ team.has_payed }}</a>
+							<a href="javascript:flumride_set_has_payed('{{ url_for('flumride_set_has_payed', id=team.id) }}', '{{ team.id }}');">{{ 'Ja' if team.has_payed else 'Nej' }}</a>
 						</span>
 					{% endif %}
 				</strong><br/>
@@ -112,7 +112,7 @@ $(function() {
 							<td>{{ member.person_number }}</td>
 							<td>{{ member.allergies }}</td>
 							<td>{{ config.FLUMRIDE.ticket_types[member.ticket_type].name}}</td>
-							<td>{{ 'X' if member.sfs else '-' }}</td>
+							<td>{{ 'Ja' if member.sfs else 'Nej' }}</td>
 							<td><a href="{{ url_for('flumride_edit_member', id=member.id) }}">Edit</a></td>
 							{% endif %}
 						</tr>

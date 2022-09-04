@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Öhlreise reseplan{% endblock %}
+{% block content %}
+<div class="box">
+	<h3>Öhlreise™</h3>
+	<p>
+		BA™ åker varje år vecka 39 ner till Köpendanmark för att dricka Carlsberg eller eventuellt en och annan Tuborg.
+	</p>
+	<p>
+		Häng med, det blir säkert katastrofalt roligt och öhl finns.
+	</p>
+	<p>
+		Bussen kommer att ha däck, ratt, säten och massa annat viktigt.
+	</p>
+	<p>
+		Det finns ett event och lite annan skit på <strong><a href="{{ config.ÖHLREISE.FACEBOOK_EVENT_URL }}" target="_blank">Fejsbook</a></strong>. Kolla in det om du gillar data.
+	</p>
+	<p>
+		<strong>Vi ses på bussen</strong>
+	</p>
+	 <a href="{{ url_for('öhlreise_submit') }}" class="button special">Till anmälan</a>
+</div>
+
+<div class="box">
+	<h3>Schema</h3>
+	{% if config.ÖHLREISE.schedule %}
+		{% for day in config.ÖHLREISE.schedule %}
+			<h4> {{day.day}} </h4>
+			<p>
+				{% for event in day.data %}
+					{{event}}
+					<br/>
+				{% endfor %}
+			</p>
+		{% endfor %}
+	{% else %}
+	<strong>Kommer snart™</strong>
+	{% endif %}
+
+</div>
+
+{% endblock %}

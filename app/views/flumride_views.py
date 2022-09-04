@@ -15,7 +15,6 @@ from app.models import Team, TeamMember
 def flumride_info():
     return render_template("flumride/info.html")
 
-
 @app.route('/flumride/submit', methods=['GET', 'POST'])
 def flumride_submit():
     if not logic.is_submit_open():
@@ -37,6 +36,7 @@ def flumride_submit():
         #Need to fetch remaing tickets again since the number may have changed if a user stayed on the page a long time
         remaining_tickets_for_type = [logic.get_number_of_tickets_for_this_type_left(ind) for ind, ticket in enumerate(app.config['FLUMRIDE']['ticket_types'])]
         number_of_non_sfs_left = logic.get_number_of_non_sfs_left()
+        print("remaining_tickets", remaining_tickets_for_type)
         return render_template("flumride/submit.html", form=form,
                                number_of_non_sfs_left=number_of_non_sfs_left, remaining_tickets_for_type=remaining_tickets_for_type)
 
@@ -59,6 +59,7 @@ def flumride_number_of_non_sfs_left():
 @app.route('/flumride/members')
 def flumride_members():
     members = TeamMember.query.order_by(TeamMember.person_number).all()
+    print('members', members)
     return render_template("flumride/members.html", members=members)
 
 
@@ -98,7 +99,6 @@ def flumride_add_member(id):
         form = MemberForm()
         return render_template("flumride/edit_member.html", form=form,
                                title='Lägg till medlem')
-
 
 @app.route('/flumride/team/<id>/set-has-payed', methods=['POST'])
 @login_required

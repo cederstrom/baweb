@@ -2,7 +2,6 @@
 from app import app, db
 from wtforms.validators import Email, Regexp
 
-
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nickname = db.Column(
@@ -65,6 +64,31 @@ class Team(db.Model):
     @staticmethod
     def get(id):
         return db.session.query(Team).get(id)
+
+class Beer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(140), nullable=False)
+    nickname = db.Column(db.String(140))
+    person_number = db.Column(db.String(13), unique=True, nullable=False,
+    info={'validators': Regexp("^[12]{1}[90]{1}[0-9]{6}-[0-9]{4}$",
+          message=u"Skriv personnummer på formatet ååååmmdd-xxxx")})
+    email = db.Column(db.String(140), nullable=False, info={'validators': Email()})
+    allergies = db.Column(db.String(140))
+    ticket_type = db.Column(db.Integer, default=False, nullable=False)
+    has_payed = db.Column(db.Boolean, default=False, nullable=False)
+    price = db.Integer()
+
+    @property
+    def price(self):
+        return app.config['ÖHLREISE']['ticket_types'][self.ticket_type]['price']
+
+    @staticmethod
+    def get(id):
+        return db.session.query(Beer).get(id)
+
+    @staticmethod
+    def ticket_count_by_type_beer(ticket_type):
+        return Beer.query.filter_by(ticket_type=ticket_type).count()
 
 
 class TeamMember(db.Model):
