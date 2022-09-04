@@ -35,3 +35,4 @@ Werkzeug==0.15.3
 Whoosh==2.6.0
 python-dateutil==2.4.1
 rauth==0.7.1
+Authlib==1.0.1
