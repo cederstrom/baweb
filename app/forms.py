@@ -3,7 +3,7 @@ from flask.ext.wtf import Form
 import wtforms
 from wtforms import FormField, SubmitField, StringField, BooleanField, RadioField
 from wtforms.validators import DataRequired, Required, ValidationError
-from .models import Team, TeamMember
+from .models import Team, TeamMember, Beer
 from wtforms_alchemy import ModelForm, ModelFieldList
 from app import app, logic
 
@@ -14,7 +14,7 @@ class MemberForm(ModelForm, wtforms.Form):
     for index,ticket in enumerate(app.config['FLUMRIDE']['ticket_types']):
         tickets.append( (index, ticket['name'] +' - ' +str(ticket['price']) + 'kr') )
     ticket_type = RadioField('Välj biljett:', choices=tickets, coerce=int)
-    
+
     def __init__(self, *args, **kwargs):
         super(MemberForm, self).__init__(*args, **kwargs)
         member = kwargs.get('obj')
@@ -61,6 +61,15 @@ class TeamForm(ModelForm, Form):
                     error = True
         if error:
             raise ValidationError("error in input")
+
+
+class BeerForm(ModelForm, Form):
+    class Meta:
+        model = Beer
+
+    accept_terms = BooleanField('accept_terms', default=False, validators=[Required()])
+    submit = SubmitField('Skicka anmälan!')
+
 
 
 class LoginForm(Form):

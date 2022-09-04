@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Anmälan{% endblock %}
+{% block content %}
+<script>
+	var offsetToStart = {{ milliseconds }};
+	var openAt = new Date();
+	openAt.setTime(openAt.getTime() + offsetToStart);
+
+	function countDown() {
+		var now = new Date();
+		var timeLeft = Math.floor((openAt.getTime() - now.getTime()) / 1000);
+
+		$('#seconds').text(timeLeft % 60);
+		$('#minutes').text(Math.floor(timeLeft / 60) % 60);
+		$('#hours').text(Math.floor(timeLeft / 3600) % 24);
+		$('#days').text(Math.floor(timeLeft / 86400));
+
+		if(timeLeft > 0)
+			setTimeout(function() { countDown(); }, 1000);
+		else
+			setTimeout(function() { location.reload(true); }, 300);
+	}
+	$(document).ready(countDown);
+
+	setTimeout(function() { location.reload(true); }, 60000);
+</script>
+
+<div class="row">
+	<div class="12u">
+		<section class="box">
+			<h3>Anmäl resenär</h3>
+			<p>
+				Biljetterna släpps om <strong id="days"></strong> dagar, <strong id="hours"></strong> timmar, <strong id="minutes"></strong> minuter och <strong id="seconds"></strong> sekunder.
+			</p>
+			<h3>Årets biljetter kommer vara: </h3>
+			{% for ticket in config.ÖHLREISE.ticket_types %}
+			<h4>{{ticket.name}} - {{ticket.price}} Riksdaler</h4>
+			<p>
+				Och i denna fantastiska biljett ingår då:
+				<br/>
+				<i>{{ticket.description}} </i>
+			</p>
+			{% endfor %}
+
+			<p>
+				Medan du väntar kan du passa på att ta reda på vad du vill handla hos <a href="https://driveinbottleshop.dk/" target="_blank">Bottle shop</a>
+			</p>
+			<a href="{{ url_for('beer') }}" class="button special small">Mer info</a>
+		</section>
+	</div>
+</div>
+
+{% endblock %}

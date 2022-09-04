@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Anmälan{% endblock %}
+{% block content %}
+
+<script>
+Element.prototype.documentOffsetTop = function () {
+    return this.offsetTop + ( this.offsetParent ? this.offsetParent.documentOffsetTop() : 0 );
+};
+
+var errors = "{{ form.errors|safe }}";
+errors = errors.split("'").join('"');
+errors = JSON.parse(errors);
+$(function() {
+	if (Object.keys(errors).length > 0) {
+		var error_id = Object.keys(errors)[0];
+		if (error_id === 'members')
+			error_id = 'members-0-name_of_member';
+		var top = document.getElementById( error_id ).documentOffsetTop() - ( window.innerHeight / 2 );
+		alert("Du har matat in något galet. Gör om, gör rätt.");
+		window.scrollTo( 0, top );
+	}
+});
+
+</script>
+
+<div class="row">
+	<div class="12u">
+		<section class="box">
+			<h3>Anmälan</h3>
+			<p>
+				Biljetterna har släppts!
+			</p>
+      {% for ticket in config.ÖHLREISE.ticket_types %}
+      <h4>{{ticket.name}} - {{ticket.price}} Riksdaler</h4>
+      <span>Biljetter kvar: <strong>{{remaining_tickets_for_type[loop.index0]}} st</strong> </span>
+			<p>
+				Och i denna fantastiska biljett ingår då:
+				<br/>
+        <i>{{ticket.description}} </i>
+			</p>
+      {% endfor %}
+		</section>
+		<form method="post" action="{{ url_for('öhlreise_submit') }}" name="submit_beer" autocomplete="off">
+		{{ form.hidden_tag() }}
+
+		<section class="box">
+			<h3> Säkerhetsklassad information </h3>
+			<div class="row uniform 50%">
+				<div class="4u 12u(mobilep)">
+				{{ form.name(placeholder="För- och efternamn *") }}
+				{% for error in form.name.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</div>
+			<div class="4u 12u(mobilep)">
+				{{ form.nickname(placeholder="Kårnamn") }}
+			</div>
+			<div class="4u 12u(mobilep)">
+				{{ form.email(placeholder="epost@din.com *", type="email", autocomplete="on") }}
+				{% for error in form.email.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</div>
+			<div class="4u 12u(mobilep)">
+				{{ form.person_number(placeholder="Personnummer * (ååååmmdd-xxxx)") }}
+				{% for error in form.person_number.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</div>
+				<div class="4u 12u(mobilep)">
+				{{ form.allergies(placeholder="Allergier") }}
+				{% for error in form.allergies.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</div>
+		</section>
+
+		<section class="box">
+			<p>
+				<i>Efter att du har skickat din anmälan kommer du få ett epost med betalningsuppgifter.</i>
+			</p>
+			<p>
+				{{ form.accept_terms }}
+				<label for="accept_terms">Jag förstår att anmälan är bindande och att Brutal-Akademien kommer kräva mig på pengar. *</label>
+				{% for error in form.accept_terms.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</p>
+				{{ form.submit(class="fit big special") }}
+			</section>
+		</form>
+	</div>
+</div>
+{% endblock %}

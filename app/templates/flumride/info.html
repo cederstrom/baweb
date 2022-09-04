@@ -12,6 +12,10 @@
 	<h4> (Här kommer ni kunna förvänta er en trailer när den är klar, vilket såklart är snart™) </h4>
 	{% endif %}
 	<h3>Flumride™ - {{ config.FLUMRIDE.YEAR }}</h3>
+	<h4>
+		Likt varje år arrangeras Flumride™ vecka 18.
+	</h4>
+	{% if config.FLUMRIDE.schedule %}
 	<p>
 		Sexmästeriet i Karlskrona och BA™ svettas som feta oäkta finnar i en sauna nu när planeringen inför Flumride™ har tagit sin början.
 	</p>
@@ -28,6 +32,11 @@
 		<strong>Vi ses i khånntajnern!</strong>
 	</p>
 	<a href="{{ url_for('flumride_submit') }}" class="button special">Till anmälan</a>
+	{% else %}
+	<p>
+		Information om nästa flummen kommer snart™ 
+	</p>
+	{% endif %}
 </div>
 
 <div class="box">
@@ -45,6 +54,6 @@
 	{% else %}
 	<strong>Kommer snart™</strong>
 	{% endif %}
-	
+
 </div>
 {% endblock %}

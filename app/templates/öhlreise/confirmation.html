@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Anmälan{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="12u">
+		<section class="box">
+			<p>
+	<h3>Tack för din anmälan!</h3>
+	<p>
+		Nu är du ta mig fan anmäld till årets Öhlreise!
+	</p>
+
+	<h4>Skriv ner det här...</h4>
+	<p>
+		Priset du får pröjsa för denna fantastiska resa är inte mer än <strong>{{ beer.price }}</strong> kr.<br>
+		Dessa surt förvärvade kontanter vill vi ha insatta på Brutal Akademiens pengartvättskonto hos {{config.ÖHLREISE.payment.bank}} på konton {{config.ÖHLREISE.payment.account_number}} senast <strong>{{config.ÖHLREISE.payment.last_payment_date}}</strong>, märk betalningen med ditt namn ({{ beer.name }}).
+	</p>
+	<p>
+		Du ska ha fått en bokningsbekräftelse via e-post med samma information som på den här sidan men det kan vara bra att <strong>spara denna information</strong> utifall du inte fått mailet.
+	</p>
+</div>
+{% endblock %}

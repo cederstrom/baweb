@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="12u">
+		<section class="box">
+			<h3>{{ title }}</h3>
+			<form method="post">
+				<div class="row uniform 50%">
+					<div class="4u 12u(mobilep)">
+						<th>Namn</th>
+						{{ form.name(placeholder="Namn *") }}
+					</div>
+					<div class="4u 12u(mobilep)">
+						<th>Kårnamn</th>
+						{{ form.nickname(placeholder="Kårnamn") }}
+					</div>
+					<div class="4u 12u(mobilep)">
+						<th>Personnummer</th>
+						{{ form.person_number(placeholder="Personnummer * (ååååmmdd-xxxx)") }}
+						{% for error in form.person_number.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</div>
+					<div class="4u 12u(mobilep)">
+						<th>Allergier</th>
+						{{ form.allergies(placeholder="Allergier") }}
+						{% for error in form.allergies.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</div>
+					<div class="4u 12u(mobilep)">
+						<th>Email</th>
+						{{ form.email(placeholder="Email *") }}
+					</div>
+				</div>
+					<div class="row uniform 50%">
+						<div class="3u 12u(mobilep)">
+							{{ form.has_payed }}
+							<label for="has_payed">Betalat</label>
+						</div>
+					</div>
+				<div class="row uniform">
+					<div class="12u">
+						<input type="submit" value="Spara" class="special small">
+					</div>
+				</div>
+			</form>
+		</section>
+	</div>
+</div>
+{% endblock %}

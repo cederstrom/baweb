@@ -44,9 +44,14 @@
 					<ul>
 						<li><a href="{{ url_for('index') }}">Hem</a></li>
 						<li><a href="{{ url_for('sports') }}">Brutalspårrter</a></li>
+						<li><a href="{{ url_for('beer') }}">Öhlreise</a></li>
+						{% if g.user.is_authenticated() %}
+						<li><a href="{{ url_for('öhlreise_members') }}"> Anmälda bussresenärer</a></li>
+						{% endif %}
 						<li><a href="{{ url_for('flumride_info') }}">Flumride</a></li>
-						<li><a href="{{ url_for('flumride_submit') }}">Anmäl lag</a></li>
+						{% if g.user.is_authenticated() %}
 						<li><a href="{{ url_for('flumride_teams') }}">Alla anmälda lag</a></li>
+						{% endif %}
 						{% if g.user.is_authenticated() %}
 						<li><a href="{{ url_for('flumride_members') }}">Alla anmälda kaospiloter</a></li>
 						{% endif %}
