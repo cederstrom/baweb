@@ -1,5 +1,5 @@
 from flask import redirect, url_for, request, g
-from flask.ext.login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user
 from app import app, lm, oauth
 from app.models import User
 import json
