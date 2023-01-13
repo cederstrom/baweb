@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from flask.ext.wtf import Form
+from flask_wtf import Form
 import wtforms
 from wtforms import FormField, SubmitField, StringField, BooleanField, RadioField
-from wtforms.validators import DataRequired, Required, ValidationError
+from wtforms.validators import DataRequired, ValidationError
 from .models import Team, TeamMember, Beer
 from wtforms_alchemy import ModelForm, ModelFieldList
 from app import app, logic
@@ -33,7 +33,7 @@ class TeamForm(ModelForm, Form):
 
     members = ModelFieldList(FormField(MemberForm),
                              min_entries=1, max_entries=10)
-    accept_terms = BooleanField('accept_terms', default=False, validators=[Required()])
+    accept_terms = BooleanField('accept_terms', default=False, validators=[DataRequired()])
     submit = SubmitField('Skicka anmälan!')
 
     def validate_members(self, members):
@@ -67,7 +67,7 @@ class BeerForm(ModelForm, Form):
     class Meta:
         model = Beer
 
-    accept_terms = BooleanField('accept_terms', default=False, validators=[Required()])
+    accept_terms = BooleanField('accept_terms', default=False, validators=[DataRequired()])
     submit = SubmitField('Skicka anmälan!')
 
 
