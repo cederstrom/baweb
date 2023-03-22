@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-from flask_wtf import Form
-import wtforms
+from flask_wtf import FlaskForm
 from wtforms import FormField, SubmitField, StringField, BooleanField, RadioField
 from wtforms.validators import DataRequired, ValidationError
 from .models import Team, TeamMember, Beer
 from wtforms_alchemy import ModelForm, ModelFieldList
 from app import app, logic
 
-class MemberForm(ModelForm, wtforms.Form):
+class MemberForm(ModelForm, FlaskForm):
     class Meta:
         model = TeamMember
     tickets = []
@@ -27,7 +26,7 @@ class MemberForm(ModelForm, wtforms.Form):
         for index in tickets_to_del:
             del self.tickets[index]
 
-class TeamForm(ModelForm, Form):
+class TeamForm(ModelForm, FlaskForm):
     class Meta:
         model = Team
 
@@ -63,7 +62,7 @@ class TeamForm(ModelForm, Form):
             raise ValidationError("error in input")
 
 
-class BeerForm(ModelForm, Form):
+class BeerForm(ModelForm, FlaskForm):
     class Meta:
         model = Beer
 
@@ -72,6 +71,6 @@ class BeerForm(ModelForm, Form):
 
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     openid = StringField('openid', validators=[DataRequired()])
     remember_me = BooleanField('remember_me', default=False)
