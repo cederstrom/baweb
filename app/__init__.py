@@ -9,5 +9,6 @@ db = SQLAlchemy(app)
 lm = LoginManager(app)
 app.secret_key = app.config['SECRET_KEY']
 csrf = CSRFProtect(app)
+app.app_context().push()
 
 from app import views, models
