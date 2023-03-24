@@ -119,14 +119,25 @@ $(function() {
 							</div>
 						</div>
 						<div class="row uniform 50%">
-							<div class="4u 12u(mobilep) ticket-type-radio-list">
-                {{ form.csrf_token }}
-								{{m.ticket_type.label(style="margin-bottom: 0px")}}
-                                {{m.ticket_type}}
-								{% for error in m.ticket_type.errors %}
-									<span style="color: red;">[{{ error }}]</span>
-								{% endfor %}
-							</div>
+						<div class="4u 12u(mobilep) ticket-type-radio-list">
+							{{ form.csrf_token }}
+						    {{m.ticket_type.label(style="margin-bottom: 0px")}}
+						    {{m.ticket_type}}
+						    {% for error in m.ticket_type.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						    {% endfor %}
+						    {% if m.ticket_type.value == 'certain_value' %}
+							{{m.drink_option.label(style="margin-bottom: 0px")}}
+							{% for error in m.drink_option.errors %}
+							    <span style="color: red;">[{{ error }}]</span>
+							{% endfor %}
+								{{ form.csrf_token }}
+							<label><input type="radio" name="drink_option" value="two_beers" required> Två öl</label>
+							<label><input type="radio" name="drink_option" value="two_ciders"> Två cider</label>
+							<label><input type="radio" name="drink_option" value="one_beer_one_cider"> En öl och en cider</label>
+							<label><input type="radio" name="drink_option" value="non_alcoholic"> Alkoholfritt</label>
+						    {% endif %}
+						</div>
 							<div class="4u 12u(mobilep)">
 								{% if block_non_sfs %}
 									{{ m.sfs(checked=true, readonly=true, onclick="alert(message_no_non_sfs_left); return false;") }}
