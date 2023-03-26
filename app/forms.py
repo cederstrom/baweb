@@ -13,6 +13,10 @@ class MemberForm(ModelForm, FlaskForm):
     for index,ticket in enumerate(app.config['FLUMRIDE']['ticket_types']):
         tickets.append( (index, ticket['name'] +' - ' +str(ticket['price']) + 'kr') )
     ticket_type = RadioField('Välj biljett:', choices=tickets, coerce=int)
+    drinks = []
+    for index,drink in enumerate(app.config['FLUMRIDE']['drink_options']):
+        drinks.append( (index, drink['name']) )
+    drink_option = RadioField('Välj dryck, gäller endast Kånntainerpasset:', choices=drinks, coerce=int)
 
     def __init__(self, *args, **kwargs):
         super(MemberForm, self).__init__(*args, **kwargs)

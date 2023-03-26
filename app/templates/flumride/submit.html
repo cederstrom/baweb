@@ -52,26 +52,24 @@ $(function() {
 		</section>
 		<form method="post" action="{{ url_for('flumride_submit') }}" name="submit_team" autocomplete="off">
 			{{ form.hidden_tag() }}
+      {{ form.csrf_token }}
 
 			<section class="box">
 				<h3>Anmäl ett lag</h3>
 				<div class="row uniform 50%">
 					<div class="4u 12u(mobilep)">
-            {{ form.csrf_token }}
 						{{ form.name(placeholder="Lagnamn *") }}
 						{% for error in form.name.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</div>
 					<div class="4u 12u(mobilep)">
-            {{ form.csrf_token }}
 						{{ form.email(placeholder="Epost *", type="email", autocomplete="on") }}
 						{% for error in form.email.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</div>
 					<div class="4u 12u(mobilep)">
-            {{ form.csrf_token }}
 						{{ form.city(placeholder="Stad *") }}
 						{% for error in form.city.errors %}
 						<span style="color: red;">[{{ error }}]</span>
@@ -80,7 +78,6 @@ $(function() {
 				</div>
 				<div class="row uniform 50%">
 					<div class="12u">
-            {{ form.csrf_token }}
 						{{ form.slogan(placeholder="Slogan *") }}
 						{% for error in form.slogan.errors %}
 						<span style="color: red;">[{{ error }}]</span>
@@ -97,21 +94,18 @@ $(function() {
 					<div data-toggle="fieldset-entry">
 						<div class="row uniform 50%">
 							<div class="4u 12u(mobilep)">
-                {{ form.csrf_token }}
 								{{ m.name_of_member(placeholder="Namn *") }}
 								{% for error in m.name_of_member.errors %}
 								<span style="color: red;">[{{ error }}]</span>
 								{% endfor %}
 							</div>
 							<div class="4u 12u(mobilep)">
-                {{ form.csrf_token }}
 								{{ m.person_number(placeholder="Personnummer * (ååååmmdd-xxxx)") }}
 								{% for error in m.person_number.errors %}
 								<span style="color: red;">[{{ error }}]</span>
 								{% endfor %}
 							</div>
 							<div class="4u 12u(mobilep)">
-                {{ form.csrf_token }}
 								{{ m.allergies(placeholder="Allergier") }}
 								{% for error in m.allergies.errors %}
 								<span style="color: red;">[{{ error }}]</span>
@@ -120,24 +114,19 @@ $(function() {
 						</div>
 						<div class="row uniform 50%">
 						<div class="4u 12u(mobilep) ticket-type-radio-list">
-							{{ form.csrf_token }}
 						    {{m.ticket_type.label(style="margin-bottom: 0px")}}
 						    {{m.ticket_type}}
 						    {% for error in m.ticket_type.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						    {% endfor %}
-						    {% if m.ticket_type.value == 'certain_value' %}
-							{{m.drink_option.label(style="margin-bottom: 0px")}}
-							{% for error in m.drink_option.errors %}
-							    <span style="color: red;">[{{ error }}]</span>
-							{% endfor %}
-								{{ form.csrf_token }}
-							<label><input type="radio" name="drink_option" value="two_beers" required> Två öl</label>
-							<label><input type="radio" name="drink_option" value="two_ciders"> Två cider</label>
-							<label><input type="radio" name="drink_option" value="one_beer_one_cider"> En öl och en cider</label>
-							<label><input type="radio" name="drink_option" value="non_alcoholic"> Alkoholfritt</label>
-						    {% endif %}
 						</div>
+            <div class="4u 12u(mobilep) ticket-type-radio-list">
+                {{m.drink_option.label(style="margin-bottom: 0px")}}
+                {{m.drink_option}}
+                {% for error in m.drink_option.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
 							<div class="4u 12u(mobilep)">
 								{% if block_non_sfs %}
 									{{ m.sfs(checked=true, readonly=true, onclick="alert(message_no_non_sfs_left); return false;") }}

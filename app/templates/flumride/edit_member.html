@@ -8,6 +8,7 @@
 			<form method="post">
 				<div class="row uniform 50%">
 					<div class="4u 12u(mobilep)">
+						{{ form.csrf_token }}
 						{{ form.name_of_member(placeholder="Namn *") }}
 					</div>
 					<div class="4u 12u(mobilep)">
@@ -26,6 +27,9 @@
 				<div class="row uniform 50%">
 					<div class="3u 12u(mobilep) ticket-type-radio-list">
 						{{ form.ticket_type }}
+					</div>
+					<div class="3u 12u(mobilep) ticket-type-radio-list">
+						{{ form.drink_option }}
 					</div>
 					<div class="4u 12u(mobilep)">
 						{{ form.sfs }}
