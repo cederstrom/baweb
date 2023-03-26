@@ -99,6 +99,7 @@ $(function() {
 							<th>Personnummer</th>
 							<th>Allergier</th>
 							<th>Biljett</th>
+							<th>Dryck</th>
 							<th>SFS</th>
 							<th> </th>
 							{% endif %}
@@ -112,6 +113,7 @@ $(function() {
 							<td>{{ member.person_number }}</td>
 							<td>{{ member.allergies }}</td>
 							<td>{{ config.FLUMRIDE.ticket_types[member.ticket_type].name}}</td>
+							<td>{{ config.FLUMRIDE.drink_options[member.drink_option].name }}</td>
 							<td>{{ 'Ja' if member.sfs else 'Nej' }}</td>
 							<td><a href="{{ url_for('flumride_edit_member', id=member.id) }}">Edit</a></td>
 							{% endif %}

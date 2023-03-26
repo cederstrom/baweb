@@ -100,6 +100,7 @@ class TeamMember(db.Model):
         info={'validators': Regexp("^[12]{1}[90]{1}[0-9]{6}-[0-9]{4}$",
               message=u"Skriv personnummer på formatet ååååmmdd-xxxx")})
     allergies = db.Column(db.String(140))
+    drink_option = db.Column(db.Integer, default=False, nullable=True)
     ticket_type = db.Column(db.Integer, default=False, nullable=False)
     sfs = db.Column(db.Boolean, default=False, nullable=False)
     price = db.Integer()

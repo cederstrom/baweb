@@ -52,6 +52,7 @@ $(function() {
 		</section>
 		<form method="post" action="{{ url_for('flumride_submit') }}" name="submit_team" autocomplete="off">
 			{{ form.hidden_tag() }}
+      {{ form.csrf_token }}
 
 			<section class="box">
 				<h3>Anmäl ett lag</h3>
@@ -112,13 +113,20 @@ $(function() {
 							</div>
 						</div>
 						<div class="row uniform 50%">
-							<div class="4u 12u(mobilep) ticket-type-radio-list">
-								{{m.ticket_type.label(style="margin-bottom: 0px")}}
-                                {{m.ticket_type}}
-								{% for error in m.ticket_type.errors %}
-									<span style="color: red;">[{{ error }}]</span>
-								{% endfor %}
-							</div>
+						<div class="4u 12u(mobilep) ticket-type-radio-list">
+						    {{m.ticket_type.label(style="margin-bottom: 0px")}}
+						    {{m.ticket_type}}
+						    {% for error in m.ticket_type.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						    {% endfor %}
+						</div>
+            <div class="4u 12u(mobilep) ticket-type-radio-list">
+                {{m.drink_option.label(style="margin-bottom: 0px")}}
+                {{m.drink_option}}
+                {% for error in m.drink_option.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
 							<div class="4u 12u(mobilep)">
 								{% if block_non_sfs %}
 									{{ m.sfs(checked=true, readonly=true, onclick="alert(message_no_non_sfs_left); return false;") }}
@@ -137,9 +145,7 @@ $(function() {
 					</div>
 					{% endfor %}
 
-					{% if loop.last %}
 					<a data-toggle="fieldset-add-row" data-target="#members-fieldset" class="button small">Lägg till medlem</a>
-					{% endif %}
 				</div>
 			</section>
 

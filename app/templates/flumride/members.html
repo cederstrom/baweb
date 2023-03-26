@@ -30,6 +30,7 @@
 							<th>Personnummer</th>
 							<th>Allergier</th>
 							<th>Biljett</th>
+							<th>Dryck</th>
 							<th>SFS</th>
 							{% endif %}
 						</tr>
@@ -43,6 +44,7 @@
 							<td>{{ member.person_number }}</td>
 							<td>{{ member.allergies }}</td>
 							<td>{{ config.FLUMRIDE.ticket_types[member.ticket_type].name}}</td>
+							<td>{{ config.FLUMRIDE.drink_options[member.drink_option].name}}</td>
 							<td>{{ 'Ja' if member.sfs else '_' }}</td>
 							{% endif %}
 						</tr>
