@@ -10,5 +10,6 @@ lm = LoginManager(app)
 app.secret_key = app.config['SECRET_KEY']
 csrf = CSRFProtect(app)
 app.app_context().push()
+WTF_CSRF_ENABLED=False
 
 from app import views, models
