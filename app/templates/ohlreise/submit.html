@@ -40,8 +40,8 @@ $(function() {
 			</p>
       {% endfor %}
 		</section>
-		<form method="post" action="{{ url_for('öhlreise_submit') }}" name="submit_beer" autocomplete="off">
-		{{ form.hidden_tag() }}
+		<form method="post" action="{{ url_for('ohlreise_submit') }}" name="submit_beer" autocomplete="off">
+		 {{ form.csrf_token }}
 
 		<section class="box">
 			<h3> Säkerhetsklassad information </h3>

@@ -51,7 +51,6 @@ $(function() {
 			</p>
 		</section>
 		<form method="post" action="{{ url_for('flumride_submit') }}" name="submit_team" autocomplete="off">
-			{{ form.hidden_tag() }}
       {{ form.csrf_token }}
 
 			<section class="box">
