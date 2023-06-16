@@ -14,12 +14,12 @@ def has_submit_closed():
     is_closed = anmalan_closes_at < datetime.now(timezone.utc)
     return is_closed
 
-def is_submit_öhlreise_open():
+def is_submit_ohlreise_open():
     anmalan_open_at = app.config['ÖHLREISE']['SUBMIT_OPEN']
     is_open = anmalan_open_at < datetime.now(timezone.utc)
     return is_open
 
-def has_submit_öhlreise_closed():
+def has_submit_ohlreise_closed():
     anmalan_closes_at = app.config['ÖHLREISE']['SUBMIT_CLOSE']
     is_closed = anmalan_closes_at < datetime.now(timezone.utc)
     return is_closed
@@ -30,7 +30,7 @@ def get_milliseconds_until_submit_opens():
     delta_milliseconds = (submit_open - now).total_seconds() * 1000
     return int(round(delta_milliseconds))
 
-def get_milliseconds_until_öhlreise_submit_opens():
+def get_milliseconds_until_ohlreise_submit_opens():
     submit_open = app.config['ÖHLREISE']['SUBMIT_OPEN']
     now = datetime.now(timezone.utc)
     delta_milliseconds = (submit_open - now).total_seconds() * 1000

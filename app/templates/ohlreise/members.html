@@ -44,8 +44,11 @@
 							<td>{{ beer.allergies }}</td>
 							<td>{{ beer.email }} </td>
 							<td>{{ 'Ja' if beer.has_payed else 'Nej' }}</td>
-							<td><a href="{{ url_for('öhlreise_edit_member', id=beer.id)}}">Edit</a></td>
-							<td><form method="post" action="{{ url_for('öhlreise_delete_member', id=beer.id)}}"><button type="submit" name="Ta bort" value="submit_value" class="link-button">Ta bort</button></td>
+							<td><a href="{{ url_for('ohlreise_edit_member', id=beer.id)}}">Edit</a></td>
+							<form method="post" action="{{ url_for('ohlreise_delete_member', id=beer.id)}}">
+								{{ form.csrf_token }}
+							<td><button type="submit" name="Ta bort" value="submit_value" class="link-button">Ta bort</button></td>
+							</form>
 							{% endif %}
 						</tr>
 						{% endfor %}

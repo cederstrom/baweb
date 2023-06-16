@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, csrf
 from wtforms import FormField, SubmitField, StringField, BooleanField, RadioField
 from wtforms.validators import DataRequired, ValidationError
 from .models import Team, TeamMember, Beer
@@ -16,7 +16,7 @@ class MemberForm(ModelForm, FlaskForm):
     drinks = []
     for index,drink in enumerate(app.config['FLUMRIDE']['drink_options']):
         drinks.append( (index, drink['name']) )
-    drink_option = RadioField('Välj dryck, gäller endast Kånntainerpasset:', choices=drinks, coerce=int)
+    drink_option = RadioField('Välj dryck till sittningen:', choices=drinks, coerce=int)
 
     def __init__(self, *args, **kwargs):
         super(MemberForm, self).__init__(*args, **kwargs)
@@ -73,7 +73,8 @@ class BeerForm(ModelForm, FlaskForm):
     accept_terms = BooleanField('accept_terms', default=False, validators=[DataRequired()])
     submit = SubmitField('Skicka anmälan!')
 
-
+class DeleteForm(FlaskForm):
+    submit = SubmitField('Delete')
 
 class LoginForm(FlaskForm):
     openid = StringField('openid', validators=[DataRequired()])
