@@ -19,3 +19,6 @@ def contact():
 def sports():
     return render_template("sports.html")
 
+@app.route('/privacy')
+def privacy():
+    return render_template("privacy.html")
