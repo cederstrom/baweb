@@ -11,7 +11,7 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
     'SUBMIT_OPEN': parser.parse("2023-03-15 12:00:00 +0100"),
-    'SUBMIT_CLOSE': parser.parse("2023-07-29 20:00:00 +0100"),
+    'SUBMIT_CLOSE': parser.parse("2023-04-29 20:00:00 +0100"),
     'YEAR': 'Tviitausen-tchjuh-thre',
     'START_DATE': '6:e maj',
     'END_DATE': '8:e maj',
@@ -96,14 +96,14 @@ FLUMRIDE = {
     'schedule': [
         {
             'day': 'Lördag',
-            'data': ['Avgång från campus 07.00 var där i god tid. På vägen ner stannar vi vid Bottle shop och hemgång från Danmark sker 17.00, beräknas vara tillbaka vid campus 21:00.']
+            'data': ['TBA']
         }
     ],
     'ticket_types': [
         {
             'name': 'Åkpasset',
-            'price': 399,
-            'description': 'Åka fram och tillbaka till Köpendanmark, två öhl och tilltugg på färden.',
+            'price': 0,
+            'description': 'Priset återkommer vi med när vi förhandlat med danskarna, men vi ska åka fram och tillbaka till Köpendanmark, två öhl och tilltugg ingår på färden.',
             'max_nr': 55
         }
     ],
@@ -112,7 +112,7 @@ FLUMRIDE = {
         'bank': 'Swedbank',
         'account_number': '8214-9,704 294 840-1'
     },
-    #'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/1060377801315149'
+    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/169395272786627'
 }
 
 FACEBOOK_GRAPH_URL = 'https://graph.facebook.com/'
