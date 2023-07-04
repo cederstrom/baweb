@@ -28,7 +28,8 @@ def flumride_submit():
         return render_template("flumride/submit_temp_closed.html")
 
     form = TeamForm()
-    if form.validate_on_submit():
+    
+    if request.method == 'POST':
         team = _create_team(request)
         mail.send(team.email, team.price, team.name)
         return render_template("flumride/confirmation.html", team=team)

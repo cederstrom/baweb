@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask_wtf import FlaskForm, csrf
+from flask_wtf import FlaskForm
 from wtforms import FormField, SubmitField, StringField, BooleanField, RadioField
 from wtforms.validators import DataRequired, ValidationError
 from .models import Team, TeamMember, Beer
