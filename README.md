@@ -2,14 +2,14 @@
 
 ## Requirements
 
-Python 3.x
+Python 3.8
 
 ## Setup
 
 ```bash
 $ git clone https://github.com/cederstrom/baweb.git
 $ cd baweb
-$ mkvirtualenv --python=/usr/bin/python3 baweb
+$ mkvirtualenv --python=/usr/bin/python3.8 baweb
 $ pip install -r requirements.txt
 $ python db_create.py
 ```
