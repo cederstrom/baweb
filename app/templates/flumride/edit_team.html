@@ -9,7 +9,6 @@
 				<div class="row uniform 50%">
 					<div class="4u 12u(mobilep)">
 						Lagnamn
-						{{ form.csrf_token }}
 						{{ form.name(placeholder="Lagnamn *") }}
 						{% for error in form.name.errors %}
 						<span style="color: red;">[{{ error }}]</span>

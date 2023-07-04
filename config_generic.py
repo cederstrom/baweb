@@ -11,7 +11,7 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
     'SUBMIT_OPEN': parser.parse("2023-03-15 12:00:00 +0100"),
-    'SUBMIT_CLOSE': parser.parse("2023-04-29 20:00:00 +0100"),
+    'SUBMIT_CLOSE': parser.parse("2024-04-29 20:00:00 +0100"),
     'YEAR': 'Tviitausen-tchjuh-thre',
     'START_DATE': '6:e maj',
     'END_DATE': '8:e maj',
