@@ -16,6 +16,6 @@ sess = Session(app)
 # Initialize LoginManager
 lm = LoginManager(app)
 
-app.app_contenxt()
+app.app_context().push()
 
 from app import views, models
