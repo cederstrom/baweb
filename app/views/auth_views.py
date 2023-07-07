@@ -1,12 +1,20 @@
-from flask import redirect, url_for, request
+from flask import redirect, url_for, request, session
 from flask_login import login_user, logout_user, current_user
 from app import app, lm, oauth
 from app.models import User
 import json
+from uuid import uuid4
 
 @lm.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+@app.before_request
+def before_request():
+    if 'session_id' not in session:
+        session['session_id'] = str(uuid4())
+
+    session_id = session['session_id']
 
 @app.route("/login")
 def login():
@@ -38,6 +46,7 @@ def login_callback():
                 print('No user found by facebook_id: %r' % error_facebook_id)
 
         if user:
+            user.session_id = session['session_id']
             login_user(user)
             print('Logged in as %r' % user)
             return redirect(url_for('index'))
@@ -47,8 +56,10 @@ def login_callback():
         print('User did not authorize the request')
     return redirect(url_for('logout'))
 
-
 @app.route('/logout')
 def logout():
+    if current_user.is_authenticated:
+        current_user.session_id = None
     logout_user()
+    session.clear()
     return redirect(url_for('index'))
