@@ -34,4 +34,3 @@ Werkzeug
 Whoosh
 python-dateutil
 rauth
-Flask-Session
