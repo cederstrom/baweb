@@ -2,7 +2,7 @@
 {% block title %}Kaospiloter{% endblock %}
 {% block content %}
 
-{% set is_admin = g.user.is_authenticated %}
+{% set is_admin = current_user.is_authenticated %}
 
 <script src="/static/js/jquery.tablesorter.min.js"></script>
 <script>

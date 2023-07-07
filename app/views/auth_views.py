@@ -1,4 +1,4 @@
-from flask import redirect, url_for, request, g
+from flask import redirect, url_for, request
 from flask_login import login_user, logout_user, current_user
 from app import app, lm, oauth
 from app.models import User
@@ -7,12 +7,6 @@ import json
 @lm.user_loader
 def load_user(id):
     return User.query.get(int(id))
-
-
-@app.before_request
-def before_request():
-    g.user = current_user
-
 
 @app.route("/login")
 def login():
