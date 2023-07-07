@@ -27,8 +27,8 @@ def login_callback():
     if 'code' in request.args:
         redirect_uri = url_for('login_callback', _external=True)
         data = dict(code=request.args['code'], redirect_uri=redirect_uri)
-        session = oauth.get_auth_session(data=data, decoder=json.loads)
-        me = session.get('me').json()
+        oauth_session = oauth.get_auth_session(data=data, decoder=json.loads)
+        me = oauth_session.get('me').json()
         try:
             print(json.dumps(me, sort_keys=True, indent=4, separators=(',', ': ')))
         except Exception as error:
