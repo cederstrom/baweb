@@ -36,19 +36,19 @@
 						<li><a href="{{ url_for('index') }}">Hem</a></li>
 						<li><a href="{{ url_for('sports') }}">Brutalspårrter</a></li>
 						<li><a href="{{ url_for('beer') }}">Öhlreise</a></li>
-						{% if g.user.is_authenticated %}
+						{% if current_user.is_authenticated %}
 						<li><a href="{{ url_for('ohlreise_members') }}"> Anmälda bussresenärer</a></li>
 						{% endif %}
 						<li><a href="{{ url_for('flumride_info') }}">Flumride</a></li>
-						{% if g.user.is_authenticated %}
+						{% if current_user.is_authenticated %}
 						<li><a href="{{ url_for('flumride_teams') }}">Alla anmälda lag</a></li>
 						{% endif %}
-						{% if g.user.is_authenticated %}
+						{% if current_user.is_authenticated %}
 						<li><a href="{{ url_for('flumride_members') }}">Alla anmälda kaospiloter</a></li>
 						{% endif %}
 						<li><a href="{{ url_for('contact') }}">Kontakt</a></li>
-						{% if g.user.is_authenticated %}
-						<li><a href="{{ url_for('logout') }}" class="button">Logga ut {{ g.user.nickname }}</a></li>
+						{% if current_user.is_authenticated %}
+						<li><a href="{{ url_for('logout') }}" class="button">Logga ut {{ current_user.nickname }}</a></li>
 						{% else %}
 						<li>
 							<a href="{{ url_for('login') }}" class="button">

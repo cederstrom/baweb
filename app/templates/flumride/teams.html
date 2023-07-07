@@ -2,7 +2,7 @@
 {% block title %}Alla anmälda lag{% endblock %}
 {% block content %}
 
-{% set is_admin = g.user.is_authenticated %}
+{% set is_admin = current_user.is_authenticated %}
 
 <script>
 flumride_set_has_payed = function( url, team_id ) {
