@@ -10,7 +10,7 @@ BODY = """
 Tack för din anmälan!
 
 Priset du får pröjsa för Öhlreise är %r kr.
-Vänligen sätt in pangarna på vårt pengartvättarkonto hos %r på kontonummer %r senast %r. Märk betalningen med ditt namn (%r).
+Vänligen sätt in pangarna på vårt pengartvättarkonto hos %r på swishnummer %r senast %r. Märk betalningen med ditt namn (%r).
 
 Om du upptäcker att något blev fel så är det bara att svara på det här mailet.
 

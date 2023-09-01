@@ -67,8 +67,8 @@ $(function() {
 				{% endfor %}
 			</div>
 				<div class="4u 12u(mobilep)">
-				{{ form.allergies(placeholder="Allergier") }}
-				{% for error in form.allergies.errors %}
+				{{ form.mobile_number(placeholder="Mobilnummer *") }}
+				{% for error in form.mobile_number.errors %}
 				<span style="color: red;">[{{ error }}]</span>
 				{% endfor %}
 			</div>

@@ -2,15 +2,12 @@
 import os
 from dateutil import parser
 
-
-WTF_CSRF_ENABLED = True
-
 # SQLAlchemy
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
-    'SUBMIT_OPEN': parser.parse("2023-03-15 12:00:00 +0100"),
+    'SUBMIT_OPEN': parser.parse("2024-03-15 12:00:00 +0100"),
     'SUBMIT_CLOSE': parser.parse("2024-04-29 20:00:00 +0100"),
     'YEAR': 'Tviitausen-tchjuh-thre',
     'START_DATE': '6:e maj',
@@ -88,7 +85,7 @@ FLUMRIDE = {
 }
 
 ÖHLREISE = {
-    'SUBMIT_OPEN': parser.parse("2023-09-01 12:00:00 +0100"),
+    'SUBMIT_OPEN': parser.parse("2023-09-01 11:00:00 +0100"),
     'SUBMIT_CLOSE': parser.parse("2023-09-25 20:00:00 +0100"),
     'YEAR': 'Tviitausen-tchjuh-thre',
     'START_DATE': '30:e september',
@@ -96,21 +93,25 @@ FLUMRIDE = {
     'schedule': [
         {
             'day': 'Lördag',
-            'data': ['TBA']
+            'data': ['07:00: Bussen lämnar campus, kom i god tid innan.',
+            '08:45-09:15: Pit stop på Ekerödsrasten, kanske får du klappa en get?',
+            '11:00-12:30: Bottleshop',
+            '12:50-17:00: Fri lek i Köpendanmark',
+            '17:00: Hemfärd, hemma någon gång mellan 21:00-22:45']
         }
     ],
     'ticket_types': [
         {
             'name': 'Åkpasset',
-            'price': 0,
-            'description': 'Priset återkommer vi med när vi förhandlat med danskarna, men vi ska åka fram och tillbaka till Köpendanmark, två öhl och tilltugg ingår på färden.',
-            'max_nr': 55
+            'price': 399,
+            'description': 'Vi ska åka fram och tillbaka till Köpendanmark, köpa en väldans massa öhl, och öhl kommer inmundigas. Du måste vara minst tjugo år för att få följa med på resan',
+            'max_nr': 40
         }
     ],
     'payment': {
-        'last_payment_date': '2022-09-28',
-        'bank': 'Swedbank',
-        'account_number': '8214-9,704 294 840-1'
+        'last_payment_date': '2022-09-27',
+        'bank': 'Malin Ekman',
+        'account_number': '0701317514'
     },
     'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/169395272786627'
 }

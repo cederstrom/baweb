@@ -50,12 +50,12 @@
 						{% if current_user.is_authenticated %}
 						<li><a href="{{ url_for('logout') }}" class="button">Logga ut {{ current_user.nickname }}</a></li>
 						{% else %}
-						<li>
+						<!-- <li>
 							<a href="{{ url_for('login') }}" class="button">
 								Logga in med Facebook
 								<img src="/static/images/fblogo.png" class="fb-logo-login">
 							</a>
-						</li>
+						</li> -->
 						{% endif %}
 					</ul>
 				</nav>

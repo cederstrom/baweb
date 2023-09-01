@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
 from flask_wtf import FlaskForm
 from wtforms import FormField, SubmitField, StringField, BooleanField, RadioField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms.validators import DataRequired, ValidationError, Regexp, Email
 from .models import Team, TeamMember, Beer
 from wtforms_alchemy import ModelForm, ModelFieldList
 from app import app, logic
+from datetime import datetime, timedelta
+
+def validate_age(form, field):
+    try:
+        birthdate = datetime.strptime(field.data[:8], "%Y%m%d")
+        age = (datetime.now() - birthdate) // timedelta(days=365.25)
+        if age < 20:
+            raise ValidationError("Du måste vara minst 20 år gammal för att få åka med.")
+    except ValueError:
+        raise ValidationError("Du måste vara minst 20 år gammal för att få åka med.")
+
 
 class MemberForm(ModelForm, FlaskForm):
     class Meta:
@@ -70,6 +81,21 @@ class BeerForm(ModelForm, FlaskForm):
     class Meta:
         model = Beer
 
+    name = StringField('För- och efternamn', validators=[
+        DataRequired()
+    ])
+    email = StringField('epost@din.com', validators=[
+        Email()
+    ])
+    person_number = StringField('Personnummer', validators=[
+        DataRequired(),
+        Regexp("^[12]{1}[90]{1}[0-9]{6}-[0-9]{4}$",
+                    message="Skriv personnummer på formatet ååååmmdd-xxxx"),
+                    validate_age
+        ])
+    mobile_number = StringField('Mobilnummer', validators=[
+        DataRequired()
+    ])
     accept_terms = BooleanField('accept_terms', default=False, validators=[DataRequired()])
     submit = SubmitField('Skicka anmälan!')
 
