@@ -73,7 +73,7 @@ class Beer(db.Model):
     info={'validators': Regexp("^[12]{1}[90]{1}[0-9]{6}-[0-9]{4}$",
           message=u"Skriv personnummer på formatet ååååmmdd-xxxx")})
     email = db.Column(db.String(140), nullable=False, info={'validators': Email()})
-    allergies = db.Column(db.String(140))
+    mobile_number = db.Column(db.String(13))
     ticket_type = db.Column(db.Integer, default=False, nullable=False)
     has_payed = db.Column(db.Boolean, default=False, nullable=False)
     price = db.Integer()

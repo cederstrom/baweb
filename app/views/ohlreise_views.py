@@ -76,16 +76,24 @@ def ohlreise_submit():
     form = BeerForm()
 
     if request.method == 'POST':
-        beer = _create_response(request)
-        mail_ohlreise.send(beer.email, beer.price, beer.name)
-        return render_template("ohlreise/confirmation.html", beer=beer)
-    else:
-        remaining_tickets_for_type = [logic.get_number_of_tickets_for_this_type_left_beer(ind) for ind, ticket in enumerate(app.config['ÖHLREISE']['ticket_types'])]
-        return render_template("ohlreise/submit.html", remaining_tickets_for_type=remaining_tickets_for_type, form=form)
+        form = BeerForm(request.form)
+
+        if form.name.validate(form) and form.email.validate(form) and form.person_number.validate(form) and form.mobile_number.validate(form) and form.accept_terms.validate(form):
+            beer = _create_response(request)
+            mail_ohlreise.send(beer.email, beer.price, beer.name)
+            return render_template("ohlreise/confirmation.html", beer=beer)
+        else:
+            remaining_tickets_for_type = [logic.get_number_of_tickets_for_this_type_left_beer(ind) for ind, ticket in enumerate(app.config['ÖHLREISE']['ticket_types'])]
+            return render_template("ohlreise/submit.html", remaining_tickets_for_type=remaining_tickets_for_type, form=form)
+
+    # Handle the GET case
+    remaining_tickets_for_type = [logic.get_number_of_tickets_for_this_type_left_beer(ind) for ind, ticket in enumerate(app.config['ÖHLREISE']['ticket_types'])]
+    return render_template("ohlreise/submit.html", remaining_tickets_for_type=remaining_tickets_for_type, form=form)
 
 def _create_response(request):
     beer = Beer()
     form = BeerForm(request.form)
+    form.validate()  # Manually validate the form
     form.populate_obj(beer)
     db.session.add(beer)
     db.session.commit()
