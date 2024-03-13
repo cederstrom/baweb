@@ -7,11 +7,11 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
-    'SUBMIT_OPEN': parser.parse("2024-03-15 12:00:00 +0100"),
-    'SUBMIT_CLOSE': parser.parse("2024-04-29 20:00:00 +0100"),
-    'YEAR': 'Tviitausen-tchjuh-thre',
-    'START_DATE': '6:e maj',
-    'END_DATE': '8:e maj',
+    'SUBMIT_OPEN': parser.parse("2024-03-22 12:00:00 +0100"),
+    'SUBMIT_CLOSE': parser.parse("2024-04-26 23:59:59 +0100"),
+    'YEAR': 'Tvii-tausen-tchjuhefyjiia',
+    'START_DATE': '3:e maj',
+    'END_DATE': '5:e maj',
 # EXAMPLE ON HOW TO FILL SCHEDULE DATA
 #    [
 #       {
@@ -30,15 +30,19 @@ FLUMRIDE = {
          {
              'day': 'Fredag',
              'data': ['Brutalare från alla världens hörn anländer till Karlskrona ungefär samtidigt som alla tävlande.',
-             '12:00 - 17:00: Incheck TBA',
-             '16:00 - 18:00: Suprise incoming',
-             '19:00 - 21:00: Vem vet vad som händer här?']
+             '15:00 - 17:00: Incheckning',
+             '16:00 - 18:00: Slip n\' Die',
+             '18:00 - 20:00: Vem vet vad som händer här?',
+             '21:00 - 02:00: Kårkväll på Villan',
+             '02:00 - gryningen: Efterphest (leta upp efterphestansvarig)']
          },
          {
              'day': 'Lördag',
-             'data': ['13:00 - 16:00 Flumrundan, lunch serveras under tiden.',
-             '18:00 - 20:00 Sittningen som ni kanske inte kommer ihåg i efterhand.',
-             '21:00 - 02:00 Kårkväll på Villan.']
+             'data': ['13:00: - 16:00 Flumrundan, här kommer det att finnas korv till försäljning under tiden.',
+             '16:15 - 16:30: Egghnikkning',
+             '19:00 - 21:00: Sittningen som ni kanske inte kommer ihåg i efterhand',
+             '21:00 - 02:00: Kårkväll på Villan',
+             '02:00 - gryningen: Efterphest (leta upp efterphestansvarig)']
          },
          {
              'day': 'Söndag',
@@ -74,13 +78,13 @@ FLUMRIDE = {
         }
     ],
     'payment': {
-        'last_payment_date': '2022-04-30',
+        'last_payment_date': '2024-04-27',
         'bank': 'Swedbank',
         'account_number': '8214-9,704 294 840-1'
     },
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_NOT_SFS': 60,
-    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/449294010705110',
+    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/722459416135725',
     'TRAILER_URL': 'https://www.youtube.com/embed/epjEIDZHZcc'
 }
 
