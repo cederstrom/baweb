@@ -53,12 +53,12 @@ FLUMRIDE = {
         {
             'name': 'Kånntainerpasset',
             'price': 399,
-            'description': 'Sovsal (fredag och lördag) inkl. frukost, sittning, flumrunda med spårrter och "lagom" mycket dônk (är detta året vi faktiskt ska dricka upp allt?), lunch på lördag, ett fräckt märke, två kårkvällar',
-            'max_nr': 60
+            'description': 'Sovsal (fredag och lördag) inkl. frukost, sittning, flumrunda med spårrter och "lagom" mycket dônk (är detta året vi faktiskt ska dricka upp allt?), ett fräckt märke, två kårkvällar',
+            'max_nr': 50
         },
         {
             'name': 'Kundvagnspasset',
-            'price': 249,
+            'price': 299,
             'description': 'Allt i kånntainerpasset minus sovsal och frukost',
             'max_nr': 250
         }
@@ -79,13 +79,13 @@ FLUMRIDE = {
     ],
     'payment': {
         'last_payment_date': '2024-04-27',
-        'bank': 'Swedbank',
-        'account_number': '8214-9,704 294 840-1'
+        'bank': 'Johan Nilsson',
+        'account_number': '0793489372'
     },
     'MAX_NR_OF_MEMBERS': 10,
-    'MAX_NR_OF_NOT_SFS': 60,
+    'MAX_NR_OF_NOT_SFS': 50,
     'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/722459416135725',
-    'TRAILER_URL': 'https://www.youtube.com/embed/epjEIDZHZcc'
+    'TRAILER_URL': 'https://www.youtube.com/embed/Iy7I1yaP4C8'
 }
 
 ÖHLREISE = {
