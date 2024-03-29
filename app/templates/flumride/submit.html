@@ -5,162 +5,183 @@
 {% set block_non_sfs = number_of_non_sfs_left < 1 %}
 
 <script>
-Element.prototype.documentOffsetTop = function () {
-    return this.offsetTop + ( this.offsetParent ? this.offsetParent.documentOffsetTop() : 0 );
-};
+  function showErrorPopup(message) {
+      if (message && message.trim().length && message !== "None") {
+        alert(message);  // Adjust this as needed for your custom popup
+      }
+  }
 
-var max_nr_of_members = {{ config.FLUMRIDE["MAX_NR_OF_MEMBERS"]|int }};
-var number_of_non_sfs_left = {{ number_of_non_sfs_left }};
-var block_non_sfs = ("True" == "{{ block_non_sfs }}")
-message_no_non_sfs_left = "Tyvärr kan vi inte ta emot fler personer som inte är medlemmar i en SFS-ansluten kår."
+    Element.prototype.documentOffsetTop = function () {
+        return this.offsetTop + (this.offsetParent ? this.offsetParent.documentOffsetTop() : 0);
+    };
 
-var errors = "{{ form.errors|safe }}";
-errors = errors.split("'").join('"');
-errors = JSON.parse(errors);
-$(function() {
-	if (Object.keys(errors).length > 0) {
-		var error_id = Object.keys(errors)[0];
-		if (error_id === 'members')
-			error_id = 'members-0-name_of_member';
-		var top = document.getElementById( error_id ).documentOffsetTop() - ( window.innerHeight / 2 );
-		alert("Du har matat in något galet. Gör om, gör rätt.");
-		window.scrollTo( 0, top );
-	}
-});
+    var max_nr_of_members = {{ config.FLUMRIDE["MAX_NR_OF_MEMBERS"]|int }};
+    var number_of_non_sfs_left = {{ number_of_non_sfs_left }};
+    var block_non_sfs = ("True" == "{{ block_non_sfs }}");
+    var message_no_non_sfs_left = "Tyvärr kan vi inte ta emot fler personer som inte är medlemmar i en SFS-ansluten kår.";
+
+    $(document).ready(function() {
+        {% if error_message and error_message != "None" %}
+            var error_message = {{ error_message|tojson}};
+            showErrorPopup(error_message);
+        {% endif %}
+
+        var errors = "{{ form.errors|safe }}";
+        if (errors && errors !== '{}') {
+            errors = errors.split("'").join('"');
+            errors = JSON.parse(errors);
+
+            var firstErrorField = Object.keys(errors)[0];
+            if (firstErrorField) {
+                var errorElement = document.getElementById(firstErrorField);
+                if (errorElement) {
+                    errorElement.scrollIntoView();
+                    errorElement.focus();
+                }
+            }
+        }
+    });
 </script>
 
+
 <div class="row">
-	<div class="12u">
-		<section class="box">
-			<h3>Anmäl lag</h3>
-			<p>
-				Biljetterna har släppts!
-			</p>
-			{% for ticket in config.FLUMRIDE.ticket_types %}
-			<h4>{{ticket.name}} - {{ticket.price}} Riksdaler</h4>
-			<span>Biljetter kvar: <strong>{{remaining_tickets_for_type[loop.index0]}} st</strong> </span>
-			<p>
-				Och i denna fantastiska biljett ingår då:
-				<br/>
-				<i>{{ticket.description}} </i>
-			</p>
+    <div class="12u">
+        <section class="box">
+            <h3>Anmäl lag</h3>
+            <p>
+                Biljetterna har släppts!
+            </p>
+            {% for ticket in config.FLUMRIDE.ticket_types %}
+            <h4>{{ticket.name}} - {{ticket.price}} Riksdaler</h4>
+            <span>Biljetter kvar: <strong>{{remaining_tickets_for_type[loop.index0]}} st</strong> </span>
+            <p>
+                Och i denna fantastiska biljett ingår då:
+                <br/>
+                <i>{{ticket.description}} </i>
+            </p>
 
-			{% endfor %}
-			<p>
-				Kom ihåg att ni bara får ha <strong>10 personer</strong> per lag. Är ni fler än 10 får ni dela upp er i flera lag!
-			</p>
-		</section>
-		<form method="post" action="{{ url_for('flumride_submit') }}" name="submit_team" autocomplete="off">
+            {% endfor %}
+            <p>
+                Kom ihåg att ni bara får ha <strong>10 personer</strong> per lag. Är ni fler än 10 får ni dela upp er i flera lag!
+            </p>
+        </section>
+        <form method="post" action="{{ url_for('flumride_submit') }}" name="submit_team" autocomplete="off">
 
-			<section class="box">
-				<h3>Anmäl ett lag</h3>
-				<div class="row uniform 50%">
-					<div class="4u 12u(mobilep)">
-						{{ form.name(placeholder="Lagnamn *") }}
-						{% for error in form.name.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</div>
-					<div class="4u 12u(mobilep)">
-						{{ form.email(placeholder="Epost *", type="email", autocomplete="on") }}
-						{% for error in form.email.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</div>
-					<div class="4u 12u(mobilep)">
-						{{ form.city(placeholder="Stad *") }}
-						{% for error in form.city.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</div>
-				</div>
-				<div class="row uniform 50%">
-					<div class="12u">
-						{{ form.slogan(placeholder="Slogan *") }}
-						{% for error in form.slogan.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</div>
-				</div>
-			</section>
+            <section class="box">
+                <h3>Anmäl ett lag</h3>
+                <div class="row uniform 50%">
+                    <div class="4u 12u(mobilep)">
+                        {{ form.name(placeholder="Lagnamn *") }}
+                        {% if form.name.errors %}
+                        <span style="color: red;">[{{ form.name.errors[-1] }}]</span>
+                          <!-- {% for error in form.name.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                          {% endfor %}-->
+                        {% endif %}
+                    </div>
+                    <div class="4u 12u(mobilep)">
+                        {{ form.email(placeholder="Epost *", type="email", autocomplete="on") }}
+                        {% for error in form.email.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div class="4u 12u(mobilep)">
+                        {{ form.city(placeholder="Stad *") }}
+                        {% for error in form.city.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row uniform 50%">
+                    <div class="12u">
+                        {{ form.slogan(placeholder="Slogan *") }}
+                        {% for error in form.slogan.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
 
-			<section class="box">
-				<div data-toggle="fieldset" id="members-fieldset">
-					<h3>Lägg till medlemmar</h3>
+            <section class="box">
+                <div data-toggle="fieldset" id="members-fieldset">
+                    <h3>Lägg till medlemmar</h3>
 
-					{% for m in form.members %}
-					<div data-toggle="fieldset-entry">
-						<div class="row uniform 50%">
-							<div class="4u 12u(mobilep)">
-								{{ m.name_of_member(placeholder="Namn *") }}
-								{% for error in m.name_of_member.errors %}
-								<span style="color: red;">[{{ error }}]</span>
-								{% endfor %}
-							</div>
-							<div class="4u 12u(mobilep)">
-								{{ m.person_number(placeholder="Personnummer * (ååååmmdd-xxxx)") }}
-								{% for error in m.person_number.errors %}
-								<span style="color: red;">[{{ error }}]</span>
-								{% endfor %}
-							</div>
-							<div class="4u 12u(mobilep)">
-								{{ m.allergies(placeholder="Allergier") }}
-								{% for error in m.allergies.errors %}
-								<span style="color: red;">[{{ error }}]</span>
-								{% endfor %}
-							</div>
-						</div>
-						<div class="row uniform 50%">
-						<div class="4u 12u(mobilep) ticket-type-radio-list">
-						    {{m.ticket_type.label(style="margin-bottom: 0px")}}
-						    {{m.ticket_type}}
-						    {% for error in m.ticket_type.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						    {% endfor %}
-						</div>
-            <div class="4u 12u(mobilep) ticket-type-radio-list">
-                {{m.drink_option.label(style="margin-bottom: 0px")}}
-                {{m.drink_option}}
-                {% for error in m.drink_option.errors %}
-              <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </div>
-							<div class="4u 12u(mobilep)">
-								{% if block_non_sfs %}
-									{{ m.sfs(checked=true, readonly=true, onclick="alert(message_no_non_sfs_left); return false;") }}
-								{% else %}
-									{{ m.sfs }}
-								{% endif %}
-								<label for="members-{{ loop.index0 }}-sfs">Medlem i SFS-ansluten kår</label>
-							</div>
-						</div>
-						<div class="row uniform 50%" data-remover="members-{{ loop.index0 }}" style="display: none;">
-							<div class="12u">
-								<a href="" data-toggle="fieldset-remove-row" id="members-{{ loop.index0 }}-remove" data-target="#members-fieldset">Ta bort</a>
-							</div>
-						</div>
-						<hr />
-					</div>
-					{% endfor %}
+                    {% for m in form.members %}
+                    <div data-toggle="fieldset-entry">
+                        <div class="row uniform 50%">
+                            <div class="4u 12u(mobilep)">
+                                {{ m.name_of_member(placeholder="Namn *") }}
+                                {% for error in m.name_of_member.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <div class="4u 12u(mobilep)">
+                                {{ m.person_number(placeholder="Personnummer * (åååmmdd-xxxx)") }}
+                                {% if m.person_number.errors %}
+                                    {% for error in m.person_number.errors %}
+                                        <span style="color: red;">[{{ error }}]</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="4u 12u(mobilep)">
+                                {{ m.allergies(placeholder="Allergier") }}
+                                {% for error in m.allergies.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row uniform 50%">
+                        <div class="4u 12u(mobilep) ticket-type-radio-list">
+                            {{m.ticket_type.label(style="margin-bottom: 0px")}}
+                            {{m.ticket_type}}
+                            {% for error in m.ticket_type.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                        <div class="4u 12u(mobilep) ticket-type-radio-list">
+                            {{m.drink_option.label(style="margin-bottom: 0px")}}
+                            {{m.drink_option}}
+                            {% for error in m.drink_option.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                            <div class="4u 12u(mobilep)">
+                                {% if block_non_sfs %}
+                                    {{ m.sfs(checked=true, readonly=true, onclick="alert(message_no_non_sfs_left); return false;") }}
+                                {% else %}
+                                    {{ m.sfs }}
+                                {% endif %}
+                                <label for="members-{{ loop.index0 }}-sfs">Medlem i SFS-ansluten kår</label>
+                            </div>
+                        </div>
+                        <div class="row uniform 50%" data-remover="members-{{ loop.index0 }}" style="display: none;">
+                            <div class="12u">
+                                <a href="" data-toggle="fieldset-remove-row" id="members-{{ loop.index0 }}-remove" data-target="#members-fieldset">Ta bort</a>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                    {% endfor %}
 
-					<a data-toggle="fieldset-add-row" data-target="#members-fieldset" class="button small">Lägg till medlem</a>
-				</div>
-			</section>
+                    <a data-toggle="fieldset-add-row" data-target="#members-fieldset" class="button small">Lägg till medlem</a>
+                </div>
+            </section>
 
-			<section class="box">
-				<p>
-					<i>Efter att du har skickat din anmälan kommer du få ett epost med betalningsuppgifter.</i>
-				</p>
-				<p>
-					{{ form.accept_terms }}
-					<label for="accept_terms">Jag förstår att anmälan är bindande och att Brutal-Akademien kommer kräva mig på pengar. *</label>
-					{% for error in form.accept_terms.errors %}
-					<span style="color: red;">[{{ error }}]</span>
-					{% endfor %}
-				</p>
-				{{ form.submit(class="fit big special") }}
-			</section>
-		</form>
-	</div>
+            <section class="box">
+                <p>
+                    <i>Efter att du har skickat din anmälan kommer du få ett epost med betalningsuppgifter.</i>
+                </p>
+                <p>
+                    {{ form.accept_terms }}
+                    <label for="accept_terms">Jag förstår att anmälan är bindande och att Brutal-Akademien kommer kräva mig på pengar. *</label>
+                    {% for error in form.accept_terms.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                {{ form.submit(class="fit big special") }}
+            </section>
+        </form>
+    </div>
 </div>
+<!--
 {% endblock %}
