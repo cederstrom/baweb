@@ -19,36 +19,47 @@ def flumride_info():
 def flumride_submit():
     if not logic.is_submit_open():
         milliseconds = logic.get_milliseconds_until_submit_opens()
-        return render_template("flumride/countdown.html",
-                               milliseconds=milliseconds)
+        return render_template("flumride/countdown.html", milliseconds=milliseconds)
 
     remaining_tickets_for_type = [logic.get_number_of_tickets_for_this_type_left(ind) for ind, ticket in enumerate(app.config['FLUMRIDE']['ticket_types'])]
+    number_of_non_sfs_left = logic.get_number_of_non_sfs_left()
 
     if sum(remaining_tickets_for_type) <= 0 or logic.has_submit_closed():
         return render_template("flumride/submit_temp_closed.html")
 
-    form = TeamForm()
-    
-    if request.method == 'POST':
-        team = _create_team(request)
-        mail.send(team.email, team.price, team.name)
-        return render_template("flumride/confirmation.html", team=team)
-    else:
-        #Need to fetch remaing tickets again since the number may have changed if a user stayed on the page a long time
-        remaining_tickets_for_type = [logic.get_number_of_tickets_for_this_type_left(ind) for ind, ticket in enumerate(app.config['FLUMRIDE']['ticket_types'])]
-        number_of_non_sfs_left = logic.get_number_of_non_sfs_left()
-        print("remaining_tickets", remaining_tickets_for_type)
-        return render_template("flumride/submit.html", form=form,
-                               number_of_non_sfs_left=number_of_non_sfs_left, remaining_tickets_for_type=remaining_tickets_for_type)
-
-
-def _create_team(request):
-    team = Team()
     form = TeamForm(request.form)
-    form.populate_obj(team)
-    db.session.add(team)
-    db.session.commit()
-    return team
+    error_message = "None"
+    form.Meta.csrf = False
+
+    if request.method == 'POST':
+        person_numbers = [member_form.data['person_number'] for member_form in form.members]
+
+        if form.validate():
+            duplicate_name = Team.query.filter_by(name=form.name.data).first()
+            duplicate_person_number = any(TeamMember.query.filter_by(person_number=pn).first() for pn in person_numbers if pn)
+
+
+            if duplicate_name:
+                form.name.errors.append('Det finns redan ett lag med detta namn.')
+                error_message = "Det finns redan ett lag med detta namn."
+
+            if duplicate_person_number:
+                form.errors['person_number'] = ['Det finns redan en användare med detta personnummer.']
+                error_message = "Det finns redan en användare med detta personnummer."
+
+            if not duplicate_name and not duplicate_person_number:
+                team = Team()
+                form.populate_obj(team)
+                db.session.add(team)
+                db.session.commit()
+                return render_template("flumride/confirmation.html", team=team)
+        else:
+            print("Form validation errors: ", form.errors)
+            error_message = "Gör om, gör rätt."
+
+        return render_template("flumride/submit.html", form=form, number_of_non_sfs_left=number_of_non_sfs_left, remaining_tickets_for_type=remaining_tickets_for_type, error_message=error_message)
+    else:
+        return render_template("flumride/submit.html", form=form, number_of_non_sfs_left=number_of_non_sfs_left, remaining_tickets_for_type=remaining_tickets_for_type)
 
 
 @app.route('/flumride/number_of_non_sfs_left')

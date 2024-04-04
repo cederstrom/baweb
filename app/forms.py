@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from flask_wtf import FlaskForm
 from wtforms import FormField, SubmitField, StringField, BooleanField, RadioField
 from wtforms.validators import DataRequired, ValidationError, Regexp, Email
@@ -20,6 +19,7 @@ def validate_age(form, field):
 class MemberForm(ModelForm, FlaskForm):
     class Meta:
         model = TeamMember
+        csrf = False
     tickets = []
     for index,ticket in enumerate(app.config['FLUMRIDE']['ticket_types']):
         tickets.append( (index, ticket['name'] +' - ' +str(ticket['price']) + 'kr') )
@@ -41,9 +41,14 @@ class MemberForm(ModelForm, FlaskForm):
         for index in tickets_to_del:
             del self.tickets[index]
 
+    def validate_unique_person_number(self, person_number) :
+        if TeamMember.query.filter_by(person_number=person_number.data).first():
+            raise ValidationError('Det finns redan en användare med detta personnummer.')
+
 class TeamForm(ModelForm, FlaskForm):
     class Meta:
         model = Team
+        csrf = False
 
     members = ModelFieldList(FormField(MemberForm),
                              min_entries=1, max_entries=10)
@@ -76,6 +81,9 @@ class TeamForm(ModelForm, FlaskForm):
         if error:
             raise ValidationError("error in input")
 
+    def validate_name(self, name):
+        if Team.query.filter_by(name=name.data).first():
+            raise ValidationError('Det finns redan ett lag med detta namn.')
 
 class BeerForm(ModelForm, FlaskForm):
     class Meta:
