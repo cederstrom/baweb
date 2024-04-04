@@ -54,13 +54,13 @@ FLUMRIDE = {
             'name': 'Kånntainerpasset',
             'price': 399,
             'description': 'Sovsal (fredag och lördag) inkl. frukost, sittning, flumrunda med spårrter och "lagom" mycket dônk (är detta året vi faktiskt ska dricka upp allt?), ett fräckt märke, två kårkvällar',
-            'max_nr': 50
+            'max_nr': 43
         },
         {
             'name': 'Kundvagnspasset',
             'price': 299,
             'description': 'Allt i kånntainerpasset minus sovsal och frukost',
-            'max_nr': 250
+            'max_nr': 190
         }
     ],
     'drink_options': [
