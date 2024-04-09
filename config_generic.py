@@ -30,7 +30,7 @@ FLUMRIDE = {
          {
              'day': 'Fredag',
              'data': ['Brutalare från alla världens hörn anländer till Karlskrona ungefär samtidigt som alla tävlande.',
-             '15:00 - 17:00: Incheckning',
+             '16:00 - 18:00: Incheckning',
              '16:00 - 18:00: Slip n\' Die',
              '18:00 - 20:00: Vem vet vad som händer här?',
              '21:00 - 02:00: Kårkväll på Villan',
