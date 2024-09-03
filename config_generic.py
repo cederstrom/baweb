@@ -79,8 +79,8 @@ FLUMRIDE = {
     ],
     'payment': {
         'last_payment_date': '2024-04-27',
-        'bank': 'Johan Nilsson',
-        'account_number': '0793489372'
+        'bank': 'Theodor Qvarlander',
+        'account_number': '0733241914'
     },
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_NOT_SFS': 45,
@@ -89,9 +89,9 @@ FLUMRIDE = {
 }
 
 ÖHLREISE = {
-    'SUBMIT_OPEN': parser.parse("2023-09-01 11:00:00 +0100"),
-    'SUBMIT_CLOSE': parser.parse("2023-09-25 20:00:00 +0100"),
-    'YEAR': 'Tviitausen-tchjuh-thre',
+    'SUBMIT_OPEN': parser.parse("2024-09-06 12:00:00 +0100"),
+    'SUBMIT_CLOSE': parser.parse("2024-09-26 20:00:00 +0100"),
+    'YEAR': 'Tvii-tausen-tchjuhefyjiia',
     'START_DATE': '30:e september',
     'END_DATE': '1:e september',
     'schedule': [
@@ -113,11 +113,11 @@ FLUMRIDE = {
         }
     ],
     'payment': {
-        'last_payment_date': '2022-09-27',
-        'bank': 'Malin Ekman',
-        'account_number': '0701317514'
+        'last_payment_date': '2024-09-27',
+        'bank': 'Theodor Qvarlander',
+        'account_number': '0733241914'
     },
-    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/169395272786627'
+    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/473214195630248'
 }
 
 FACEBOOK_GRAPH_URL = 'https://graph.facebook.com/'
