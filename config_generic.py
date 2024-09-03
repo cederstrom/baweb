@@ -92,8 +92,8 @@ FLUMRIDE = {
     'SUBMIT_OPEN': parser.parse("2024-09-06 12:00:00 +0100"),
     'SUBMIT_CLOSE': parser.parse("2024-09-26 20:00:00 +0100"),
     'YEAR': 'Tvii-tausen-tchjuhefyjiia',
-    'START_DATE': '30:e september',
-    'END_DATE': '1:e september',
+    'START_DATE': '28:e september',
+    'END_DATE': '29:e september',
     'schedule': [
         {
             'day': 'Lördag',
