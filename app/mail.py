@@ -15,7 +15,7 @@ Vänligen sätt in pangarna på vårt pengartvättarkonto hos %r via Swish till 
 Om du upptäcker att något blev fel så är det bara att svara på det här mailet.
 
 --
-Brutal Akademien
+Brutal-Akademien
 Ne Sedibus Rotalibus Ludas
 """
 
