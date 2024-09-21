@@ -109,7 +109,7 @@ FLUMRIDE = {
             'name': 'Åkpasset',
             'price': 399,
             'description': 'Vi ska åka fram och tillbaka till Köpendanmark, köpa en väldans massa öhl, och öhl kommer inmundigas. Du måste vara minst tjugo år för att få följa med på resan',
-            'max_nr': 46
+            'max_nr': 49
         }
     ],
     'payment': {
