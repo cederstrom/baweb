@@ -78,7 +78,7 @@ FLUMRIDE = {
         }
     ],
     'payment': {
-        'last_payment_date': '2024-04-28',
+        'last_payment_date': '2025-04-28',
         'bank': 'Theodor Qvarlander',
         'account_number': '0733241914'
     },
