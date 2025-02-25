@@ -7,11 +7,11 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
-    'SUBMIT_OPEN': parser.parse("2024-03-22 12:00:00 +0100"),
-    'SUBMIT_CLOSE': parser.parse("2024-04-26 23:59:59 +0100"),
-    'YEAR': 'Tvii-tausen-tchjuhefyjiia',
-    'START_DATE': '3:e maj',
-    'END_DATE': '5:e maj',
+    'SUBMIT_OPEN': parser.parse("2025-03-21 12:00:00 +0100"),
+    'SUBMIT_CLOSE': parser.parse("2025-04-27 23:59:59 +0100"),
+    'YEAR': 'Tjauge-che-fjem',
+    'START_DATE': '2:e maj',
+    'END_DATE': '4:e maj',
 # EXAMPLE ON HOW TO FILL SCHEDULE DATA
 #    [
 #       {
@@ -78,22 +78,22 @@ FLUMRIDE = {
         }
     ],
     'payment': {
-        'last_payment_date': '2024-04-27',
+        'last_payment_date': '2025-04-28',
         'bank': 'Theodor Qvarlander',
         'account_number': '0733241914'
     },
     'MAX_NR_OF_MEMBERS': 10,
-    'MAX_NR_OF_NOT_SFS': 45,
-    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/722459416135725',
+    'MAX_NR_OF_NOT_SFS': 0,
+    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/585121854233476',
     'TRAILER_URL': 'https://www.youtube.com/embed/Iy7I1yaP4C8'
 }
 
 ÖHLREISE = {
-    'SUBMIT_OPEN': parser.parse("2024-09-06 11:00:00 +0100"),
-    'SUBMIT_CLOSE': parser.parse("2024-09-26 20:00:00 +0100"),
-    'YEAR': 'Tvii-tausen-tchjuhefyjiia',
-    'START_DATE': '28:e september',
-    'END_DATE': '29:e september',
+    'SUBMIT_OPEN': parser.parse("2025-09-06 11:00:00 +0100"),
+    'SUBMIT_CLOSE': parser.parse("2025-09-24 20:00:00 +0100"),
+    'YEAR': 'Tjauge-che-fjem',
+    'START_DATE': '27:e september',
+    'END_DATE': '28:e september',
     'schedule': [
         {
             'day': 'Lördag',
@@ -113,7 +113,7 @@ FLUMRIDE = {
         }
     ],
     'payment': {
-        'last_payment_date': '2024-09-27',
+        'last_payment_date': '2025-09-26',
         'bank': 'Theodor Qvarlander',
         'account_number': '0733241914'
     },
