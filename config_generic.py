@@ -85,7 +85,7 @@ FLUMRIDE = {
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_NOT_SFS': 0,
     'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/585121854233476',
-    'TRAILER_URL': 'https://www.youtube.com/embed/Iy7I1yaP4C8'
+    'TRAILER_URL': 'https://www.youtube.com/embed/loRvgAEWGINLILzY'
 }
 
 ÖHLREISE = {
