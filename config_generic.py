@@ -7,7 +7,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
-    'SUBMIT_OPEN': parser.parse("2025-03-21 12:00:00 +0100"),
+    'SUBMIT_OPEN': parser.parse("2025-03-28 12:00:00 +0100"),
     'SUBMIT_CLOSE': parser.parse("2025-04-27 23:59:59 +0100"),
     'YEAR': 'Tjauge-che-fjem',
     'START_DATE': '2:e maj',
@@ -121,3 +121,5 @@ FLUMRIDE = {
 }
 
 FACEBOOK_GRAPH_URL = 'https://graph.facebook.com/'
+
+MERA_URL = 'https://www.mera.se'
