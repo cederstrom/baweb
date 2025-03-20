@@ -32,7 +32,8 @@ FLUMRIDE = {
              'data': ['Brutalare från alla världens hörn anländer till Karlskrona ungefär samtidigt som alla tävlande.',
              '16:00 - 18:00: Incheckning',
              '16:00 - 18:00: Slip n\' Die',
-             '18:00 - 20:00: Vem vet vad som händer här?',
+             '18:00 - 18:15: Korvätartävling',
+             '18:15 - 20:00: Vem vet vad som händer här?',
              '21:00 - 02:00: Kårkväll på Villan',
              '02:00 - gryningen: Efterphest (leta upp efterphestansvarig)']
          },
@@ -85,7 +86,7 @@ FLUMRIDE = {
     'MAX_NR_OF_MEMBERS': 10,
     'MAX_NR_OF_NOT_SFS': 0,
     'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/585121854233476',
-    'TRAILER_URL': 'https://www.youtube.com/embed/loRvgAEWGINLILzY'
+    'TRAILER_URL': 'https://www.youtube.com/embed/ecGf1AdqYyM'
 }
 
 ÖHLREISE = {
