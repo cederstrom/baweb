@@ -84,7 +84,7 @@ FLUMRIDE = {
         'account_number': '0733241914'
     },
     'MAX_NR_OF_MEMBERS': 10,
-    'MAX_NR_OF_NOT_SFS': 0,
+    'MAX_NR_OF_NOT_SFS': 133,
     'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/585121854233476',
     'TRAILER_URL': 'https://www.youtube.com/embed/ecGf1AdqYyM'
 }
