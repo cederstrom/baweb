@@ -52,6 +52,7 @@ def flumride_submit():
                 form.populate_obj(team)
                 db.session.add(team)
                 db.session.commit()
+                mail.send(team.email, team.price, team.name)
                 return render_template("flumride/confirmation.html", team=team)
         else:
             print("Form validation errors: ", form.errors)
