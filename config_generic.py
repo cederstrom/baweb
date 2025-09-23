@@ -91,7 +91,7 @@ FLUMRIDE = {
 
 ÖHLREISE = {
     'SUBMIT_OPEN': parser.parse("2025-09-06 11:00:00 +0100"),
-    'SUBMIT_CLOSE': parser.parse("2025-09-24 20:00:00 +0100"),
+    'SUBMIT_CLOSE': parser.parse("2025-09-25 20:00:00 +0100"),
     'YEAR': 'Tjauge-che-fjem',
     'START_DATE': '27:e september',
     'END_DATE': '28:e september',
@@ -110,7 +110,7 @@ FLUMRIDE = {
             'name': 'Åkpasset',
             'price': 399,
             'description': 'Vi ska åka fram och tillbaka till Köpendanmark, köpa en väldans massa öhl, och öhl kommer inmundigas. Du måste vara minst tjugo år för att få följa med på resan',
-            'max_nr': 55
+            'max_nr': 56
         }
     ],
     'payment': {
