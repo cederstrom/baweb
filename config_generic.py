@@ -7,11 +7,11 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, 'db_repository')
 
 FLUMRIDE = {
-    'SUBMIT_OPEN': parser.parse("2025-03-28 12:00:00 +0100"),
-    'SUBMIT_CLOSE': parser.parse("2025-04-27 23:59:59 +0100"),
-    'YEAR': 'Tjauge-che-fjem',
-    'START_DATE': '2:e maj',
-    'END_DATE': '4:e maj',
+    'SUBMIT_OPEN': parser.parse("2026-03-27 12:00:00 +0100"),
+    'SUBMIT_CLOSE': parser.parse("2026-04-26 23:59:59 +0100"),
+    'YEAR': 'Tjugää-tjuh-sääcks',
+    'START_DATE': '1:e maj',
+    'END_DATE': '3:e maj',
 # EXAMPLE ON HOW TO FILL SCHEDULE DATA
 #    [
 #       {
@@ -53,13 +53,13 @@ FLUMRIDE = {
     'ticket_types': [
         {
             'name': 'Kånntainerpasset',
-            'price': 425,
+            'price': 449,
             'description': 'Sovsal (fredag och lördag) inkl. frukost, sittning, flumrunda med spårrter, ett fräckt märke och två kårkvällar',
             'max_nr': 43
         },
         {
             'name': 'Kundvagnspasset',
-            'price': 275,
+            'price': 299,
             'description': 'Allt i kånntainerpasset minus sovsal och frukost',
             'max_nr': 190
         }
@@ -79,22 +79,22 @@ FLUMRIDE = {
         }
     ],
     'payment': {
-        'last_payment_date': '2025-04-28',
+        'last_payment_date': '2026-04-26',
         'bank': 'Theodor Qvarlander',
         'account_number': '0733241914'
     },
     'MAX_NR_OF_MEMBERS': 10,
-    'MAX_NR_OF_NOT_SFS': 133,
-    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/585121854233476',
-    'TRAILER_URL': 'https://www.youtube.com/embed/ecGf1AdqYyM'
+    'MAX_NR_OF_NOT_SFS': 45, #TODO: uppdatera när vi fått exakt siffra på den utökade gästlistan!
+    'FACEBOOK_EVENT_URL': 'https://www.facebook.com/events/841443545003056',
+    'TRAILER_URL': 'https://www.youtube.com/embed/VjB7ey2dTOQ'
 }
 
 ÖHLREISE = {
-    'SUBMIT_OPEN': parser.parse("2025-09-06 11:00:00 +0100"),
-    'SUBMIT_CLOSE': parser.parse("2025-09-24 20:00:00 +0100"),
-    'YEAR': 'Tjauge-che-fjem',
-    'START_DATE': '27:e september',
-    'END_DATE': '28:e september',
+    'SUBMIT_OPEN': parser.parse("2026-09-06 11:00:00 +0100"),
+    'SUBMIT_CLOSE': parser.parse("2026-09-23 20:00:00 +0100"),
+    'YEAR': 'Tjugää-tjuh-sääcks',
+    'START_DATE': '26:e september',
+    'END_DATE': '27:e september',
     'schedule': [
         {
             'day': 'Lördag',
