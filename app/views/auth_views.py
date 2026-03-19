@@ -7,6 +7,14 @@ from uuid import uuid4
 
 from google_auth_oauthlib.flow import Flow
 
+@app.route('/google0ca3c9a75862042e.html')
+def google_site_verification():
+    return (
+        'google-site-verification: google0ca3c9a75862042e.html',
+        200,
+        {'Content-Type': 'text/html; charset=utf-8'}
+    )
+
 GMAIL_SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 
 
