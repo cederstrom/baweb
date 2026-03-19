@@ -7,7 +7,7 @@ from uuid import uuid4
 
 from google_auth_oauthlib.flow import Flow
 
-@app.route('/google0ca3c9a75862042e.html')
+@app.route('/googleverify/google0ca3c9a75862042e.html')
 def google_site_verification():
     return (
         'google-site-verification: google0ca3c9a75862042e.html',
