@@ -2,12 +2,26 @@
 {% block title %}Alla anmälda bussresenärer{% endblock %}
 {% block content %}
 
-{% set is_admin = current_user.is_authenticated %}
+{% set is_admin = current_user.is_authenticated and current_user.is_admin %}
 
 <script src="/static/js/jquery.tablesorter.min.js"></script>
 <script>
 	$(function() {
 		$(".tablesorter").tablesorter();
+
+		$("#select_has_payed").change(function() {
+			var url = [location.protocol, '//', location.host, location.pathname].join('');
+			var has_payed = this.options[this.selectedIndex].value;
+			var query = '';
+
+			if (has_payed !== '-') {
+				query = '?has_payed=' + has_payed;
+			}
+
+			$("#export_beer_csv_link").attr("href", "{{ url_for('ohlreise_export_csv') }}" + query);
+
+			window.location = url + query;
+		});
 	});
 </script>
 
@@ -18,7 +32,29 @@
 			<p>
 				Totalt har vi <strong>{{ beer|length }}</strong> anmälda bussresenärer.
 			</p>
+
+			{% if is_admin %}
+			<p>
+				Antal som har betalat: <strong>{{ beer|selectattr("has_payed")|list|length }}</strong><br/>
+				Antal som inte har betalat: <strong>{{ beer|rejectattr("has_payed")|list|length }}</strong>
+			</p>
+
+			<div class="select-wrapper">
+				<select id="select_has_payed" name="has_payed">
+					<option value="-">- Inget filter -</option>
+					<option value="True" {% if has_payed == "True" %}selected{% endif %}>Har betalat</option>
+					<option value="False" {% if has_payed == "False" %}selected{% endif %}>Har EJ betalat</option>
+				</select>
+			</div>
+
+			<div class="export-links">
+				<a id="export_beer_csv_link" href="{{ url_for('ohlreise_export_csv', has_payed=has_payed if has_payed else '-') }}">
+					Ladda ner bussresenärer till CSV
+				</a>
+			</div>
+			{% endif %}
 		</section>
+
 		<section class="box">
 			<div class="table-wrapper">
 				<table class="tablesorter">
@@ -28,26 +64,31 @@
 							<th>Kårnamn</th>
 							{% if is_admin %}
 							<th>Personnummer</th>
-							<th>Allergier</th>
 							<th>Email</th>
 							<th>Har betalat</th>
 							{% endif %}
 						</tr>
 					</thead>
 					<tbody>
-						{% for beer in beer %}
+						{% for member in beer %}
 						<tr>
-							<td>{{ beer.name }}</td>
-							<td>{{ beer.nickname }}</td>
+							<td>{{ member.name }}</td>
+							<td>{{ member.nickname }}</td>
 							{% if is_admin %}
-							<td>{{ beer.person_number }}</td>
-							<td>{{ beer.allergies }}</td>
-							<td>{{ beer.email }} </td>
-							<td>{{ 'Ja' if beer.has_payed else 'Nej' }}</td>
-							<td><a href="{{ url_for('ohlreise_edit_member', id=beer.id)}}">Edit</a></td>
-							<form method="post" action="{{ url_for('ohlreise_delete_member', id=beer.id)}}">
-							<td><button type="submit" name="Ta bort" value="submit_value" class="link-button">Ta bort</button></td>
-							</form>
+							<td>{{ member.person_number }}</td>
+							<td>{{ member.email }}</td>
+							<td>{{ 'Ja' if member.has_payed else 'Nej' }}</td>
+							<td>
+								<a href="{{ url_for('ohlreise_edit_member', id=member.id) }}">Justera</a>
+							</td>
+							<td>
+								<form method="post"
+									  action="{{ url_for('ohlreise_delete_member', id=member.id) }}"
+									  onsubmit="return confirm('Är du säker på att du vill ta bort medlemmen?');"
+									  class="inline-action-form">
+									<button type="submit" class="text-link-button-danger">Ta bort</button>
+								</form>
+							</td>
 							{% endif %}
 						</tr>
 						{% endfor %}

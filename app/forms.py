@@ -116,3 +116,24 @@ class DeleteForm(FlaskForm):
 class LoginForm(FlaskForm):
     openid = StringField('openid', validators=[DataRequired()])
     remember_me = BooleanField('remember_me', default=False)
+
+class AdminBeerEditForm(ModelForm, FlaskForm):
+    class Meta:
+        model = Beer
+
+    name = StringField('För- och efternamn', validators=[DataRequired()])
+    nickname = StringField('Kårnamn')
+    email = StringField('epost@din.com', validators=[Email()])
+    person_number = StringField(
+        'Personnummer',
+        validators=[
+            DataRequired(),
+            Regexp(
+                "^[12]{1}[90]{1}[0-9]{6}-[0-9]{4}$",
+                message="Skriv personnummer på formatet ååååmmdd-xxxx"
+            ),
+            validate_age
+        ]
+    )
+    mobile_number = StringField('Mobilnummer', validators=[DataRequired()]) 
+    has_payed = BooleanField('Betalat')
