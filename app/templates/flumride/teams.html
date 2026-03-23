@@ -2,12 +2,12 @@
 {% block title %}Alla anmälda lag{% endblock %}
 {% block content %}
 
-{% set is_admin = current_user.is_authenticated %}
+{% set is_admin = current_user.is_authenticated and current_user.is_admin %}
 
 <script>
-flumride_set_has_payed = function( url, team_id ) {
-	$.post( url, function( data ) {
-		$( '#has-payed-' + team_id ).html( data.has_payed );
+flumride_set_has_payed = function(url, team_id) {
+	$.post(url, function(data) {
+		$('#has-payed-' + team_id).html(data.has_payed ? 'Ja' : 'Nej');
 	});
 };
 
@@ -20,12 +20,14 @@ $(function() {
 	$("#select_has_payed").change(function() {
 		var url = [location.protocol, '//', location.host, location.pathname].join('');
 		var has_payed = this.options[this.selectedIndex].value;
-		var query = '?has_payed=';
-		if (has_payed === '-') {
-			query = '';
-		} else {
-			query += has_payed;
+		var query = '';
+
+		if (has_payed !== '-') {
+			query = '?has_payed=' + has_payed;
 		}
+
+		$("#export_team_csv_link").attr("href", "{{ url_for('flumride_export_team_csv') }}" + query);
+
 		window.location = url + query;
 	});
 });
@@ -46,12 +48,24 @@ $(function() {
 				Antal icke SFS-medlemmar: <strong>{{ total["non_members_sfs"] }}</strong>
 			</p>
 			<p>
+				<div class ="select-wrapper">
 				<select id="select_has_payed" name="has_payed">
 					<option value="-">- Inget filter -</option>
 					<option value="True" {% if has_payed == "True" %}selected{% endif %}>Har betalat</option>
 					<option value="False" {% if has_payed == "False" %}selected{% endif %}>Har EJ betalat</option>
 				</select>
+				</div>
 			</p>
+			<div class="export-links">
+				<a id="export_team_csv_link" href="{{ url_for('flumride_export_team_csv', has_payed=has_payed if has_payed else '-') }}">
+					Ladda ner all laginformation till CSV
+				</a>
+			</div>
+			<div class="export-links">
+				<a id="export_team_members_csv_link" href="{{ url_for('flumride_export_team_members_csv') }}">
+					Ladda ner information all om lagmedlemmar till CSV
+				</a>
+			</div>
 			{% endif %}
 		</section>
 
@@ -75,20 +89,31 @@ $(function() {
 						</span>
 					{% endif %}
 				</strong><br/>
-				<a href="{{ url_for('flumride_edit_team', id=team.id) }}">Edit</a>
+				<a href="{{ url_for('flumride_edit_team', id=team.id) }}">Justera lag</a>
 				{% endif %}
 			</p>
+
+			{% if is_admin %}
+			<form method="post"
+					action="{{ url_for('flumride_delete_team', id=team.id) }}"
+					onsubmit="return confirm('Är du säker på att du vill ta bort laget och alla dess medlemmar?');"
+					class="inline-action-form">
+					<button type="submit" class="text-link-button-danger">
+						Ta bort lag och dess medlemmar
+					</button>
+			</form>
+			{% endif %}
 
 			<div class="table-wrapper">
 				<table>
 					{% if is_admin %}
 					<col style="width:30%">
 					<col style="width:15%">
-					<col style="width:35%">
+					<col style="width:10%">
 					<col style="width:5%">
+					<col style="width:10%">
 					<col style="width:5%">
-					<col style="width:5%">
-					<col style="width:5%">
+					<col style="width:15%">
 					{% else %}
 					<col style="width:100%">
 					{% endif %}
@@ -115,7 +140,7 @@ $(function() {
 							<td>{{ config.FLUMRIDE.ticket_types[member.ticket_type].name}}</td>
 							<td>{{ config.FLUMRIDE.drink_options[member.drink_option].name }}</td>
 							<td>{{ 'Ja' if member.sfs else 'Nej' }}</td>
-							<td><a href="{{ url_for('flumride_edit_member', id=member.id) }}">Edit</a></td>
+							<td><a href="{{ url_for('flumride_edit_member', id=member.id) }}">Justera medlem</a></td>
 							{% endif %}
 						</tr>
 						{% endfor %}

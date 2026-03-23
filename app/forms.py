@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import FormField, SubmitField, StringField, BooleanField, RadioField
+from wtforms import FormField, SelectField, SubmitField, StringField, BooleanField, RadioField
 from wtforms.validators import DataRequired, ValidationError, Regexp, Email
 from .models import Team, TeamMember, Beer
 from wtforms_alchemy import ModelForm, ModelFieldList
@@ -43,7 +43,10 @@ class MemberForm(ModelForm, FlaskForm):
 
     def validate_unique_person_number(self, person_number) :
         if TeamMember.query.filter_by(person_number=person_number.data).first():
-            raise ValidationError('Det finns redan en användare med detta personnummer.')
+            raise ValidationError('Det finns redan en lagmedlem med detta personnummer.')
+        
+class AdminMemberForm(MemberForm):
+    team_id = SelectField('Lag', coerce=int)
 
 class TeamForm(ModelForm, FlaskForm):
     class Meta:

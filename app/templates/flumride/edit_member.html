@@ -5,21 +5,24 @@
 	<div class="12u">
 		<section class="box">
 			<h3>{{ title }}</h3>
-			<form method="post">
+			<form method="post" id="member-edit-form">
 				<div class="row uniform 50%">
 					<div class="4u 12u(mobilep)">
 						{{ form.name_of_member(placeholder="Namn *") }}
+						{% for error in form.name_of_member.errors %}
+						<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 					</div>
 					<div class="4u 12u(mobilep)">
 						{{ form.person_number(placeholder="Personnummer * (ååååmmdd-xxxx)") }}
 						{% for error in form.person_number.errors %}
-						<span style="color: red;">[{{ error }}]</span>
+						<span style="color: red;">{{ error }}</span>
 						{% endfor %}
 					</div>
 					<div class="4u 12u(mobilep)">
 						{{ form.allergies(placeholder="Allergier") }}
 						{% for error in form.allergies.errors %}
-						<span style="color: red;">[{{ error }}]</span>
+						<span style="color: red;">{{ error }}</span>
 						{% endfor %}
 					</div>
 				</div>
@@ -35,12 +38,38 @@
 						<label for="sfs">Medlem i SFS-ansluten kår</label>
 					</div>
 				</div>
-				<div class="row uniform">
-					<div class="12u">
-						<input type="submit" value="Spara" class="special small">
+
+				<div class="4u 12u(mobilep)">
+					{{ form.team_id.label }}
+					<div class="select-wrapper">
+						{{ form.team_id() }}
 					</div>
+					{% for error in form.team_id.errors %}
+					<span style="color: red;">{{ error }}</span>
+					{% endfor %}
 				</div>
 			</form>
+
+			<div class="row form-actions-row">
+				<div class="6u 12u(mobilep)">
+					<input type="submit" value="Spara" form="member-edit-form" class="special small">
+				</div>
+				{% if member %}
+				<div class="6u 12u(mobilep) form-actions-right">
+					<form method="post"
+						action="{{ url_for('flumride_delete_member', id=member.id) }}"
+						onsubmit="return confirm('Är du säker på att du vill ta bort medlemmen?');"
+						class="inline-delete-form">
+						<input type="submit" value="Ta bort medlem" class="special small">
+					</form>
+				</div>
+				{% endif %}
+			</div>
+			<p>
+			<div class="6u 12u(mobilep) margin: -1em;">
+				<a href="{{ url_for('flumride_teams') }}" class="special small">Tillbaka till lag</a>
+			</div>
+			</p>
 		</section>
 	</div>
 </div>
