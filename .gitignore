@@ -8,3 +8,4 @@ tmp/*
 baweb3
 credentials.json
 token.json
+google-login-credentials.json

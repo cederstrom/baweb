@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from app import app, db
+from flask_login import UserMixin
 from wtforms.validators import Email, Regexp
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nickname = db.Column(
         db.String(64), index=True, unique=True, nullable=False)
@@ -10,36 +11,33 @@ class User(db.Model):
                       info={'validators': Email()})
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
     generation = db.Column(db.Integer, nullable=False)
-    favorite_sport = db.Column(db.String(128), index=False, unique=False,
-                               nullable=False)
-    best_dekk = db.Column(db.String(140), index=False, unique=False,
-                          nullable=False)
-    facebook_id = db.Column(db.Integer, index=True, unique=True, nullable=True)
-
-    def is_authenticated(self):
-        return self.is_admin
-
-    def is_active(self):
-        return self.is_admin
-
-    def is_anonymous(self):
-        return not self.is_admin
-
-    def get_id(self):
-        return str(self.id)
+    favorite_sport = db.Column(db.String(128), index=False, unique=False, nullable=False)
+    best_dekk = db.Column(db.String(140), index=False, unique=False, nullable=False)
+    google_id = db.Column(db.String(255), index=True, unique=True, nullable=True)
 
     @staticmethod
     def get_from_email(email):
-        return User.query.filter_by(email=email).first()
+        if not email:
+            return None
+
+        return User.query.filter(
+            db.func.lower(User.email) == email.strip().lower()
+        ).first()
 
     @staticmethod
-    def get_from_facebook_id(facebook_id):
-        return User.query.filter_by(facebook_id=facebook_id).first()
+    def get_from_google_id(google_id):
+        if not google_id:
+            return None
+
+        return User.query.filter_by(google_id=google_id).first()
 
     def __repr__(self):
-        return '<User %r, is_admin=%r, email=%r, facebook_id=%r>' % (self.nickname, self.is_admin, self.email,
-                                                                     self.facebook_id)
-
+        return '<User %r, is_admin=%r, email=%r, google_id=%r>' % (
+            self.nickname,
+            self.is_admin,
+            self.email,
+            self.google_id
+        )
 
 class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True)

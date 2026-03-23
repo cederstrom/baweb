@@ -38,6 +38,44 @@
 			border-bottom-color: transparent;
 		}
 
+	.text-link-button-danger {
+		background: none;
+		border: 0;
+		color: #e89980;
+		cursor: pointer;
+		display: inline;
+		font: inherit;
+		line-height: inherit;
+		margin: 0;
+		padding: 0;
+		text-decoration: none;
+		border-bottom: dotted 1px;
+	}
+
+	.text-link-button-danger:hover {
+		border-bottom-color: transparent;
+	}
+
+	.inline-action-form {
+		margin: -2em 0 2em 0;
+	}
+
+	.form-actions-row {
+		margin-top: 1.5em;
+	}
+
+	.form-actions-row > * {
+		padding-top: 0 !important;
+	}
+
+	.form-actions-right {
+		text-align: right;
+	}
+
+	.inline-delete-form {
+		margin: 0;
+	}
+
 	strong, b {
 		color: #646464;
 		font-weight: 400;

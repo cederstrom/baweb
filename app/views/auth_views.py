@@ -1,11 +1,11 @@
 from flask import redirect, url_for, request, session
-from flask_login import login_user, logout_user, current_user
-from app import app, lm, oauth
+from flask_login import login_user, logout_user
 from app.models import User
-import json
-from uuid import uuid4
+from app import app, lm, db
 
 from google_auth_oauthlib.flow import Flow
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
 
 @app.route('/google0ca3c9a75862042e.html')
 def google_site_verification():
@@ -16,6 +16,7 @@ def google_site_verification():
     )
 
 GMAIL_SCOPES = ['https://www.googleapis.com/auth/gmail.send']
+LOGIN_SCOPES = ['openid', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile']
 
 
 def _build_google_flow(code_verifier=None):
@@ -23,6 +24,15 @@ def _build_google_flow(code_verifier=None):
         app.config['GOOGLE_OAUTH_CLIENT_SECRETS_FILE'],
         scopes=GMAIL_SCOPES,
         redirect_uri=app.config['GOOGLE_OAUTH_REDIRECT_URI'],
+        code_verifier=code_verifier
+    )
+
+
+def _build_login_flow(code_verifier=None):
+    return Flow.from_client_secrets_file(
+        app.config['GOOGLE_LOGIN_CLIENT_SECRETS_FILE'],
+        scopes=LOGIN_SCOPES,
+        redirect_uri=app.config['GOOGLE_LOGIN_REDIRECT_URI'],
         code_verifier=code_verifier
     )
 
@@ -76,61 +86,76 @@ def gmail_oauth_callback():
 
     return "Gmail connected successfully. token.json saved."
 
+
 @lm.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+def load_user(user_id):
+    try:
+        return User.query.get(int(user_id))
+    except (TypeError, ValueError):
+        return None
 
-@app.before_request
-def before_request():
-    if 'session_id' not in session:
-        session['session_id'] = str(uuid4())
-
-    session_id = session['session_id']
 
 @app.route("/login")
 def login():
-    redirect_uri = url_for('login_callback', _external=True)
-    params = {'redirect_uri': url_for('login_callback', _external=True)}
-    return redirect(oauth.get_authorize_url(params))
+    flow = _build_login_flow()
+    
+    authorization_url, state = flow.authorization_url(
+        prompt='select_account',
+        code_challenge_method='S256'
+    )
+    session['google_login_state'] = state
+    session['google_login_code_verifier'] = flow.code_verifier
+    
+    return redirect(authorization_url)
 
-@app.route("/loginCallback")
+
+@app.route("/login/callback")
 def login_callback():
-    if 'code' in request.args:
-        redirect_uri = url_for('login_callback', _external=True)
-        data = dict(code=request.args['code'], redirect_uri=redirect_uri)
-        oauth_session = oauth.get_auth_session(data=data, decoder=json.loads)
-        me = oauth_session.get('me').json()
-        try:
-            print(json.dumps(me, sort_keys=True, indent=4, separators=(',', ': ')))
-        except Exception as error:
-            print(error)
-        try:
-            email = me['email']
-            user = User.get_from_email(email)
-        except Exception as error_email:
-            print('No user found by email: %r' % error_email)
-            print('Trying with facebook_id...')
-            try:
-                facebook_id = me['id']
-                user = User.get_from_facebook_id(int(facebook_id))
-            except Exception as error_facebook_id:
-                print('No user found by facebook_id: %r' % error_facebook_id)
+    state = session.get('google_login_state')
+    code_verifier = session.get('google_login_code_verifier')
 
-        if user:
-            user.session_id = session['session_id']
-            login_user(user)
-            print('Logged in as %r' % user)
-            return redirect(url_for('index'))
-        else:
-            print('No user found')
-    else:
-        print('User did not authorize the request')
-    return redirect(url_for('logout'))
+    if not state:
+        return "Missing OAuth state", 400
+
+    if not code_verifier:
+        return "Missing OAuth code verifier", 400
+
+    flow = _build_login_flow(code_verifier=code_verifier)
+    flow.fetch_token(authorization_response=request.url)
+
+    credentials = flow.credentials
+
+    id_info = id_token.verify_oauth2_token(
+        credentials.id_token,
+        google_requests.Request(),
+        audience=app.config['GOOGLE_LOGIN_CLIENT_ID']
+    )
+
+    email = id_info.get('email')
+    google_sub = id_info.get('sub')
+    
+    if not email:
+        return redirect(url_for('logout'))
+
+    user = User.get_from_email(email)
+    if not user or not user.is_admin:
+        return redirect(url_for('logout'))
+    
+
+    if google_sub and user.google_id != google_sub:
+        user.google_id = google_sub
+        db.session.commit()
+
+    login_user(user)
+
+    session.pop('google_login_state', None)
+    session.pop('google_login_code_verifier', None)
+
+    return redirect(url_for('index'))
+
 
 @app.route('/logout')
 def logout():
-    if current_user.is_authenticated:
-        current_user.session_id = None
     logout_user()
     session.clear()
     return redirect(url_for('index'))

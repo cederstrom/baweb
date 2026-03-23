@@ -10,6 +10,5 @@ app.config['SESSION_COOKIE_SECURE'] = True
 db = SQLAlchemy(app)
 lm = LoginManager(app)
 lm.init_app(app)
-app.app_context().push()
 
 from app import views, models
