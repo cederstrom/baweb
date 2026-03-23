@@ -163,15 +163,15 @@ def ohlreise_submit():
 @app.route('/ohlreise/members/delete', methods=['POST'])
 @login_required
 def ohlreise_remove_all_members():
-    members = Beer.query.fetchall()
+    members = Beer.query.all()
 
     if not members:
-        flash('Gick inte att hitta några resenärer.', 'error')
         return redirect(url_for('ohlreise_members'))
 
-    db.session.delete(members)
+    for member in members:
+        db.session.delete(member)
+
     db.session.commit()
-    flash('Resenärerna togs bort.', 'success')
     return redirect(url_for('ohlreise_members'))
 
 def _get_filtered_beers():

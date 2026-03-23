@@ -51,7 +51,14 @@
 				<a id="export_beer_csv_link" href="{{ url_for('ohlreise_export_csv', has_payed=has_payed if has_payed else '-') }}">
 					Ladda ner bussresenärer till CSV
 				</a>
-			</div>
+			<p>
+			<form method="post" action="{{ url_for('ohlreise_remove_all_members') }}"
+				onsubmit="return confirm('Är du säker på att du vill ta bort alla dess resenärer?');" class="inline-action-form">
+				<button type="submit" class="text-link-button-danger">
+					Ta bort alla resenärer
+				</button>
+			</form>
+			</p>
 			{% endif %}
 		</section>
 
