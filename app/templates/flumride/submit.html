@@ -116,7 +116,7 @@
                                 {% endfor %}
                             </div>
                             <div class="4u 12u(mobilep)">
-                                {{ m.person_number(placeholder="Personnummer * (åååmmdd-xxxx)") }}
+                                {{ m.person_number(placeholder="Personnummer * (ååååmmdd-xxxx)") }}
                                 {% if m.person_number.errors %}
                                     {% for error in m.person_number.errors %}
                                         <span style="color: red;">[{{ error }}]</span>
