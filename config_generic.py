@@ -28,19 +28,19 @@ FLUMRIDE = {
 #       }
      'schedule': [
          {
-             'day': 'Fredag',
+             'day': 'Fredag*',
              'data': ['Brutalare från alla världens hörn anländer till Karlskrona ungefär samtidigt som alla tävlande.',
              '16:00 - 18:00: Incheckning',
              '16:00 - 18:00: Slip n\' Die',
-             '18:00 - 18:15: Korvätartävling',
              '18:15 - 20:00: Vem vet vad som händer här?',
              '21:00 - 02:00: Kårkväll på Villan',
              '02:00 - gryningen: Efterphest (leta upp efterphestansvarig)']
          },
          {
-             'day': 'Lördag',
-             'data': ['13:00: - 16:00 Flumrundan, här kommer det att finnas korv till försäljning under tiden.',
+             'day': 'Lördag*',
+             'data': ['13:00: - 16:00 Flumrundan',
              '16:15 - 16:30: Egghnikkning',
+             '16:30 - 19:00: Fri lek',
              '19:00 - 21:00: Sittningen som ni kanske inte kommer ihåg i efterhand',
              '21:00 - 02:00: Kårkväll på Villan',
              '02:00 - gryningen: Efterphest (leta upp efterphestansvarig)']
