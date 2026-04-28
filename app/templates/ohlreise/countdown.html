@@ -2,7 +2,7 @@
 {% block title %}Anmälan{% endblock %}
 {% block content %}
 <script>
-	var offsetToStart = {{ milliseconds }};
+	var offsetToStart = "{{ milliseconds }}";
 	var openAt = new Date();
 	openAt.setTime(openAt.getTime() + offsetToStart);
 
